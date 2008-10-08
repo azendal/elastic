@@ -1,0 +1,113 @@
+/*
+@filename grid.css
+@author fernando trasviña
+*/
+div.layout
+{
+	width  : 100%;
+	margin : auto;
+}
+	/* Fix to make container report correct height for units @todo find a better way or eliminate it */
+	div.layout div.float-fix
+	{
+		line-height : 0%;
+	}
+	
+	/* The Grid base block every other element must be in a unit */
+	div.layout div.unit
+	{
+		float  : left;
+		display : inline;
+		clear  : both;
+		width  : 100%;
+	}
+		/* Column containers child of unit expand to 100% */
+		div.layout div.unit div.two-columns,
+		div.layout div.unit div.three-columns,
+		div.layout div.unit div.four-columns
+		{
+			width : 100%;
+		}
+	/* Container fo the 2Column part */
+	div.layout div.two-columns, div.layout div.two-columns
+	{
+		float : left;
+		display : inline;
+	}
+		/* The columns of a 2Column container */
+		div.layout div.two-columns div.column
+		{
+			width : 50%;
+			float : left;
+			display : inline;
+		}
+	
+	div.layout div.three-columns
+	{
+		float : left;
+		display : inline;
+	}
+		div.layout div.three-columns div.column
+		{
+			width : 33%;
+			float : left;
+			display : inline;
+		}
+	
+	div.layout div.four-columns
+	{
+		float : left;
+		display : inline;
+	}
+		div.layout div.four-columns div.column
+		{
+			width : 25%;
+			float : left;
+			display : inline;
+		}
+	
+	div.layout  div.navigation
+	{
+		
+	}
+	
+	div.layout  div.message
+	{
+		
+		padding    : 2px;
+	}
+	
+		div.layout div.message div.notice
+		{
+			
+		}
+		
+		div.layout div.message div.error
+		{
+			
+		}
+		
+		div.layout div.message div.success
+		{
+			
+		}
+	
+	div.layout  div.header
+	{
+		
+	}
+		div.layout  div.header  h1
+		{
+			margin  : 0;
+			padding : 10px 0;
+		}
+	
+	div.layout  div.body
+	{
+		overflow : hidden;
+	}
+	
+	div.layout  div.footer
+	{
+		
+	}
