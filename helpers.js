@@ -1,18 +1,27 @@
 /*
 No Conflict
 */
+jQuery.noConflict();
 
 (function($){
 	/*
 	.same-height helper: makes every div child of .same-height of same height
 	*/
 	$(function(){
-		$('.same-height').each(function(){
+		$('div.two-columns > div.fixed-left-column').each(function(){
+			$('div.elastic-column', this.parentNode).css('margin-left', $(this).css('width'))
+		});
+		
+		$('div.two-columns > div.fixed-right-column').each(function(){
+			$('div.elastic-column', this.parentNode).css('margin-right', $(this).css('width'))
+		});
+		
+		$('div.same-height').each(function(){
 			var maxHeight = 0;
-			$('> div.column', this).each(function(){
+			$('> div', this).each(function(){
 				maxHeight = (this.clientHeight > maxHeight) ? this.clientHeight : maxHeight;
 			});
-			$('> div.column', this).each(function(){
+			$('> div', this).each(function(){
 				$(this).css('height', maxHeight)
 			});
 		});

@@ -29,17 +29,30 @@ div.layout
 			width : 100%;
 		}
 	/* Container fo the 2Column part */
-	div.layout div.two-columns, div.layout div.two-columns
+	div.layout div.two-columns,
+	div.layout div.two-columns
 	{
 		float : left;
 		display : inline;
 	}
+		div.layout div.two-columns div.column,
+		div.layout div.two-columns div.fixed-left-column
+		{
+			float   : left;
+			display : inline;
+		}
+		div.layout div.two-columns div.fixed-right-column
+		{
+			float : right;
+		}
+		div.layout div.two-columns div.elastic-column
+		{
+		
+		}
 		/* The columns of a 2Column container */
 		div.layout div.two-columns div.column
 		{
 			width : 50%;
-			float : left;
-			display : inline;
 		}
 	
 	div.layout div.three-columns
