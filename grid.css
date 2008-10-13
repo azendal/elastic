@@ -5,7 +5,7 @@
 div.layout
 {
 	width  : 100%;
-	margin : auto;
+	margin : 0 auto;
 }
 	/* Fix to make container report correct height for units @todo find a better way or eliminate it */
 	div.layout div.float-fix
