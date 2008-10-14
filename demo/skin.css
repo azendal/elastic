@@ -1,0 +1,73 @@
+html
+{
+	background-color : #000000;
+}
+div.layout
+{
+	width : 900px;
+	margin-bottom : 15px;
+	font-family: sans;
+	font-size: 13px;
+	color: #444444;
+}
+	div.layout h2
+	{
+		font-size: 130%;
+		font-weight: normal;
+		color: #2F61B3;
+		margin: 5px 0;
+	}
+	
+	div.layout h3
+	{
+		font-weight: normal;
+		color: #de8a39;
+		margin: 5px 0;
+	}
+	div.layout p
+	{
+		text-align : justify;
+	}
+	div.layout hr.line
+	{
+		border: inset 1px white;
+		width: 100%;
+		clear: both;
+		margin : 0;
+	}
+	div.layout div.navigation
+	{
+		background-image: url(images/tc-layout-menu.jpg);
+		height : 34px;
+	}
+		div.layout div.header div.top
+		{
+			height : 28px;
+			background-image : url(images/tc-layout-top.jpg);
+		}
+		div.layout div.header div.main-img
+		{
+			background-image: url(images/tc-main.jpg);
+			height : 201px;
+		}
+		div.layout div.header div.main-img-bottom
+		{
+			background-image: url(images/tc-layout-content.jpg);
+			height : 8px;
+		}
+	div.layout div.body
+	{
+		background : #FAFAFA url(images/tc-content-bg.jpg) no-repeat top left;
+		min-height : 500px;
+	}
+	div.layout div.footer
+	{
+		background-image : url(images/tc-footer.jpg);
+		height : 115px;
+		color:white;
+	}
+	
+	.full-height
+	{
+		padding:10px;
+	}
