@@ -75,7 +75,7 @@ div.layout
 	}
 		div.layout div.three-columns div.column
 		{
-			width : 33%;
+			width : 33.3%;
 			float : left;
 			display : inline;
 		}
