@@ -1,12 +1,4 @@
-/*
-No Conflict
-*/
-jQuery.noConflict();
-
 (function($){
-	/*
-	.same-height helper: makes every div child of .same-height of same height
-	*/
 	$(function(){
 		$('div.two-columns > div.fixed-left-column').each(function(){
 			$('div.elastic-column', this.parentNode).css('margin-left', $(this).css('width'))
@@ -24,6 +16,10 @@ jQuery.noConflict();
 			$('> div', this).each(function(){
 				$(this).css('height', maxHeight)
 			});
+		});
+		
+		$('div.full-height').each(function(){
+			$(this).css('height', $(this.parentNode).height() - ( this.clientHeight - $(this).height() ));
 		});
 	});
 })(jQuery);

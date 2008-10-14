@@ -2,6 +2,11 @@
 @filename grid.css
 @author fernando trasviña
 */
+body
+{
+	width:100%;
+	float:left;
+}
 div.layout
 {
 	width  : 100%;
@@ -21,6 +26,14 @@ div.layout
 		clear  : both;
 		width  : 100%;
 	}
+		div.layout div.container
+		{
+			float:left;
+		}
+		div.layout div.full-height
+		{
+		
+		}
 		/* Column containers child of unit expand to 100% */
 		div.layout div.unit div.two-columns,
 		div.layout div.unit div.three-columns,
@@ -47,7 +60,7 @@ div.layout
 		}
 		div.layout div.two-columns div.elastic-column
 		{
-		
+			overflow : hidden;
 		}
 		/* The columns of a 2Column container */
 		div.layout div.two-columns div.column
@@ -107,7 +120,7 @@ div.layout
 	
 	div.layout  div.header
 	{
-		
+		overflow : hidden;
 	}
 		div.layout  div.header  h1
 		{
@@ -122,5 +135,5 @@ div.layout
 	
 	div.layout  div.footer
 	{
-		
+		overflow : hidden;
 	}
