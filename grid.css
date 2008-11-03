@@ -1,3 +1,19 @@
+/**
+ * Elastic Grid Module
+ *
+ * Selectors to provide a basis for layout.
+ * they use semantic selectors to unify the structure of user interfaces
+ *
+ * LICENSE: It is planned to release it as MIT
+ *
+ * @author     Fernando Trasviña
+ * @copyright  2008 Elastic css framework
+ * @license    MIT
+ * @version    0.1
+ * @link       elastic/dev/helpers.js
+ * @since      0.1
+*/
+
 /* structural classes are liquid by default */
 div.layout,
 div.layout div.header,
@@ -26,7 +42,7 @@ div.layout div.two-columns div.column,
 div.layout div.three-columns div.column,
 div.layout div.four-columns div.column
 {
-	float    : left;
+	float : left;
 }
 
 /* column inside two-columns */
@@ -85,6 +101,7 @@ div.layout div.four-columns div.unit
 	width : 100%;
 }
 
+/* elements of this class are only visible on print view */
 .print-only
 {
 	display : none;
