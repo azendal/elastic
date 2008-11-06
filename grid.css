@@ -21,16 +21,18 @@ div.layout div.navigation,
 div.layout div.body,
 div.layout div.footer
 {
-	width    : 100%;
-	margin   : auto;
-	overflow : auto;
+	width     : 100%;
+	margin    : auto;
+	overflow  : auto;
+	*overflow : visible;
 }
 
 /* shrinks box: setup padding or margin in elements of this class */
 div.layout div.container
 {
-	margin   : auto;
-	overflow : auto;
+	margin    : auto;
+	overflow  : auto;
+	*overflow : visible;
 }
 
 /* all float left */
