@@ -24,14 +24,22 @@
 			$('div.elastic-column', this.parentNode).css('margin-right', $(this).css('width'))
 		});
 		
+//		$('div.same-height').each(function(){
+//			var maxHeight = 0;
+//			$('> div', this).each(function(){
+//				maxHeight = (this.clientHeight > maxHeight) ? this.clientHeight : maxHeight;
+//			}).each(function(){
+//				$(this).css('height', maxHeight);
+//			});
+//		});
+		
 		$('div.same-height').each(function(){
-			var maxHeight = 0;
+			var height = $(this).height() - ( this.clientHeight - $(this).height() );
 			$('> div', this).each(function(){
-				maxHeight = (this.clientHeight > maxHeight) ? this.clientHeight : maxHeight;
-			}).each(function(){
-				$(this).css('height', maxHeight);
+				$(this).css('height', height);
 			});
 		});
+		
 		
 		$('div.full-height').each(function(){
 			$(this).css('height', $(this.parentNode).height() - ( this.clientHeight - $(this).height() ));
