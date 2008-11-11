@@ -1,0 +1,78 @@
+.dp-highlighter
+{
+	width : 100%;
+}
+
+body
+{
+	padding : 1em;
+}
+
+h1
+{
+	margin : 0;
+}
+
+h1 a
+{
+	color           : #000000;
+	text-decoration : none;
+}
+
+div.layout
+{
+	max-width : 850px;
+	min-width : 750px;
+}
+
+div.layout div.body
+{
+	padding : 0 0 1em 0; 
+}
+
+div.layout div.body div.main
+{
+	height     : 150px;
+	background : #214478;
+	border     : solid 2px #0A1548;
+}
+
+div.layout div.body div.main div.main-text
+{
+	padding   : 40px 120px 0 40px;
+	font-size : 150%;
+	color     : #FFFFFF;
+}
+
+
+div.layout div.body div.main div.download
+{
+	text-align    : right;
+	padding-top   : 10px;
+	padding-right : 40px;
+}
+
+div.layout div.body div.main div.download a
+{
+	color           : #FFFF00;
+	text-decoration : none;
+}
+
+div.layout div.body div.supported-layouts div.column div.container
+{
+	border     : solid 2px #BFBFBF;
+	margin     : 0.25em;
+}
+
+div.layout div.body div.supported-layouts div.column div.container div.container
+{
+	border     : solid 2px #FFF;
+	margin     : 0;
+	padding    : 0.25em;
+	background : #214478;
+}
+
+div.layout div.footer
+{
+	background : #214478;
+}
