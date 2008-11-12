@@ -55,6 +55,184 @@
 			};
 		// ]]>
 		</script>
+		<script type="text/javascript" language="javascript" charset="utf-8">
+		// <![CDATA[
+		(function($){
+			/*
+			Class Definition
+			*/
+			
+			if(!window.ICE)
+			{
+				window.ICE = {};
+			}
+			
+			ICE.ShareThis = function()
+			{
+				this.init();
+			};
+			ICE.ShareThis.IMAGE_PATH = '/ice/share_this/images/';
+			ICE.ShareThis.instance = null;
+			
+			ICE.ShareThis.getInstance = function(){
+				if(!ICE.ShareThis.instance)
+				{
+					ICE.ShareThis.instance = new ICE.ShareThis()
+				}
+				return ICE.ShareThis.instance;
+			};
+			
+			ICE.ShareThis.bind = function(e){
+				$(e).bind('click', function(){
+					$( ICE.ShareThis.getInstance().container ).css({
+						top  : $(e).offset().top + $(e).height(),
+						left : $(e).offset().left
+					}).hide().fadeIn('slow');
+				});
+			};
+			
+			ICE.ShareThis.DEFAULT = {
+				services : {
+					meneame : {
+						name   : 'Meneame',
+						icon   : 'meneame.gif',
+						url    : "http://meneame.net/submit.php",
+						params : {
+							url : window.location
+						}
+					},
+					fresqui : {
+						name  : 'Fresqui',
+						icon  : 'fresqui.gif',
+						url   : "http://tec.fresqui.com/post",
+						params : {
+							url   : window.location,
+							title : $('title').html()
+						}
+					},
+					efectoTequila : {
+						name  : 'Efecto Tequila',
+						icon  : 'enchilame.gif',
+						url   : "http://efectotequila.com/submit.php",
+						params : [
+							{url   : window.location}
+						]
+					},
+					delicious : {
+						name  : 'Delicious',
+						icon  : 'delicious.gif',
+						url   : "http://del.icio.us/post",
+						params : {
+							url   : window.location,
+							title : $('title').html()
+						}
+					},
+					facebook : {
+						name  : 'Facebook',
+						icon  : 'facebook.gif',
+						url   : "http://www.facebook.com/share.php",
+						params : {
+							u : window.location,
+							t : $('title').html()
+						}
+					},
+					fiendFeed : {
+						name  : 'FriendFeed',
+						icon  : 'friendfeed.gif',
+						url   : "http://friendfeed.com/",
+						params : {
+							url   : window.location,
+							title : $('title').html()
+						}
+					},
+					googleBookmarks : {
+						name  : 'Google Bookmarks',
+						icon  : 'google_bmarks.gif',
+						url   : "http://www.google.com/bookmarks/mark",
+						params : {
+							op    : 'edit',
+							bkmk  : window.location,
+							title : $('title').html()
+						}
+					},
+					yahooMyWeb : {
+						name  : 'Yahoo! My Web',
+						icon  : 'yahoo_myweb.gif',
+						url   : "http://myweb2.search.yahoo.com/myresults/bookmarklet",
+						params : {
+							u : window.location,
+							t : $('title').html()
+						}
+					},
+					technorati : {
+						name  : 'Technorati',
+						icon  : 'technorati.gif',
+						url   : "http://www.technorati.com/faves",
+						params : {
+							add : window.location
+						}
+					},
+					twitter : {
+						name  : 'Twitter',
+						icon  : 'twitter.gif',
+						url   : "http://www.technorati.com/faves",
+						params : {
+							status : $('title').html() + ': ' + window.location
+						}
+					}
+				}
+			};
+			ICE.ShareThis.prototype = {
+				init : function(){
+					$('<div class="unit two-columns ice-share-this-container"></div>').appendTo('.layout');
+					this.container = $('.ice-share-this-container');
+					var services = ICE.ShareThis.DEFAULT.services;
+					for (var i in services)
+					{
+						if(services.hasOwnProperty(i))
+						{
+							var title = services[i].name;
+							var url   = '';
+							var icon  = ICE.ShareThis.IMAGE_PATH + services[i].params[j]
+							
+							var first = true;
+							for (var j in services[i].params)
+							{
+								if(services[i].params.hasOwnProperty(j))
+								{
+									url   += ( (first) ? '?' : '&' ) + j + '=' + escape(services[i].params[j]);
+									first  = false;
+								}
+							}
+											
+							this.container.append( $('<div class="column"><a href="' + url + '"><img src="' + icon + '" />' + title + '</a></div>') );
+						}
+					}
+				}
+			};
+			
+			/*
+			Class Binding
+			*/
+			$(function(){
+				$('.ice-share-this').each(function(){
+					ICE.ShareThis.bind(this);
+				});
+			});
+		})(jQuery);
+		// ]]>
+		</script>
+		<style type="text/css" media="screen">
+		/* <![CDATA[ */
+			div.layout div.ice-share-this-container
+			{
+				width      : 300px;
+				position   : absolute;
+				background : #cdcaca;
+			}
+		/* ]]> */
+		</style>
+		
 		<!--  end application	-->
 	</head>
 	<body>
@@ -75,6 +253,7 @@
 					</div>
 				</div>
 				<div class="unit">
+					<span class="ice-share-this">Comparte</span>
 					<pre name="code" class="xhtml">
 						<!-- an elastic layout based on two columns with the left column fixed on 200px-->
 						<div class="unit two-columns same-height">
@@ -92,6 +271,7 @@
 				</div>
 				<div class="unit">
 					<h2>Basic html structure (elastic convention)</h2>
+					<span class="ice-share-this">Comparte</span>
 					<pre name="code" class="xhtml">
 						&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 							"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
