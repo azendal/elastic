@@ -1,0 +1,217 @@
+h1. Elastic CSS Framework
+
+A simple css framework to layout web-based interfaces, based on the printed layout techniques of 4 columns but with capabilities to unlimited column combinations. and capacity to make elastic, fixed and liquid layout easily.
+
+h2. Fundation
+
+Elastic is organized in several files
+
+* *reset.css*: unifies the css of the browser
+* *base.css*: builds a base to work on
+* *fonts.css*: sets the font base
+* *grid.css*: layout components
+* *print.css*: layout printing components
+* *jquery.js*: jquery to simplify the creation of helpers
+* *helpers.js*: tiny scripts to make complex thing easier to you
+* *skin.css*: your place to build the skin of your site (you can choose whatever you want)
+
+The fundation of layouts begin with the convention of a certain structure in your html
+the next code snippet show the basic structure of a layout base for elastic css framework
+
+<pre><code class="html">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" media="all" href="elastic.min.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="print.css" />
+		<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="helpers.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="layout">
+			<div class="header"></div>
+			<div class="body"></div>
+			<div class="footer"></div>
+		</div>
+	</body>
+</html>
+</code></pre>
+
+h2. Basic layouts
+
+h3. Make a layout based on 1 column
+
+<pre><code class="html">
+<div class="unit">
+	<div>column content</div>
+</div>
+</code></pre>
+
+h3. Make a layout based on 2 columns
+
+<pre><code class="html">
+<div class="unit two-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+</div>
+</code></pre>
+
+h3. Make a layout based on 3 columns
+
+<pre><code class="html">
+<div class="unit three-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+	<div class="column">third column content</div>
+</div>
+</code></pre>
+
+h3. Make a layout based on 4 columns
+
+<pre><code class="html">
+<div class="unit four-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+	<div class="column">third column content</div>
+	<div class="column">fourth column content</div>
+</div>
+</code></pre>
+
+h2. Complex layouts
+
+Complex layout are accomplished by combinations of the basic for layout units, and basic overrides on your skin
+
+h3. Controlling the width: the elastic, the fluid and the liquid
+
+By default elastic is liquid to 100%
+
+<pre><code class="css">
+/* An elastic layout */
+div.layout
+{
+	min-width  : 750px; /* it can be ems too */
+	max-height : 960px; /* it can be ems too */
+}
+/* A fixed layout */
+div.layout
+{
+	width  : 750px; /* it can be ems too */
+}
+</code></pre>
+
+h3. Make a layout based on 2 columns and a 3 columns below that
+
+<pre><code class="html">
+<div class="unit two-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+</div>
+<div class="unit three-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+	<div class="column">third column content</div>
+</div>
+</code></pre>
+
+h3. Make a layout of 2 columns and the left column contain 3 columns
+
+<pre><code class="html">
+<div class="unit two-columns">
+	<div class="column three-columns">
+		<div class="column">first column content</div>
+		<div class="column">second column content</div>
+		<div class="column">third column content</div>
+	</div>
+	<div class="column">second column content</div>
+</div>
+<div class="unit three-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+	<div class="column">third column content</div>
+</div>
+</code></pre>
+
+h2. Advanced layout features
+
+h3. Make a column fixed and the other elastic
+
+<pre><code class="html">
+<div class="unit two-columns">
+	<div class="fixed-left-column" style="width:250px;">first column content</div>
+	<div class="elastic-column">second column content</div>
+</div>
+<div class="unit two-columns">
+	<div class="fixed-right-column" style="width:250px;">second column content</div>
+	<div class="elastic-column">second column content</div>
+</div>
+</code></pre>
+
+h3. Make columns of same height
+
+<pre><code class="html">
+<div class="unit two-columns same-height">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+</div>
+</code></pre>
+
+h2. About Padding and Margin
+
+DOM Box model says that padding is inside the element, border and margin are outside the element.
+Setting a width on an element sets the innerWidth, innerHeight of an element (not counting padding), so setting a padding, margin or border rules expands the element box.
+To overcome this in the framework an special class exists .container
+
+h3. separate columns form its container
+
+<pre><code class="html">
+<div class="unit two-columns same-height">
+	<div class="container" style="padding:10px;">
+		<div class="column">first column content</div>
+		<div class="column">second column content</div>
+	</div>
+</div>
+</code></pre>
+
+h3. Separate columns from each other
+
+<pre><code class="html">
+<div class="unit two-columns same-height">
+	<div class="column">
+		<div class="container" style="margin-right:5px;">
+			first column content
+		</div>
+	</div>
+	<div class="column">
+		<div class="container" style="margin-left:5px;">
+			second column content
+		</div>
+	</div>
+</div>
+</code></pre>
+
+h2. Controlling printing
+
+h3. Hide something on printed version
+
+<pre><code class="html">
+<div class="unit no-print">
+	content does not get printed
+</div>
+</code></pre>
+
+h3. Hide something on printed version but keep space
+
+<pre><code class="html">
+<div class="unit no-print-content">
+	content does not get printed but uses space
+</div>
+</code></pre>
+
+h3. Show something on printed version only
+
+<pre><code class="html">
+<div class="unit print-only">
+	content does get printed but not seen on screen
+</div>
+</code></pre>
