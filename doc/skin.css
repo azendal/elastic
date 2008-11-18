@@ -19,15 +19,22 @@ h1 a
 	text-decoration : none;
 }
 
+h2,
+h3
+{
+	margin : 5px 0;
+	color  : #0A1548;
+}
+
 div.layout
 {
-	max-width : 850px;
-	min-width : 750px;
+	max-width : 960px;
+	min-width : 550px;
 }
 
 div.layout div.body
 {
-	padding : 0 0 1em 0; 
+	background-color : #fefefe;
 }
 
 div.layout div.body div.main
@@ -58,6 +65,16 @@ div.layout div.body div.main div.download a
 	text-decoration : none;
 }
 
+div.layout div.body div.overview p
+{
+	font-size : 120%;
+}
+
+div.layout div.body div.supported-layouts
+{
+	margin-top: 10px;
+}
+
 div.layout div.body div.supported-layouts div.column div.container
 {
 	border     : solid 2px #BFBFBF;
@@ -69,7 +86,7 @@ div.layout div.body div.supported-layouts div.column div.container div.container
 	border     : solid 2px #FFF;
 	margin     : 0;
 	padding    : 0.25em;
-	background : #214478;
+	background : #e6e6fa;
 }
 
 div.layout div.footer

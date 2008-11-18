@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="author" content="fernando trasviña" />
+		<meta name="keywords" content="css, framework, elastic, layout" />
+		<meta name="description" content="Elastic css framework: Develop web-based user interfaces the way you think about layouts with an easy going syntax and lots of flexibility" />
+		<title>Elastic css framework</title>
+		<!--  elastic	-->
+		<link rel="stylesheet" href="../reset.css" type="text/css" media="all" title="" charset="utf-8" />
+		<link rel="stylesheet" href="../base.css" type="text/css" media="all" title="" charset="utf-8" />
+		<link rel="stylesheet" href="../fonts.css" type="text/css" media="all" title="" charset="utf-8" />
+		<link rel="stylesheet" href="../grid.css" type="text/css" media="all" title="" charset="utf-8" />
+		<link rel="stylesheet" href="../print.css" type="text/css" media="print" title="" charset="utf-8" />
+		<script src="../helpers_jquery/jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="../helpers_jquery/helpers.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<!--  end elastic	-->
+		<!--  syntax highlighter	-->
+		<link rel="stylesheet" href="SyntaxHighlighter/Styles/SyntaxHighlighter.css" type="text/css" media="all" title="" charset="utf-8" />
+		<script src="SyntaxHighlighter/Uncompressed/shCore.js" type="text/javascript" language="javascript" charset="utf-8" ></script>
+		<script src="SyntaxHighlighter/Scripts/shBrushXml.js" type="text/javascript" language="javascript" charset="utf-8" ></script>
+		<!--  end syntax highlighter -->
+		<!--  application -->
+		<link rel="stylesheet" href="skin.css" type="text/css" media="all" title="" charset="utf-8" />
+		<script type="text/javascript" language="javascript" charset="utf-8">
+		// <![CDATA[
+			window.onload = function(){
+				dp.sh.HighlightAll('code', true, false);
+				$('div.dp-highlighter ol').each(function(){
+					var minWidth = this.offsetWidth - 16;
+					var maxWidth = 0;
+					var elements = $('li > span', this)
+					elements.each(function(){
+						$(this).css('white-space', 'nowrap');
+						maxWidth = (this.offsetWidth > maxWidth) ? this.offsetWidth : maxWidth;
+					})
+					maxWidth = (minWidth > maxWidth) ? minWidth : maxWidth;
+					elements.each(function(){
+						$(this.parentNode).css('width', maxWidth);
+					});
+				});
+				
+				window.sameHeight = function(){
+					$('div.same-height').each(function(){
+						var maxHeight = 0;
+						$('> div', this).each(function(){
+							$(this).css('height', '')
+							maxHeight = (this.clientHeight > maxHeight) ? this.clientHeight : maxHeight;
+						}).each(function(){
+							$(this).css('height', maxHeight);
+						});
+					});
+				};
+			};
+		// ]]>
+		</script>		
+		<!--  end application	-->
+	</head>
+	<body>
+		<div class="layout">
+			<div class="header">
+				<h1><a href="/" title="home"><img src="img/logo.png" alt="logo" /></a></h1>
+				<hr class="print-only" />
+			</div>
+			<div class="body">
+				<div class="unit no-print">
+					<div class="container main">
+						<div class="container full-height" style="border: solid 2px #e6e6fa">
+							<div class="container main-text">
+								<span>Develop web-based user interfaces the way you think about layouts with an easy going syntax and lots of flexibility</span>
+								<div class="container download">
+									<a title="Download from github" href="http://github.com/azendal/elastic">@downlad url(git://github.com/azendal/elastic.git);</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="unit">
+					<div class="container" style="border-right:solid 2px #0A1548; border-left:solid 2px #0A1548; padding:10px;">
+						<div class="unit overview">
+							<div class="container" style="padding:20px;">
+								<h2>Gotta be easy</h2>
+								<p>Elastic is built for simplicity, and flexibility, that is why you dont get tons of classes to do your job. 
+								You get a base set of classes and a set of helpers to combine and produce great results in no time.
+								Helpers are not intrusive, they are automagically run reading your class names.</p>
+								<h2>How Many classes?</h2>
+								<p>unit, column, two-columns, three-columns, four-columns, container. 
+								Hey you dont really need more than that in most cases. but if you do, you can combine the classes provided
+								to make many combinations, its likely that a combination will do the trick.</p>
+								<h2>Is that all?</h2>
+								<p>Well actually no. There is same-height, full-height, also no-print, print-only, and no-print-content. 
+								But they are either helpers or for printing, and they are so easy to remember. now that is all.</p>
+								<h2>What can i do with this?</h2>
+								<p>Well keep reading to find out. But you can do elastic, fixed, liquid, and mixed layouts. really? r. really</p>
+							</div>
+						</div>
+						<div class="unit four-columns same-height supported-layouts">
+							<div class="column">
+								<div class="container full-height">
+									<div class="container full-height">
+									<h3>Elastic Layouts</h3>
+									<p>Elastic layout are accomplished by setting the max-width, min-width for div.layout in skin.css file</p>
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="container full-height">
+									<div class="container full-height">
+									<h3>Fixed Layouts</h3>
+									<p>Just override div.layout width to an ammount of pixels in skin.css and you got it fixed</p>
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="container full-height">
+									<div class="container full-height">
+									<h3>Liquid Layouts</h3>
+									<p>Liquid is the default mode</p>
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="container full-height">
+									<div class="container full-height">
+									<h3>Mixed Layouts</h3>
+									<p>Some parts fixed, some elastic? Well read tutorial for complex layouts to find out</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="unit">
+							<h2>Now some examples</h2>
+							<pre name="code" class="xhtml">
+								&lt;!-- an elastic layout based on two columns with the left column fixed on 200px-->
+								&lt;div class="unit two-columns same-height">
+								  &lt;div class="fixed-left-column" style="width:200px; height:50px; background:#ffffa2;">fixed&lt;/div>
+								  &lt;div class="elastic-column" style="background:#d4dde5;">elastic&lt;/div>
+								&lt;/div>
+							</pre>
+						</div>
+						<div class="unit two-columns same-height">
+						  <div class="fixed-left-column" style="width:200px; background:#ffffa2;">fixed</div>
+						  <div class="elastic-column" style="background:#d4dde5;">elastic<br />elastic<br />elastic<br />elastic<br /></div>
+						</div>
+						<div class="unit">
+							<pre name="code" class="xhtml">
+								&lt;!-- an elastic layout based on three columns with the left and right columns fixed on 200px-->
+								&lt;div class="unit three-columns same-height">
+								  &lt;div class="fixed-left-column" style="width:200px; background:#ffffa2;">fixed left column&lt;/div>
+								  &lt;div class="fixed-right-column" style="width:200px; background:#ffffa2;">fixed rigth column&lt;/div>
+								  &lt;div class="elastic-column" style="background:#d4dde5;">elastic<br />elastic<br />elastic<br />elastic<br />&lt;/div>
+								&lt;/div>
+							</pre>
+						</div>
+						<div class="unit three-columns same-height">
+						  <div class="fixed-left-column" style="width:200px; background:#ffffa2;">fixed left column</div>
+						  <div class="fixed-right-column" style="width:200px; background:#ffffa2;">fixed rigth column</div>
+						  <div class="elastic-column" style="background:#d4dde5;">elastic<br />elastic<br />elastic<br />elastic<br /></div>
+						</div>
+						<div class="unit">
+							<pre name="code" class="xhtml">
+								&lt;!-- a little more complex layout -->
+								&lt;div class="unit two-columns same-height">
+								  &lt;div class="fixed-left-column" style="width:200px; background:#d4dde5;">fixed&lt;/div>
+								  &lt;div class="elastic-column" style="background:#d4dde5;">
+								  	&lt;div class="unit two-columns same-height">
+									  &lt;div class="column" style="background:#ffffa2;">half sized column&lt;/div>
+									  &lt;div class="column" style="background:#d4dde5;">
+									  	other half&lt;br />
+									  	other half&lt;br />
+									  	other half&lt;br />
+									  	other half&lt;br />
+									  	other half&lt;br />
+									  &lt;/div>
+									&lt;/div>
+								  &lt;/div>
+								&lt;/div>
+							</pre>
+						</div>
+						<div class="unit two-columns same-height">
+						  <div class="fixed-left-column" style="width:200px; background:#d4dde5;">fixed</div>
+						  <div class="elastic-column" style="background:#d4dde5;">
+						  	<div class="unit two-columns same-height">
+							  <div class="column" style="background:#ffffa2;">half sized column</div>
+							  <div class="column" style="background:#d4dde5;">
+							  	<p>
+							  	other half<br />
+							  	other half<br />
+							  	other half<br />
+							  	other half<br />
+							  	other half<br />
+							  	</p>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="container" style="padding:0.5em; border:solid 2px #0A1548;">
+					<hr class="print-only" />
+					<span>beta release</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

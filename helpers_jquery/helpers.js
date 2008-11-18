@@ -25,7 +25,7 @@
 		});
 		
 		$('div.same-height').each(function(){
-			var height = $(this).height() - ( $(this).outerHeight(true) - $(this).height() );
+			var height = $(this).outerHeight(true) - ( $(this).outerHeight(true) - $(this).height() );
 			$('> div', this).each(function(){
 				$(this).css('height', height);
 			});
