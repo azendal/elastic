@@ -21,7 +21,7 @@
 		});
 		
 		$('div.two-columns > div.fixed-right-column, div.three-columns > div.fixed-right-column').each(function(){
-			$('div.elastic-column', this.parentNode).css('margin-right', $(this).css('width'))
+			$('> div.elastic-column', this.parentNode).css('margin-right', $(this).css('width'))
 		});
 		
 		$('div.same-height').each(function(){
