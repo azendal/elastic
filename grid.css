@@ -32,7 +32,7 @@ div.layout div.container,
 div.layout div.content
 {
 	margin    : auto;
-	overflow  : auto;
+	*overflow  : auto;
 	*overflow : visible;
 }
 
@@ -46,7 +46,7 @@ div.layout div.three-columns div.column,
 div.layout div.four-columns div.column
 {
 	float     : left;
-	overflow  : auto;
+	*overflow  : auto;
 	*overflow : visible;
 }
 
