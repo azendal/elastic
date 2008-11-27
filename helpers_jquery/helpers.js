@@ -17,7 +17,7 @@
 (function($){
 	$(function(){
 		$('div.two-columns > div.fixed-left-column, div.three-columns > div.fixed-left-column').each(function(){
-			$('div.elastic-column', this.parentNode).css('margin-left', $(this).css('width'))
+			$('> div.elastic-column', this.parentNode).css('margin-left', $(this).css('width'))
 		});
 		
 		$('div.two-columns > div.fixed-right-column, div.three-columns > div.fixed-right-column').each(function(){
