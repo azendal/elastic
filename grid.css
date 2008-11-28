@@ -32,7 +32,7 @@ div.layout div.container,
 div.layout div.content
 {
 	margin    : auto;
-	*overflow  : auto;
+	overflow  : auto;
 	*overflow : visible;
 }
 
@@ -46,7 +46,7 @@ div.layout div.three-columns div.column,
 div.layout div.four-columns div.column
 {
 	float     : left;
-	*overflow  : auto;
+	overflow  : auto;
 	*overflow : visible;
 }
 
@@ -88,14 +88,17 @@ div.layout div.three-columns div.fixed-right-column
 }
 
 /* elastic colum for mixed fixed-elastic layout place elements of this class after fixed */
-div.layout div.two-columns.elastic-column,
-div.layout div.three-columns.elastic-column
+div.layout div.two-columns div.elastic-column,
+div.layout div.three-columns div.elastic-column
 {
 	/* rules will be set dynamically by helpers */
 }
 
 /* units must rule over all so they are written here */
 div.layout div.unit,
+div.layout div.two-columns div.unit,
+div.layout div.three-columns div.unit,
+div.layout div.four-columns div.unit
 {
 	width : 100%;
 }

@@ -17,11 +17,11 @@
 (function($){
 	$(function(){
 		$('div.fixed-left-column').each(function(){
-			$('> div.elastic-column', this.parentNode).css('margin-left', $(this).css('width'))
+			$('> div.elastic-column', this.parentNode).css('margin-left', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
 		
 		$('div.fixed-right-column').each(function(){
-			$('> div.elastic-column', this.parentNode).css('margin-right', $(this).css('width'))
+			$('> div.elastic-column', this.parentNode).css('margin-right', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
 		
 		$('div.same-height').each(function(){
@@ -34,11 +34,12 @@
 		$('div.full-height').each(function(){
 			$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
 		});
+		
 	});
 	
 	if ($.browser.msie)
 	{
-		$(window).bind('resize', function(){
+		var fix = function(){
 			$('div.two-columns').each(function(){
 				$('> div.column, > div.container > div.column', this).each(function(){
 					$(this).css('width', Math.floor($(this.parentNode).width() / 2));
@@ -84,6 +85,7 @@
 					}
 				});
 			});
-		});
+		};
+		$(window).bind('load', fix).bind('resize', fix);
 	}
 })(jQuery);
