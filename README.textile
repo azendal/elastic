@@ -23,7 +23,10 @@ the next code snippet show the basic structure of a layout base for elastic css 
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" media="all" href="elastic.min.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="reset.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="base.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="fonts.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="grid.css" />
 		<link rel="stylesheet" type="text/css" media="print" href="print.css" />
 		<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 		<script src="helpers.js" type="text/javascript" language="javascript" charset="utf-8"></script>
@@ -89,6 +92,18 @@ h3. But i really really need more columns
 	<div class="column">column content</div>
 	<div class="column">column content</div>
 	<div class="column">column content</div>
+</div>
+</code></pre>
+
+h3. This things is like tables, can i have span?
+
+Well you can, but currently not for auto-columns. and it is called spawn(yeahh the spawn not span)
+
+<pre><code class="html">
+<div class="unit four-columns">
+	<div class="column">first column content</div>
+	<div class="column">second column content</div>
+	<div class="column spawn-two">third column content spawned as a double column</div>
 </div>
 </code></pre>
 
