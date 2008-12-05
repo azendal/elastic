@@ -39,7 +39,6 @@
 			var container = $('> div.container', this).size()
 			var process   = function(jQueryCollection){
 				var columns = jQueryCollection.size();
-				console.log(columns);
 				jQueryCollection.each(function(){
 					$(this).css('width', (100/columns) + '%');
 				});
