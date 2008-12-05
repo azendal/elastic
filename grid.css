@@ -9,7 +9,7 @@
  * @author     Fernando Trasviña
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    0.1
+ * @version    0.2
  * @link       elastic/dev/helpers.js
  * @since      0.1
 */
@@ -43,7 +43,8 @@ div.layout div.three-columns,
 div.layout div.four-columns,
 div.layout div.two-columns div.column,
 div.layout div.three-columns div.column,
-div.layout div.four-columns div.column
+div.layout div.four-columns div.column,
+div.layout div.auto-columns div.column
 {
 	float     : left;
 	overflow  : auto;

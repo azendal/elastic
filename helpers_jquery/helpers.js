@@ -10,7 +10,7 @@
  * @author     Fernando Trasviña
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    0.1
+ * @version    0.2
  * @link       elastic/dev/helpers.js
  * @since      0.1
 */
@@ -35,6 +35,23 @@
 			$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
 		});
 		
+		$('div.auto-columns').each(function(){
+			var container = $('> div.container', this).size()
+			var process   = function(jQueryCollection){
+				var columns = jQueryCollection.size();
+				console.log(columns);
+				jQueryCollection.each(function(){
+					$(this).css('width', (100/columns) + '%');
+				});
+			};
+			
+			if(container > 0){
+				process($('> div.container > div.column', this));
+			}
+			else{
+				process($('> div.column', this));
+			}
+		});
 	});
 	
 	if ($.browser.msie)
@@ -83,6 +100,14 @@
 					{
 						$(this).css('width', Math.floor($(this.parentNode).width() *0.25 ));
 					}
+				});
+			});
+			
+			$('div.four-columns').each(function(){
+				var columns      = $('> div.column, > div.container > div.column', this);
+				var columnsCount = columns.size();
+				columns.each(function(){
+					$(this).css('width', Math.floor($(this.parentNode).width() / columnsCount ));
 				});
 			});
 		};
