@@ -15,7 +15,7 @@
  * @since      0.1
 */
 (function($){
-	$(function(){
+	var elastic = function(){
 		$('div.fixed-left-column').each(function(){
 			$('> div.elastic-column', this.parentNode).css('margin-left', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
@@ -51,11 +51,13 @@
 				process($('> div.column', this));
 			}
 		});
-	});
+		
+		if ($.browser.msie){
+			fixIe();
+		}
+	}
 	
-	if ($.browser.msie)
-	{
-		var fix = function(){
+	var fixIe = function(){
 			$('div.two-columns').each(function(){
 				$('> div.column, > div.container > div.column', this).each(function(){
 					$(this).css('width', Math.floor($(this.parentNode).width() / 2));
@@ -110,6 +112,13 @@
 				});
 			});
 		};
-		$(window).bind('load', fix).bind('resize', fix);
-	}
+	
+	$(function(){
+		$('document').bind('elastic', elastic);
+		elastic();
+		
+		if ($.browser.msie){
+			$(window).bind('load', fix).bind('resize', fix);
+		}
+	});
 })(jQuery);
