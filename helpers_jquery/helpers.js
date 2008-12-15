@@ -118,7 +118,7 @@
 		elastic();
 		
 		if ($.browser.msie){
-			$(window).bind('load', fix).bind('resize', fix);
+			$(window).bind('load', fixIe).bind('resize', fixIe);
 		}
 	});
 })(jQuery);
