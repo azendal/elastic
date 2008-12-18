@@ -41,10 +41,7 @@ div.layout div.unit,
 div.layout div.two-columns,
 div.layout div.three-columns,
 div.layout div.four-columns,
-div.layout div.two-columns div.column,
-div.layout div.three-columns div.column,
-div.layout div.four-columns div.column,
-div.layout div.auto-columns div.column
+div.layout div.column
 {
 	float     : left;
 	overflow  : auto;
@@ -52,22 +49,25 @@ div.layout div.auto-columns div.column
 }
 
 /* column inside two-columns */
-div.layout div.two-columns > div.column,
-div.layout div.two-columns > div.container > div.column
+div.layout div.two-columns div.column,
+div.layout div.three-columns div.two-columns div.column,
+div.layout div.four-columns div.two-columns div.column
 {
 	width : 50%;
 }
 
 /* column inside three-columns */
-div.layout div.three-columns > div.column,
-div.layout div.three-columns > div.container > div.column
+div.layout div.two-columns div.three-columns div.column,
+div.layout div.four-columns div.three-columns div.column,
+div.layout div.three-columns div.column
 {
 	width : 33.3%;
 }
 
 /* column inside four-columns */
-div.layout div.four-columns > div.column,
-div.layout div.four-columns > div.container > div.column
+div.layout div.two-columns div.four-columns div.column,
+div.layout div.three-columns div.four-columns div.column,
+div.layout div.four-columns div.column
 {
 	width : 25%;
 }
@@ -105,20 +105,23 @@ div.layout div.four-columns div.unit
 }
 
 /* columns spawns */
-div.layout div.three-columns > div.spawn-two,
-div.layout div.three-columns > div.container > div.spawn-two
+div.layout div.two-columns div.three-columns div.spawn-two,
+div.layout div.four-columns div.three-columns div.spawn-two,
+div.layout div.three-columns div.spawn-two
 {
 	width : 66.6%;
 }
 
-div.layout div.four-columns > div.spawn-two,
-div.layout div.four-columns > div.container > div.spawn-two
+div.layout div.two-columns div.four-columns div.spawn-two,
+div.layout div.three-columns div.four-columns div.spawn-two,
+div.layout div.four-columns div.spawn-two
 {
 	width : 50%;
 }
 
-div.layout div.four-columns > div.spawn-three,
-div.layout div.four-columns > div.container > div.spawn-three
+div.layout div.two-columns div.four-columns div.spawn-three,
+div.layout div.three-columns div.four-columns div.spawn-three,
+div.layout div.four-columns div.spawn-three
 {
 	width : 75%;
 }
