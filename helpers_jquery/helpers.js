@@ -124,7 +124,7 @@
 	
 	$(elastic);
 	
-	$function(){
+	$(function(){
 		$('document').bind('elastic', function(){
 			console.log('asdasdas');
 			elastic();
