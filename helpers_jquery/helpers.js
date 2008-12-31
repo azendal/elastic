@@ -124,7 +124,13 @@
 	
 	$(elastic);
 	
-	$('document').bind('elastic', elastic);
-	$(window).bind('resize', elastic);
+	$function(){
+		$('document').bind('elastic', function(){
+			console.log('asdasdas');
+			elastic();
+		});
+		
+		$(window).bind('resize', elastic);
+	});
 	
 })(jQuery);
