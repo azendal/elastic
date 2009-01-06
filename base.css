@@ -4,6 +4,9 @@ Code licensed under the BSD License:
 http://developer.yahoo.net/yui/license.txt
 version: 3.0.0pr1
 */
+div {
+	padding : 1px;
+}
 /* base.css, part of YUI's CSS Foundation */
 h1 {
 	/*18px via YUI Fonts CSS foundation*/

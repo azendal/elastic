@@ -16,26 +16,26 @@
 */
 (function($){
 	var elastic = function(){		
-		$('div.fixed-left-column').each(function(){
+		$('.fixed-left-column').each(function(){
 			$('> div.elastic-column', this.parentNode).css('margin-left', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
 		
-		$('div.fixed-right-column').each(function(){
+		$('.fixed-right-column').each(function(){
 			$('> div.elastic-column', this.parentNode).css('margin-right', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
 		
-		$('div.same-height').each(function(){
+		$('.same-height').each(function(){
 			var height = $(this).outerHeight(true) - ( $(this).outerHeight(true) - $(this).height() );
 			$('> div', this).each(function(){
 				$(this).css('height', height);
 			});
 		});
 		
-		$('div.full-height').each(function(){
+		$('.full-height').each(function(){
 			$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
 		});
 		
-		$('div.auto-columns').each(function(){
+		$('.auto-columns').each(function(){
 			var container = $('> div.container', this).size()
 			var process   = function(jQueryCollection){
 				var columns = jQueryCollection.size();
@@ -45,79 +45,10 @@
 			};
 			
 			if(container > 0){
-				process($('> div.container > div.column', this));
+				process($('> .container > .column', this));
 			}
 			else{
-				process($('> div.column', this));
-			}
-		});
-		
-		if ($.browser.msie){
-			elastic_for_ie();
-		}
-	};
-	
-	var elastic_for_ie = function(){
-		$('div.two-columns').each(function(){
-			$('> div.column, > div.container > div.column', this).each(function(){
-				$(this).css('width', Math.floor($(this.parentNode).width() / 2));
-			});
-		});
-		
-		$('div.three-columns').each(function(){
-			$('> div.column, > div.container > div.column', this).each(function(){
-				if( $(this).hasClass('unit') )
-				{
-					return;
-				}
-				
-				if( $(this).hasClass('spawn-two') )
-				{
-					$(this).css('width', Math.floor($(this.parentNode).width() * 0.66));
-				}
-				else
-				{
-					$(this).css('width', Math.floor($(this.parentNode).width() * 0.33));
-				}
-			});
-		});
-		
-		$('div.four-columns').each(function(){
-			$('> div.column, > div.container > div.column', this).each(function(){
-				if( $(this).hasClass('unit') )
-				{
-					return;
-				}
-				
-				if( $(this).hasClass('spawn-two') )
-				{
-					$(this).css('width', Math.floor($(this.parentNode).width() * 0.5 ));
-				}
-				else if( $(this).hasClass('spawn-three') )
-				{
-					$(this).css('width', Math.floor($(this.parentNode).width() * 0.75 ));
-				}
-				else
-				{
-					$(this).css('width', Math.floor($(this.parentNode).width() * 0.25 ));
-				}
-			});
-		});
-		
-		$('div.auto-columns').each(function(){
-			var container = $('> div.container', this).size()
-			var process   = function(jQueryCollection){
-				var columns = jQueryCollection.size();
-				jQueryCollection.each(function(){
-					$(this).css('width', Math.floor($(this.parentNode).width() / (1/columns) ));
-				});
-			};
-			
-			if(container > 0){
-				process($('> div.container > div.column', this));
-			}
-			else{
-				process($('> div.column', this));
+				process($('> .column', this));
 			}
 		});
 	};
@@ -125,12 +56,11 @@
 	$(elastic);
 	
 	$(function(){
-		$('document').bind('elastic', function(){
-			console.log('asdasdas');
+		$('document').bind('elastic', elastic);
+		$(window).bind('resize', function(){
+			$('.same-height > .column, .full-height').css('height', '');
 			elastic();
 		});
-		
-		$(window).bind('resize', elastic);
 	});
 	
 })(jQuery);
