@@ -53,14 +53,21 @@
 		});
 	};
 	
+	elastic.reset = function(){
+		$('.same-height > .column, .full-height').css('height', '');
+		$('.auto-columns > div').css('width', '');
+	};
+	
+	elastic.refresh = function(){
+		elastic.reset();
+		elastic();
+	};
+	
 	$(elastic);
 	
 	$(function(){
-		$('document').bind('elastic', elastic);
-		$(window).bind('resize', function(){
-			$('.same-height > .column, .full-height').css('height', '');
-			elastic();
-		});
+		$('document').bind('elastic', elastic.refresh);
+		$(window).bind('resize', elastic.refresh).bind('load', elastic.refresh);
 	});
 	
 })(jQuery);

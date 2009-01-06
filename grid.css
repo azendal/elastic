@@ -20,7 +20,7 @@
 
 .two-columns > .elastic-column, .two-columns > .container > .elastic-column
 {
-	/*margin-(right|left) : fixed-column-width; */
+	/* margin-(right|left) : fixed-column-width; */
 }
 
 .three-columns > .column, .three-columns > .container > .column
