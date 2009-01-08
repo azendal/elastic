@@ -63,7 +63,10 @@
 		elastic();
 	};
 	
-	$(elastic);
+	if($.browser != msie)
+	{
+		$(elastic);
+	}
 	
 	$(function(){
 		$('document').bind('elastic', elastic.refresh);
