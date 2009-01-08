@@ -74,6 +74,7 @@
 	else
 	{
 		$(function(){
+			elastic();
 			$('document').bind('elastic', elastic.refresh);
 			$(window).bind('resize', elastic.refresh);
 		});
