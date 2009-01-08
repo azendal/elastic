@@ -63,14 +63,19 @@
 		elastic();
 	};
 	
-	if($.browser != msie)
+	if(!$.browser.msie)
 	{
 		$(elastic);
+		$(function(){
+			$('document').bind('elastic', elastic.refresh);
+			$(window).bind('resize', elastic.refresh).bind('load', elastic.refresh);
+		});
+	}else{
+		$(function(){
+			elastic();
+			$('document').bind('elastic', elastic.refresh);
+			$(window).bind('resize', elastic.refresh);
+		});
 	}
-	
-	$(function(){
-		$('document').bind('elastic', elastic.refresh);
-		$(window).bind('resize', elastic.refresh).bind('load', elastic.refresh);
-	});
 	
 })(jQuery);
