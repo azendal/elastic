@@ -33,7 +33,7 @@ div.print-only
 }
 
 span.print-only,
-label-print-only
+label.print-only
 {
 	display : inline;
 }
