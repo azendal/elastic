@@ -1,3 +1,7 @@
+.container
+{
+	padding : 1px;
+}
 .two-columns, .three-columns, .four-columns, .column, .unit, .container
 {
 	overflow : auto;

@@ -70,7 +70,9 @@
 			$('document').bind('elastic', elastic.refresh);
 			$(window).bind('resize', elastic.refresh).bind('load', elastic.refresh);
 		});
-	}else{
+	}
+	else
+	{
 		$(function(){
 			elastic();
 			$('document').bind('elastic', elastic.refresh);
