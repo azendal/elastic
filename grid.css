@@ -12,17 +12,20 @@
 	width : 50%;
 }
 
-.column, .two-columns > .fixed-left-column, .two-columns > .container > .fixed-left-column
+.column, .two-columns > .fixed-left-column, .two-columns > .container > .fixed-left-column,
+.column, .three-columns > .fixed-left-column, .three-columns > .container > .fixed-left-column
 {
 	float : left;
 }
 
-.two-columns > .fixed-right-column, .two-columns > .container > .fixed-right-column
+.two-columns > .fixed-right-column, .two-columns > .container > .fixed-right-column,
+.column, .three-columns > .fixed-right-column, .three-columns > .container > .fixed-right-column
 {
 	float : right;
 }
 
-.two-columns > .elastic-column, .two-columns > .container > .elastic-column
+.two-columns > .elastic-column, .two-columns > .container > .elastic-column,
+.three-columns > .elastic-column, .three-columns > .container > .elastic-column
 {
 	/* margin-(right|left) : fixed-column-width; */
 }
