@@ -109,7 +109,7 @@
 			var process   = function(jQueryCollection){
 				var columns = jQueryCollection.size();
 				jQueryCollection.each(function(){
-					$(this).css('width', Math.floor($(this.parentNode).width() / (1/columns) ));
+					$(this).css('width', Math.floor($(this.parentNode).width() / columns ));
 				});
 			};
 			
