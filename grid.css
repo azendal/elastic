@@ -1,56 +1,102 @@
-.container
-{
-	padding : 1px;
-}
-.two-columns, .three-columns, .four-columns, .column, .unit, .container
-{
-	overflow : auto;
-}
-
-.two-columns > .column, .two-columns > .container > .column
-{
-	width : 50%;
-}
-
-.column, .two-columns > .fixed-left-column, .two-columns > .container > .fixed-left-column,
-.column, .three-columns > .fixed-left-column, .three-columns > .container > .fixed-left-column
+/* Hacks for ie6 does not matter if targets all the rest of ie */
+.column, 
+.fixed-left-column,
+.elastic-left-column,
 {
 	float : left;
 }
 
-.two-columns > .fixed-right-column, .two-columns > .container > .fixed-right-column,
-.column, .three-columns > .fixed-right-column, .three-columns > .container > .fixed-right-column
+.fixed-right-column,
+.elastic-right-column
 {
 	float : right;
 }
 
-.two-columns > .elastic-column, .two-columns > .container > .elastic-column,
-.three-columns > .elastic-column, .three-columns > .container > .elastic-column
+.fixed-center-column
 {
-	/* margin-(right|left) : fixed-column-width; */
+	margin : auto;
 }
 
-.three-columns > .column, .three-columns > .container > .column
+hr.clearfix
 {
-	width : 33.3%;
+	margin  : 0;
+	padding : 0;
+	height  : 0;
+	border  : none;
+	clear   : both;
 }
 
-.three-columns > .span-2, .three-columns > .container > .span-2
+.two-columns:after, .three-columns:after, .four-columns:after, .column:after, .unit:after, .container:after, .clearfix
 {
-	width : 66.6%;
+	content:".";
+	display:block;
+	height:0;
+	*height : 1%;
+	*display : block;
+	clear:both;
+	visibility:hidden;
 }
 
-.four-columns > .column, .four-columns > .container > .column
-{
-	width : 25%;
-}
-
-.four-columns > .span-2, .four-columns > .container > .span-2
+.two-columns > .column,
+.two-columns > .container > .column
 {
 	width : 50%;
 }
 
-.four-columns > .span-3, .four-columns > .container > .span-3
+.column, .two-columns > .fixed-left-column,
+.two-columns > .container > .fixed-left-column,
+.three-columns > .elastic-left-column,
+.three-columns > .container > .elastic-left-column
+{
+	float : left;
+}
+
+.two-columns > .fixed-right-column,
+.two-columns > .container > .fixed-right-column,
+.three-columns > .elastic-right-column,
+.three-columns > .container > .elastic-right-column
+{
+	float : right;
+}
+
+.two-columns > .elastic-column,
+.two-columns > .container > .elastic-column
+{
+	/* margin-(right|left) : fixed-column-width; */
+}
+
+.three-columns > .column,
+.three-columns > .container > .column
+{
+	width : 33.3%;
+}
+
+.three-columns > .fixed-center-column,
+.three-columns > .container > .fixed-center-column
+{
+	margin : auto;
+}
+
+.three-columns > .span-2,
+.three-columns > .container > .span-2
+{
+	width : 66.6%;
+}
+
+.four-columns > .column,
+.four-columns > .container > .column
+{
+	width : 25%;
+}
+
+.four-columns > .span-2,
+.four-columns > .container > .span-2
+{
+	width : 50%;
+}
+
+.four-columns > .span-3,
+.four-columns > .container > .span-3
 {
 	width : 75%;
 }
