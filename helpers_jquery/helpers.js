@@ -1,21 +1,56 @@
-/**
- * Elastic Helpers
- *
- * Helper functions serve to easily accomplish common task that either are too dificult to implement with pure css
- * or are only possible with javascript.
- * That is why helpers serve as a compliment for the DOM so classes have an expected behaviour easily
- *
- * LICENSE: It is planned to release it as MIT
- *
- * @author     Fernando Trasviña
- * @copyright  2008 Elastic css framework
- * @license    MIT
- * @version    0.2
- * @link       elastic/dev/helpers.js
- * @since      0.1
-*/
 (function($){
-	var elastic = function(){		
+	
+	var gridjs = function(){
+		$('.two-columns > .column, .two-columns > .container > .column').css({
+			width : '50%'
+		});
+		
+		$('.column,'
+		+ '.two-columns > .fixed-left-column,'
+		+ '.two-columns > .container > .fixed-left-column,'
+		+ '.three-columns > .elastic-left-column,'
+		+ '.three-columns > .container > .elastic-left-column').css({
+			float : 'left'
+		});
+		
+		$('.two-columns > .fixed-right-column,'
+		+ '.two-columns > .container > .fixed-right-column,'
+		+ '.three-columns > .elastic-right-column,'
+		+ '.three-columns > .container > .elastic-right-column').css({
+			float : 'right'
+		});
+		
+		$('.three-columns > .column, .three-columns > .container > .column').css({
+			width : '33.33%'
+		});
+		
+		$('.three-columns > .fixed-center-column,'
+		+ '.three-columns > .container > .fixed-center-column').css({
+			margin : 'auto'
+		});
+		
+		$('.three-columns > .span-2,'
+		+ '.three-columns > .container > .span-2').css({
+			width : '66.66%'
+		});
+		
+		$('.four-columns > .column,'
+		+ '.four-columns > .container > .column').css({
+			width : '25%'
+		});
+		
+		$('.four-columns > .span-2,'
+		+ '.four-columns > .container > .span-2').css({
+			width : '50%'
+		});
+		
+		$('.four-columns > .span-3,'
+		+ '.four-columns > .container > .span-3').css({
+			width : '75%'
+		});
+	};
+	
+	var elastic = function(){
 		$('.fixed-left-column').each(function(){
 			$('> .elastic-column', this.parentNode).css('margin-left', ($(this).css('width') == 'auto') ? $(this).width() : $(this).css('width') )
 		});
@@ -28,13 +63,70 @@
 			$('> .elastic-left-column, > .elastic-right-column', this.parentNode).css('width', $(this.parentNode).width() / 2 - $(this).width() / 2 );
 		});
 		
-		$('.auto-columns').each(function(){
-			var columns = $('> .column, > .container > .column', this);
-			var columnsSize = columns.size();
-			columns.each(function(){
-				$(this).css('width', (100/columnsSize) + '%');
+		if($.browser.msie){
+			if($.browser.version < 7){
+				gridjs();
+			}
+			
+			$('.two-columns > .column, .two-columns > .container > .column').each(function(){
+				$(this).css({
+					width : Math.floor( $(this.parentNode).width() / 2 )
+				});
 			});
-		});
+			
+			$('.three-columns > .column, .three-columns > .container > .column').each(function(){
+				if( $(this).hasClass('span-2') ){
+					$(this).css({
+						width : Math.floor($(this.parentNode).width() * 0.66 )
+					});
+				}
+				else{
+					$(this).css({
+						width : Math.floor( $(this.parentNode).width() / 3 )
+					});
+				}
+			});
+			
+			$('.four-columns > .column, .four-columns > .container > .column').each(function(){
+				
+				if( $(this).hasClass('span-2') ){
+					$(this).css({
+						width : Math.floor($(this.parentNode).width() * 0.5 )
+					});
+				}
+				else if( $(this).hasClass('span-3') ){
+					$(this).css({
+						width : Math.floor($(this.parentNode).width() * 0.75 )
+					});
+				}
+				else{
+					$(this).css({
+						width : Math.floor($(this.parentNode).width() * 0.25 )
+					});
+				}
+			});
+			
+			$('.auto-columns').each(function(){
+				var columns = $('> .column, > .container > .column', this);
+				var columnsSize = columns.size();
+				columns.each(function(){
+					$(this).css({
+						width : Math.floor( $(this.parentNode).width() / columnsSize )
+					});
+				});
+			});
+		}
+		else{
+			$('.auto-columns').each(function(){
+				var columns = $('> .column, > .container > .column', this);
+				var columnsSize = columns.size();
+				columns.each(function(){
+					$(this).css({
+						width : (100 / columnsSize) + '%' 
+					});
+				});
+			});
+		}
 		
 		$('.full-width').each(function(){
 			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
@@ -72,107 +164,22 @@
 		});
 	};
 	
-	elastic.reset = function(){
+	var elastic_refesh =function(){
 		$('.same-height > .column, .same-height > .container > .column, .full-height, .equalized-height').css('height', '');
 		$('.vertical-center, .center').each(function(){
 			$(this.parentNode).css('padding-top', '');
 		});
 		$('.auto-columns > div, .full-width').css('width', '');
-	};
-	
-	elastic.refresh = function(){
-		elastic.reset();
-		if($.browser.msie){
-			elastic.ie.forceWidth();
-			if($.browser.version < 8.0){
-				elastic.ie.forceClear();
-			}
-		}
 		elastic();
-	};
+	}
 	
-	elastic.ie = {
-		forceClear : function(){
-			$('.two-columns, .three-columns, .four-columns, .column, .unit, .container').append('<hr class="clearfix" />');
-		},
-		forceWidth : function(){
-			$('.two-columns').each(function(){
-				$('> .column, > .container > .column', this).each(function(){
-					$(this).css('width', Math.floor($(this.parentNode).width() / 2));
-				});
-			});
-			
-			$('.three-columns').each(function(){
-				$('> .column, > .container > .column', this).each(function(){
-					if( $(this).hasClass('unit') ){
-						return;
-					}
-					if( $(this).hasClass('span-2') ){
-						$(this).css('width', Math.floor($(this.parentNode).width() * 0.66));
-					}
-					else{
-						$(this).css('width', Math.floor($(this.parentNode).width() * 0.33));
-					}
-				});
-			});
-			
-			$('.four-columns').each(function(){
-				$('> .column, > .container > .column', this).each(function(){
-					if( $(this).hasClass('unit') ){
-						return;
-					}
-					
-					if( $(this).hasClass('span-2') ){
-						$(this).css('width', Math.floor($(this.parentNode).width() * 0.5 ));
-					}
-					else if( $(this).hasClass('span-3') ){
-						$(this).css('width', Math.floor($(this.parentNode).width() * 0.75 ));
-					}
-					else{
-						$(this).css('width', Math.floor($(this.parentNode).width() * 0.25 ));
-					}
-				});
-			});
-			
-			$('.auto-columns').each(function(){
-				var columns = $('> .container > .column, > .column', this);
-				var columnsLength = columns.size();
-				columns.each(function(){
-					$(this).css('width', Math.floor($(this.parentNode).width() / columns ));
-				});
-			});
+	$(function(){
+		elastic();
+		$(document).bind('elastic', elastic_refesh);
+		$(window).bind('resize', elastic_refesh);
+		
+		if(!$.browser.msie){
+			$(window).bind('load', elastic_refesh)
 		}
-	};
-	
-	if($.browser.msie){
-		$(window)
-			.bind('resize', elastic.refresh)
-			.bind('load', function(){
-				$(document).bind('elastic', elastic.refresh);
-				elastic.ie.forceWidth();
-				if($.browser.version < 8.0){
-					elastic.ie.forceClear();
-				}
-				elastic();
-			});
-	}
-	else{
-//		$(elastic);
-//		$(function(){
-//			$(document).bind('elastic', elastic.refresh);
-//			$(window).bind('resize', elastic.refresh);
-//			elastic();
-//		});
-		$(window)
-			.bind('resize', elastic.refresh)
-			.bind('load', function(){
-				$(document).bind('elastic', elastic.refresh);
-				elastic.ie.forceWidth();
-				if($.browser.version < 8.0){
-					elastic.ie.forceClear();
-				}
-				elastic();
-			});
-	}
-	
+	});
 })(jQuery);

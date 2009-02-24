@@ -1,40 +1,25 @@
-/* Hacks for ie6 does not matter if targets all the rest of ie */
+
+/* Grade A browser clearfix */
+.two-columns:after, .three-columns:after, .four-columns:after, .column:after, .unit:after, .container:after, .clearfix:after
+{
+	content    : ".";
+	display    : block;
+	height     : 0;
+	clear      : both;
+	visibility : hidden;
+}
+
+/* msie6 clearfix */
+.two-columns, 
+.three-columns, 
+.four-columns, 
 .column, 
-.fixed-left-column,
-.elastic-left-column,
+.unit, 
+.container, 
+.clearfix
 {
-	float : left;
-}
-
-.fixed-right-column,
-.elastic-right-column
-{
-	float : right;
-}
-
-.fixed-center-column
-{
-	margin : auto;
-}
-
-hr.clearfix
-{
-	margin  : 0;
-	padding : 0;
-	height  : 0;
-	border  : none;
-	clear   : both;
-}
-
-.two-columns:after, .three-columns:after, .four-columns:after, .column:after, .unit:after, .container:after, .clearfix
-{
-	content:".";
-	display:block;
-	height:0;
 	*height : 1%;
-	*display : block;
-	clear:both;
-	visibility:hidden;
+	*display : inline-block;
 }
 
 .two-columns > .column,
@@ -43,7 +28,8 @@ hr.clearfix
 	width : 50%;
 }
 
-.column, .two-columns > .fixed-left-column,
+.column,
+.two-columns > .fixed-left-column,
 .two-columns > .container > .fixed-left-column,
 .three-columns > .elastic-left-column,
 .three-columns > .container > .elastic-left-column
@@ -68,7 +54,7 @@ hr.clearfix
 .three-columns > .column,
 .three-columns > .container > .column
 {
-	width : 33.3%;
+	width : 33.33%;
 }
 
 .three-columns > .fixed-center-column,
@@ -80,7 +66,7 @@ hr.clearfix
 .three-columns > .span-2,
 .three-columns > .container > .span-2
 {
-	width : 66.6%;
+	width : 66.66%;
 }
 
 .four-columns > .column,
