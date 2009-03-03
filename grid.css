@@ -29,38 +29,21 @@
 }
 
 .column,
-.two-columns > .fixed-left-column,
-.two-columns > .container > .fixed-left-column,
-.three-columns > .elastic-left-column,
-.three-columns > .container > .elastic-left-column
+.elastic-column,
+.fixed-column,
+.fixed-left-column,
+.elastic-left-column,
+.fixed-right-column,
+.elastic-right-column,
+.fixed-center-column
 {
 	float : left;
-}
-
-.two-columns > .fixed-right-column,
-.two-columns > .container > .fixed-right-column,
-.three-columns > .elastic-right-column,
-.three-columns > .container > .elastic-right-column
-{
-	float : right;
-}
-
-.two-columns > .elastic-column,
-.two-columns > .container > .elastic-column
-{
-	/* margin-(right|left) : fixed-column-width; */
 }
 
 .three-columns > .column,
 .three-columns > .container > .column
 {
 	width : 33.33%;
-}
-
-.three-columns > .fixed-center-column,
-.three-columns > .container > .fixed-center-column
-{
-	margin : auto;
 }
 
 .three-columns > .span-2,

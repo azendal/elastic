@@ -1,56 +1,5 @@
-(function($){
-	
-	var gridjs = function(){
-		$('.two-columns > .column, .two-columns > .container > .column').css({
-			width : '50%'
-		});
-		
-		$('.column,'
-		+ '.two-columns > .fixed-left-column,'
-		+ '.two-columns > .container > .fixed-left-column,'
-		+ '.three-columns > .elastic-left-column,'
-		+ '.three-columns > .container > .elastic-left-column').css({
-			float : 'left'
-		});
-		
-		$('.two-columns > .fixed-right-column,'
-		+ '.two-columns > .container > .fixed-right-column,'
-		+ '.three-columns > .elastic-right-column,'
-		+ '.three-columns > .container > .elastic-right-column').css({
-			float : 'right'
-		});
-		
-		$('.three-columns > .column, .three-columns > .container > .column').css({
-			width : '33.33%'
-		});
-		
-		$('.three-columns > .fixed-center-column,'
-		+ '.three-columns > .container > .fixed-center-column').css({
-			margin : 'auto'
-		});
-		
-		$('.three-columns > .span-2,'
-		+ '.three-columns > .container > .span-2').css({
-			width : '66.66%'
-		});
-		
-		$('.four-columns > .column,'
-		+ '.four-columns > .container > .column').css({
-			width : '25%'
-		});
-		
-		$('.four-columns > .span-2,'
-		+ '.four-columns > .container > .span-2').css({
-			width : '50%'
-		});
-		
-		$('.four-columns > .span-3,'
-		+ '.four-columns > .container > .span-3').css({
-			width : '75%'
-		});
-	};
-	
-	var elastic = function(){
+(function($){	
+	var elastic = function Elastic(){
 		var getElasticElements = function(){
 			var expression     = /(^|\s)(two\-columns|three\-columns|four\-columns|auto\-columns)($|\s)/
 			var elements       = document.getElementsByTagName('*');
@@ -75,6 +24,7 @@
 		
 		$.each(getElasticElements(), function(){
 			var element = $(this);
+			
 			var foundColumns = $('> .column, > .container > .column,'
 			              + '> .fixed-column, > .container > .fixed-column,' 
 			              + '> .fixed-left-column, > .container > .fixed-left-column,'
@@ -97,19 +47,23 @@
 				var maxMembers = foundColumns.size();
 			}
 			
+			if ($('> .container', element).size() > 0)
+			{
+				element = $($('> .container', element).get(0));
+			}
+			
 			var columnGroups       = [];
 			var columnGroup        = [];
-			var counts             = 0;
 			var counted            = 0;
 			var nextValueOfCounted = 0;
 			
 			// determination of groups
 			foundColumns.each(function(){
 				var reg = /(^|\s+)span\-(\d+)(\s+|$)/;
-				reg.test($(this).attr('className'));
-				if(RegExp.$2 > 0)
+				var counts = 0;
+				if(reg.test($(this).attr('className')))
 				{
-					counts = RegExp.$2;
+					counts = Number(RegExp.$2);
 				}
 				else
 				{
@@ -141,10 +95,16 @@
 					counted = counts;
 					return;	
 				}
+				
+				if(this == foundColumns[ foundColumns.length - 1 ]){
+					columnGroups.push([].concat(columnGroup));
+					counted = 0;
+				}
 			});
 			
 			// determination of sizes
 			$.each(columnGroups, function(){
+				
 				var elasticColumns = [];
 				var fixedColumns   = [];
 				var columns        = [];
@@ -152,11 +112,11 @@
 				
 				$.each(this, function(){
 					var classes = $(this).attr('className');
-					if(/(fixed)/.test(classes)){
+					if(/fixed/.test(classes)){
 						fixedColumns.push(this);
 					}
-					else if(/(elastic)/.test(classes)){
-						elastic.push(this);
+					else if(/elastic/.test(classes)){
+						elasticColumns.push(this);
 					}
 					else
 					{
@@ -164,14 +124,14 @@
 					}
 				});
 				
-				var totalWidth  = 0;
-				var columnsWidth = 0;
-				var fixedColumnsWidth = 0;
+				var totalWidth          = 0;
+				var columnsWidth        = 0;
+				var fixedColumnsWidth   = 0;
 				var elasticColumnsWidth = 0;
 				
-				if(fixed-columns.length > 0)
+				if(fixedColumns.length > 0)
 				{
-					$.each(function(){
+					$.each(fixedColumns, function(){
 						$(this).css('width', Math.round( $(this).width() ) );
 						fixedColumnsWidth += $(this).width();
 					});
@@ -179,31 +139,31 @@
 				
 				if(columns.length > 0){
 					$.each(columns, function(){
-						var counts = 0;
+						var spans = 0;
 						
 						var reg = /(^|\s+)span\-(\d+)(\s+|$)/;
-						reg.test($(this).attr('className'));
-						if(RegExp.$2 > 0)
+						var spans = 0;
+						if(reg.test($(this).attr('className')))
 						{
-							counts = RegExp.$2;
+							spans = Number(RegExp.$2);
 						}
 						else
 						{
-							counts = 1;
+							spans = 1;
 						}
 						
 						if (this !== columns[ columns.length - 1 ]){
-							$(this).css('width', unitarySize * counts);
-							columnsWidth += (unitarySize * counts);
+							$(this).css('width', unitarySize * spans);
+							columnsWidth += (unitarySize * spans);
 						}
-						else if ( elasticColumns.length == 0 )
+						else if ( elasticColumns.length > 0 )
 						{
-							$(this).css('width', unitarySize * counts);
-							columnsWidth += (unitarySize * counts);
+							$(this).css('width', unitarySize * spans);
+							columnsWidth += (unitarySize * spans);
 						}
 						else
 						{
-							$(this).css('width', ( element.width() - ( ( unitarySize * columnsWidth ) + fixedColumnsWidth ) ) );
+							$(this).css('width', ( element.width() - ( columnsWidth + fixedColumnsWidth ) ) );
 						}
 					});
 				}
@@ -211,98 +171,17 @@
 				if(elasticColumns.length > 0){
 					$.each(elasticColumns, function(){
 						if(this !== elasticColumns[elasticColumns.length - 1 ]){
-							$(this).css('width', Math.round( element.width() - ( ( columnsWidth + fixedColumnsWidth ) / elasticColumns.length ) ) );
+							$(this).css('width', Math.round( ( element.width() -  ( columnsWidth + fixedColumnsWidth ) ) / elasticColumns.length  ) );
 							elasticColumnsWidth += $(this).width();
 						}
 						else
 						{
-							$(this).css('width', ( element.width() - ( ( unitarySize * columnsWidth ) + fixedColumnsWidth + elasticColumnsWidth ) ) );
+							$(this).css('width', ( element.width() - ( columnsWidth + fixedColumnsWidth + elasticColumnsWidth ) ) );
 						}
 					});
 				}
 			});
 		});
-		
-		$('.fixed-left-column').each(function(){
-			$('> .elastic-column', this.parentNode).css('width', $(this.parentNode).width() - $(this).width());
-		});
-		
-		$('.fixed-right-column').each(function(){
-			$('> .elastic-column', this.parentNode).css('width', $(this.parentNode).width() - $(this).width());
-		});
-		
-		$('.two-columns > .fixed-column, .two-columns > .container > .fixed-column').each(function(){
-			$('> .elastic-column', this.parentNode).css('width', $(this.parentNode).width() - $(this).width());
-		});
-		
-		$('.fixed-center-column').each(function(){
-			$('> .elastic-left-column, > .elastic-right-column', this.parentNode).css('width', $(this.parentNode).width() / 2 - $(this).width() / 2 );
-		});
-		
-		if($.browser.msie){
-			if($.browser.version < 7){
-				gridjs();
-			}
-			
-			$('.two-columns > .column, .two-columns > .container > .column').each(function(){
-				$(this).css({
-					width : Math.floor( $(this.parentNode).width() / 2 )
-				});
-			});
-			
-			$('.three-columns > .column, .three-columns > .container > .column').each(function(){
-				if( $(this).hasClass('span-2') ){
-					$(this).css({
-						width : Math.floor($(this.parentNode).width() * 0.66 )
-					});
-				}
-				else{
-					$(this).css({
-						width : Math.floor( $(this.parentNode).width() / 3 )
-					});
-				}
-			});
-			
-			$('.four-columns > .column, .four-columns > .container > .column').each(function(){
-				
-				if( $(this).hasClass('span-2') ){
-					$(this).css({
-						width : Math.floor($(this.parentNode).width() * 0.5 )
-					});
-				}
-				else if( $(this).hasClass('span-3') ){
-					$(this).css({
-						width : Math.floor($(this.parentNode).width() * 0.75 )
-					});
-				}
-				else{
-					$(this).css({
-						width : Math.floor($(this.parentNode).width() * 0.25 )
-					});
-				}
-			});
-			
-			$('.auto-columns').each(function(){
-				var columns = $('> .column, > .container > .column', this);
-				var columnsSize = columns.size();
-				columns.each(function(){
-					$(this).css({
-						width : Math.floor( $(this.parentNode).width() / columnsSize )
-					});
-				});
-			});
-		}
-		else{
-			$('.auto-columns').each(function(){
-				var columns = $('> .column, > .container > .column', this);
-				var columnsSize = columns.size();
-				columns.each(function(){
-					$(this).css({
-						width : (100 / columnsSize) + '%' 
-					});
-				});
-			});
-		}
 		
 		$('.full-width').each(function(){
 			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
@@ -345,8 +224,9 @@
 		$('.vertical-center, .center').each(function(){
 			$(this.parentNode).css('padding-top', '');
 		});
-		$('.auto-columns > .column, .auto-columns > .container > .column, .full-width, .elastic-column, .elastic-left-column, elastic-right-column').css('width', '');
+		$('.column, .fixed-left-column, .fixed-right-column, fixed-center-column, .elastic-column, .elastic-left-column, .elastic-right-column, .elastic-center-column, ').css('width', '');
 		elastic();
+		$(document).trigger('elastic:refresh');
 	}
 	
 	$(function(){

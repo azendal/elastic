@@ -9,11 +9,12 @@
 		<link rel="stylesheet" type="text/css" media="all" href="../class.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="../grid.css" />
 		<script src="../helpers_jquery/jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-		<script src="../helpers_jquery/helpers.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="../helpers_jquery/extensions.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="../helpers_jquery/engine.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 		<style type="text/css" media="screen">
 		/* <![CDATA[ */
 			.container{
-				/*padding : 10px;*/
+				padding : 10px;
 				border: solid 1px #bfbfbf;
 			}
 		/* ]]> */
@@ -296,40 +297,40 @@
 		</div>
 		<div class="unit four-columns same-height">
 			<div class="container" style="">
-				<div class="column">
+				<div class="column full-height">
 					<div class="container full-height" style="">
 						<p>asdasdasdasdas</p>
 					</div>
 				</div>
-				<div class="column span-3">
-					<div id="x" class="container full-height">
+				<div class="column span-3 full-height">
+					<div id="x" class="container vertical-center">
 						<span class="">asdasdasdasd</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="unit two-columns">
+		<div class="unit three-columns">
 			<div class="container" style="">
 				<div class="fixed-left-column" style="width:150px;">
 					<div class="container" style="">asdasdasd</div>
 				</div>
-				<div class="fixed-right-column" style="width:100px;">
+				<div class="elastic-column" style="">
 					<div class="container" style="">asdasdasd</div>
 				</div>
-				<div class="elastic-column" style="">
+				<div class="fixed-right-column" style="width:100px;">
 					<div class="container" style="">asdasdasd</div>
 				</div>
 			</div>
 		</div>
 		<div class="unit three-columns">
 			<div class="container" style="">
-				<div class="elastic-left-column" style="width:100px;">
+				<div class="elastic-column" style="width:100px;">
 					<div class="container" style="">asdasdasd</div>
 				</div>
-				<div class="elastic-right-column" style="width:100px;">
+				<div class="fixed-column" style="width:650px;">
 					<div class="container" style="">asdasdasd</div>
 				</div>
-				<div class="fixed-center-column" style="width:650px;">
+				<div class="elastic-column" style="width:100px;">
 					<div class="container" style="">asdasdasd</div>
 				</div>
 			</div>
