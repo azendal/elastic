@@ -183,6 +183,8 @@
 			});
 		});
 		
+		elastic.version = '1.0 RC1';
+		
 		$('.full-width').each(function(){
 			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
 		});
@@ -238,4 +240,6 @@
 			$(window).bind('load', elastic_refesh)
 		}
 	});
+	
+	window.Elastic = elastic;
 })(jQuery);
