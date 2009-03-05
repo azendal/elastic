@@ -272,4 +272,3 @@ h2. Contributors
 Fernando Trasviña (Lead Developer) trasvina [at] gmail
 
 Sergio de la Garza (Core Member Lead) sergio.delagarza [at] gmail
-
