@@ -264,7 +264,7 @@ h2. Help and Contact
 
 We have an issue "tracker":http://elastic.lighthouseapp.com/projects/26690-elastic-css-framework for bugs and feature requests and a "Google Group":http://groups.google.com/group/elastic-css-framework for discussion on the usage of the framework.
 
-You are very wellcome to contribute. Just ork the git repository and create a new issue, send a pull request or contact us personally.
+You are very wellcome to contribute. Just fork the git repository and create a new issue, send a pull request or contact us personally.
 
 
 h2. Contributors
