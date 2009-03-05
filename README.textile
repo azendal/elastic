@@ -9,6 +9,7 @@ Elastic is organized in several files
 * *reset.css*: unifies the css of the browser
 * *base.css*: builds a base to work on
 * *fonts.css*: sets the font base
+* *class.css*: CSS Classes for engine.js
 * *grid.css*: layout components
 * *print.css*: layout printing components
 * *jquery.js*: jquery to simplify the creation of helpers
@@ -26,16 +27,17 @@ the next code snippet show the basic structure of a layout base for elastic css 
 		<link rel="stylesheet" type="text/css" media="all" href="reset.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="base.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="fonts.css" />
+		<link rel="stylesheet" type="text/css" media="all" href="class.css" />
 		<link rel="stylesheet" type="text/css" media="all" href="grid.css" />
 		<link rel="stylesheet" type="text/css" media="print" href="print.css" />
 		<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-		<script src="helpers.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="engine.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div class="layout">
-			<div class="header"></div>
-			<div class="body"></div>
-			<div class="footer"></div>
+		<div class="unit three-columns">
+			<div class="column">first column content</div>
+			<div class="column">second column content</div>
+			<div class="column">third column content</div>
 		</div>
 	</body>
 </html>
@@ -97,13 +99,13 @@ h3. But i really really need more columns
 
 h3. This things is like tables, can i have span?
 
-Well you can, but currently not for auto-columns. and it is called spawn(yeahh the spawn not span)
+Well you can, but currently not for auto-columns. and it is called span
 
 <pre><code class="html">
 <div class="unit four-columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
-	<div class="column spawn-two">third column content spawned as a double column</div>
+	<div class="column span-2">third column content spawned as a double column</div>
 </div>
 </code></pre>
 
@@ -167,12 +169,12 @@ h3. Make a column fixed and the other elastic
 
 <pre><code class="html">
 <div class="unit two-columns">
-	<div class="fixed-left-column" style="width:250px;">first column content</div>
+	<div class="fixed-column" style="width:250px;">first column content</div>
 	<div class="elastic-column">second column content</div>
 </div>
 <div class="unit two-columns">
-	<div class="fixed-right-column" style="width:250px;">second column content</div>
 	<div class="elastic-column">second column content</div>
+	<div class="fixed-column" style="width:250px;">second column content</div>
 </div>
 </code></pre>
 
@@ -180,12 +182,12 @@ h3. How about i dont know the width of fixed-column
 
 <pre><code class="html">
 <div class="unit two-columns">
-	<div class="fixed-left-column">let elastic get it</div>
+	<div class="fixed-column">let elastic get it</div>
 	<div class="elastic-column">second column content</div>
 </div>
 <div class="unit two-columns">
-	<div class="fixed-right-column" style="width:250px;">second column content</div>
 	<div class="elastic-column">second column content</div>
+	<div class="fixed-column" style="width:250px;">second column content</div>
 </div>
 </code></pre>
 
@@ -207,8 +209,8 @@ To overcome this in the framework an special class exists .container
 h3. separate columns form its container
 
 <pre><code class="html">
-<div class="unit two-columns same-height">
-	<div class="container" style="padding:10px;">
+<div class="unit two-columns">
+	<div class="container same-height" style="padding:10px;">
 		<div class="column">first column content</div>
 		<div class="column">second column content</div>
 	</div>
