@@ -35,16 +35,16 @@ The subpixel rounding problems can be found on every browser according to our te
 this rounding problems in safari and firefox, and every browser does rounding in a different way, that is why
 elastic's engine.js provides a predictable way of rounding letting you know what can be subject of modifications
 
-h4. Engine performance
-
-We are currently releasing a working version of the engine in order to spot bugs on design and on implementation
-next milestone will be to improve speed of this engine.
-
 h4. The order is this:
 
 * fixed-column never modified
 * column (last) modified
 * elastic-column (last)
+
+h4. Engine performance
+
+We are currently releasing a working version of the engine in order to spot bugs on design and on implementation
+next milestone will be to improve speed of this engine.
 
 <pre><code class="html">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
