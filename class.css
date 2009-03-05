@@ -1,0 +1,30 @@
+.full-height
+{
+
+}
+
+.hard-full-height
+{
+	
+}
+
+.same-height
+{
+
+}
+
+.horizontal-center
+{
+	margin : 0 auto;	
+}
+
+.vertical-center
+{
+	/* margin : auto 0; */
+}
+
+.center
+{
+	/* margin : auto */
+	margin : 0 auto;
+}

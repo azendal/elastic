@@ -1,133 +1,87 @@
-/**
- * Elastic Grid Module
- *
- * Selectors to provide a basis for layout.
- * they use semantic selectors to unify the structure of user interfaces
- *
- * LICENSE: It is planned to release it as MIT
- *
- * @author     Fernando Trasviña
- * @copyright  2008 Elastic css framework
- * @license    MIT
- * @version    0.2
- * @link       elastic/dev/helpers.js
- * @since      0.1
-*/
 
-/* structural classes are liquid by default */
-div.layout,
-div.layout div.header,
-div.layout div.navigation,
-div.layout div.body,
-div.layout div.footer
+/* Grade A browser clearfix */
+.two-columns:after, 
+.three-columns:after, 
+.four-columns:after, 
+.fixed-column:after,
+.fixed-left-column:after,
+.fixed-right-column:after,
+.fixed-center-column:after,
+.elastic-column:after,
+.column:after, 
+.unit:after, 
+.container:after, 
+.clearfix:after
 {
-	width     : 100%;
-	margin    : auto;
-	overflow  : auto;
-	*overflow : visible;
+	content    : ".";
+	display    : block;
+	height     : 0;
+	clear      : both;
+	visibility : hidden;
 }
 
-/* shrinks box: setup padding or margin in elements of this class */
-div.layout div.container,
-div.layout div.content
+/* msie6 clearfix */
+.two-columns, 
+.three-columns, 
+.four-columns, 
+.fixed-column,
+.fixed-left-column,
+.fixed-right-column,
+.fixed-center-column,
+.elastic-column,
+.column, 
+.unit, 
+.container, 
+.clearfix
 {
-	margin    : auto;
-	overflow  : auto;
-	*overflow : visible;
+	*zoom :1;
+	*display : inline-block;
 }
 
-/* all float left */
-div.layout div.unit,
-div.layout div.two-columns,
-div.layout div.three-columns,
-div.layout div.four-columns,
-div.layout div.column
-{
-	float     : left;
-	overflow  : auto;
-	*overflow : visible;
-}
-
-/* column inside two-columns */
-div.layout div.two-columns div.column,
-div.layout div.three-columns div.two-columns div.column,
-div.layout div.four-columns div.two-columns div.column
+.two-columns > .column,
+.two-columns > .container > .column
 {
 	width : 50%;
 }
 
-/* column inside three-columns */
-div.layout div.two-columns div.three-columns div.column,
-div.layout div.four-columns div.three-columns div.column,
-div.layout div.three-columns div.column
+.column,
+.elastic-column,
+.fixed-column,
+.fixed-left-column,
+.elastic-left-column,
+.fixed-right-column,
+.elastic-right-column,
+.fixed-center-column
 {
-	width : 33.3%;
+	float : left;
 }
 
-/* column inside four-columns */
-div.layout div.two-columns div.four-columns div.column,
-div.layout div.three-columns div.four-columns div.column,
-div.layout div.four-columns div.column
+.three-columns > .column,
+.three-columns > .container > .column
+{
+	width : 33.33%;
+}
+
+.three-columns > .span-2,
+.three-columns > .container > .span-2
+{
+	width : 66.66%;
+}
+
+.four-columns > .column,
+.four-columns > .container > .column
 {
 	width : 25%;
 }
 
-/* fixed left colum for mixed fixed-elastic layout place elements of this class first */
-div.layout div.two-columns div.fixed-left-column,
-div.layout div.three-columns div.fixed-left-column
-{
-	float : left;
-	/* width must be set on skin */
-}
-
-/* fixed right colum for mixed fixed-elastic layout place elements of this class first */
-div.layout div.two-columns div.fixed-right-column,
-div.layout div.three-columns div.fixed-right-column
-{
-	float : right;
-	/* width must be set on skin */
-}
-
-/* elastic colum for mixed fixed-elastic layout place elements of this class after fixed */
-div.layout div.two-columns div.elastic-column,
-div.layout div.three-columns div.elastic-column
-{
-	/* rules will be set dynamically by helpers */
-}
-
-/* units must rule over all so they are written here */
-div.layout div.unit,
-div.layout div.two-columns div.unit,
-div.layout div.three-columns div.unit,
-div.layout div.four-columns div.unit
-{
-	width : 100%;
-}
-
-/* columns spawns */
-div.layout div.two-columns div.three-columns div.spawn-two,
-div.layout div.four-columns div.three-columns div.spawn-two,
-div.layout div.three-columns div.spawn-two
-{
-	width : 66.6%;
-}
-
-div.layout div.two-columns div.four-columns div.spawn-two,
-div.layout div.three-columns div.four-columns div.spawn-two,
-div.layout div.four-columns div.spawn-two
+.four-columns > .span-2,
+.four-columns > .container > .span-2
 {
 	width : 50%;
 }
 
-div.layout div.two-columns div.four-columns div.spawn-three,
-div.layout div.three-columns div.four-columns div.spawn-three,
-div.layout div.four-columns div.spawn-three
+.four-columns > .span-3,
+.four-columns > .container > .span-3
 {
 	width : 75%;
-}
-
-/* elements of this class are only visible on print view */
-.print-only
-{
-	display : none;
 }

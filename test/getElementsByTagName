@@ -1,0 +1,21 @@
+jQuery(document).bind('test', function Simulated(){
+	var expression     = /(^|\s)column($|\s)/
+	var elements       = document.getElementsByTagName('*');
+	var elementsLength = elements.length;
+	var foundElements  = new Object(HTMLCollection);
+	var counter = 0;
+	var currentElement;
+
+	for(var i = 0; i < elementsLength; i++){
+		currentElement = elements[i];
+		if(expression.test(currentElement.className)){
+			foundElements[counter++] = currentElement;
+		}
+	}
+	
+	foundElements.item      = function(){};
+	foundElements.namedItem = function(){};
+	foundElements.length    = counter;
+	
+	return foundElements;
+});
