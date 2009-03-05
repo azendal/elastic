@@ -4,20 +4,15 @@
 			var expression     = /(^|\s)(two\-columns|three\-columns|four\-columns|auto\-columns)($|\s)/
 			var elements       = document.getElementsByTagName('*');
 			var elementsLength = elements.length;
-			var foundElements  = new Object(HTMLCollection);
-			var counter = 0;
+			var foundElements  = [];
 			var currentElement;
 
 			for(var i = 0; i < elementsLength; i++){
 				currentElement = elements[i];
 				if(expression.test(currentElement.className)){
-					foundElements[counter++] = currentElement;
+					foundElements.push(currentElement);
 				}
 			}
-
-			foundElements.item      = function(){};
-			foundElements.namedItem = function(){};
-			foundElements.length    = counter;
 
 			return foundElements;
 		};
@@ -132,7 +127,7 @@
 				if(fixedColumns.length > 0)
 				{
 					$.each(fixedColumns, function(){
-						$(this).css('width', Math.round( $(this).width() ) );
+						//$(this).css('width', Math.round( $(this).width() ) );
 						fixedColumnsWidth += $(this).width();
 					});
 				}
@@ -222,11 +217,11 @@
 	};
 	
 	var elastic_refesh = function(){
-		$('.same-height > .column, .same-height > .container > .column, .full-height, .equalized-height').css('height', '');
+		$('.same-height > *, > .column, .full-height, .equalized-height').css('height', '');
 		$('.vertical-center, .center').each(function(){
 			$(this.parentNode).css('padding-top', '');
 		});
-		$('.column, .fixed-left-column, .fixed-right-column, fixed-center-column, .elastic-column, .elastic-left-column, .elastic-right-column, .elastic-center-column, ').css('width', '');
+		$('.column, .elastic-column, .elastic-left-column, .elastic-right-column, .elastic-center-column, ').css('width', '');
 		elastic();
 		$(document).trigger('elastic:refresh');
 	}

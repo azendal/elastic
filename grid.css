@@ -1,6 +1,17 @@
 
 /* Grade A browser clearfix */
-.two-columns:after, .three-columns:after, .four-columns:after, .column:after, .unit:after, .container:after, .clearfix:after
+.two-columns:after, 
+.three-columns:after, 
+.four-columns:after, 
+.fixed-column:after,
+.fixed-left-column:after,
+.fixed-right-column:after,
+.fixed-center-column:after,
+.elastic-column:after,
+.column:after, 
+.unit:after, 
+.container:after, 
+.clearfix:after
 {
 	content    : ".";
 	display    : block;
@@ -13,12 +24,17 @@
 .two-columns, 
 .three-columns, 
 .four-columns, 
+.fixed-column,
+.fixed-left-column,
+.fixed-right-column,
+.fixed-center-column,
+.elastic-column,
 .column, 
 .unit, 
 .container, 
 .clearfix
 {
-	*height : 1%;
+	*zoom :1;
 	*display : inline-block;
 }
 
