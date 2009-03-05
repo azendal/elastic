@@ -13,11 +13,38 @@ Elastic is organized in several files
 * *grid.css*: layout components
 * *print.css*: layout printing components
 * *jquery.js*: jquery to simplify the creation of helpers
-* *helpers.js*: tiny scripts to make complex thing easier to you
+* *engine.js*: subpixel rounding, and special helpers
 * *skin.css*: your place to build the skin of your site (you can choose whatever you want)
 
-The fundation of layouts begin with the convention of a certain structure in your html
-the next code snippet show the basic structure of a layout base for elastic css framework
+h3. Browser support 
+
+Our team has been able to test and confirm support layouts made with elastic in the following browsers:
+
+* Firefox 2 mac, windows, linux
+* Firefox 3 mac, windows, linux
+* Safari 3 mac and windows
+* Safari 4
+* Opera 9.6 linux
+* Internet Explorer 6
+* Internet Explorer 7
+* Internet Explorer 8 Beta 2
+
+h3. About subpixel rounding
+
+The subpixel rounding problems can be found on every browser according to our test, but it is more difficult to find
+this rounding problems in safari and firefox, and every browser does rounding in a different way, that is why
+elastic's engine.js provides a predictable way of rounding letting you know what can be subject of modifications
+
+h4. Engine performance
+
+We are currently releasing a working version of the engine in order to spot bugs on design and on implementation
+next milestone will be to improve speed of this engine.
+
+h4. The order is this:
+
+* fixed-column never modified
+* column (last) modified
+* elastic-column (last)
 
 <pre><code class="html">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -107,6 +134,10 @@ Well you can, but currently not for auto-columns. and it is called span
 	<div class="column">second column content</div>
 	<div class="column span-2">third column content spawned as a double column</div>
 </div>
+<div class="unit four-columns">
+	<div class="column">first column content</div>
+	<div class="column span-3">second column content spawned as a triple column</div>
+</div>
 </code></pre>
 
 h2. Complex layouts
@@ -191,12 +222,58 @@ h3. How about i dont know the width of fixed-column
 </div>
 </code></pre>
 
+h3. How about a 3x3 layout
+
+<pre><code class="html">
+<div class="unit two-columns">
+	<div class="column">
+		column
+	</div>
+	<div class="column">
+		column
+	</div>
+	<div class="column">
+		column
+	</div>
+	<div class="column span-2">
+		column
+	</div>
+	<div class="column">
+		column
+	</div>
+</div>
+</code></pre>
+
 h3. Make columns of same height
 
 <pre><code class="html">
 <div class="unit two-columns same-height">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
+</div>
+</code></pre>
+
+h3. Centering on the vertical axis
+
+<pre><code class="html">
+<div class="unit two-columns same-height">
+	<div class="column" style="height:50px;">first column content</div>
+	<div class="column">
+		<div class="container vertical-center" style="">
+			second column content
+		</div>
+	</div>
+</div>
+</code></pre>
+
+h3. full-width. This one is cool for inputs
+
+<pre><code class="html">
+<div class="unit two-columns same-height">
+	<div class="column">first column content</div>
+	<div class="column">
+		<input type="text" class="full-width" name="some_name" value="" id="" />
+	</div>
 </div>
 </code></pre>
 
@@ -258,6 +335,19 @@ h3. Show something on printed version only
 <div class="unit print-only">
 	content does get printed but not seen on screen
 </div>
+</code></pre>
+
+h3. Telling elastic to refresh calculations
+
+<pre><code class="html">
+<script type="text/javascript" language="javascript" charset="utf-8">
+	// direct call 
+	Elastic.refresh();
+</script>
+<script type="text/javascript" language="javascript" charset="utf-8">
+	// jquery event invocation
+	$(document).trigger('elastic');
+</script>
 </code></pre>
 
 h2. Help and Contact
