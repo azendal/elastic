@@ -1,3 +1,18 @@
+/**
+ * Elastic Engine Module
+ *
+ * Provides a rendering fix for all browsers to render pixel perfect layouts
+ *
+ * LICENSE: It is planned to release it as MIT
+ *
+ * @author     Fernando Trasviña
+ * @core team  Sergio de la Garza
+ * @copyright  2008 Elastic css framework
+ * @license    MIT
+ * @version    1.0
+ * @link       elastic/dev/helpers.js
+ * @since      1.0 RC1
+*/
 (function($){	
 	var elastic = function Elastic(){
 		var getElasticElements = function(){
@@ -178,7 +193,7 @@
 			});
 		});
 		
-		elastic.version = '1.0 RC1';
+		elastic.version = '1.0';
 		
 		$('.full-width').each(function(){
 			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
@@ -216,7 +231,7 @@
 		});
 	};
 	
-	var elastic_refesh = function(){
+	elastic.refesh = function(){
 		$('.same-height > *, > .column, .full-height, .equalized-height').css('height', '');
 		$('.vertical-center, .center').each(function(){
 			$(this.parentNode).css('padding-top', '');
@@ -228,11 +243,11 @@
 	
 	$(function(){
 		elastic();
-		$(document).bind('elastic', elastic_refesh);
-		$(window).bind('resize', elastic_refesh);
+		$(document).bind('elastic', elastic.refesh);
+		$(window).bind('resize', elastic.refesh);
 		
 		if(!$.browser.msie){
-			$(window).bind('load', elastic_refesh)
+			$(window).bind('load', elastic.refesh)
 		}
 	});
 	
