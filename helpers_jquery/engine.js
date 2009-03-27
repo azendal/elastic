@@ -9,57 +9,35 @@
  * @core team  Sergio de la Garza
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.0
+ * @version    1.1
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
 (function($){	
-	var elastic = function Elastic(){
-		var getElasticElements = function(){
-			var expression     = /(^|\s)(two\-columns|three\-columns|four\-columns|auto\-columns)($|\s)/
-			var elements       = document.getElementsByTagName('*');
-			var elementsLength = elements.length;
-			var foundElements  = [];
-			var currentElement;
-
-			for(var i = 0; i < elementsLength; i++){
-				currentElement = elements[i];
-				if(expression.test(currentElement.className)){
-					foundElements.push(currentElement);
-				}
-			}
-
-			return foundElements;
-		};
-		
-		$.each(getElasticElements(), function(){
+	var Elastic = function (){
+		$('.two-columns, .three-columns, .four-columns, .auto-columns').each(function(){
 			var element = $(this);
 			
 			var foundColumns = $('> .column, > .container > .column,'
-			              + '> .fixed-column, > .container > .fixed-column,' 
-			              + '> .fixed-left-column, > .container > .fixed-left-column,'
-			              + '> .fixed-right-column, > .container > .fixed-right-column,'
-			              + '> .elastic-column, > .container > .elastic-column,'
-			              + '> .fixed-center-column, > .container > .fixed-center-column,'
-			              + '> .elastic-left-column, > .container > .elastic-right-column,'
-			              + '> .elastic-right-column, > .container > .elastic-right-column,', this);
+			              + '> .fixed-column, > .container > .fixed-column,'
+			              + '> .elastic-column, > .container > .elastic-column,', this);
 			
 			if(element.hasClass('two-columns')){
 				var maxMembers = 2;
 			}
-			if(element.hasClass('three-columns')){
+			else if(element.hasClass('three-columns')){
 				var maxMembers = 3;
 			}
-			if(element.hasClass('four-columns')){
+			else if(element.hasClass('four-columns')){
 				var maxMembers = 4;
 			}
-			if(element.hasClass('auto-columns')){
+			else if(element.hasClass('auto-columns')){
 				var maxMembers = foundColumns.size();
 			}
 			
-			if ($('> .container', element).size() > 0)
+			if ($('> .container', this).size() > 0)
 			{
-				element = $($('> .container', element).get(0));
+				element = $($('> .container', this).get(0));
 			}
 			
 			var columnGroups       = [];
@@ -107,6 +85,7 @@
 				}
 				
 				if(this == foundColumns[ foundColumns.length - 1 ]){
+					columnGroup.push(this);
 					columnGroups.push([].concat(columnGroup));
 					counted = 0;
 				}
@@ -193,7 +172,7 @@
 			});
 		});
 		
-		elastic.version = '1.0';
+		Elastic.version = '1.1';
 		
 		$('.full-width').each(function(){
 			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
@@ -231,25 +210,25 @@
 		});
 	};
 	
-	elastic.refesh = function(){
+	Elastic.refesh = function(){
 		$('.same-height > *, > .column, .full-height, .equalized-height').css('height', '');
 		$('.vertical-center, .center').each(function(){
 			$(this.parentNode).css('padding-top', '');
 		});
-		$('.column, .elastic-column, .elastic-left-column, .elastic-right-column, .elastic-center-column, ').css('width', '');
-		elastic();
-		$(document).trigger('elastic:refresh');
+		$('.column, .elastic-column').css('width', '');
+		Elastic();
+		$(document).trigger('elastic.refresh');
 	}
 	
 	$(function(){
-		elastic();
-		$(document).bind('elastic', elastic.refesh);
-		$(window).bind('resize', elastic.refesh);
+		Elastic();
+		$(document).bind('elastic', Elastic.refesh);
+		$(window).bind('resize', Elastic.refesh);
 		
 		if(!$.browser.msie){
-			$(window).bind('load', elastic.refesh)
+			$(window).bind('load', Elastic.refesh)
 		}
 	});
 	
-	window.Elastic = elastic;
+	window.Elastic = Elastic;
 })(jQuery);
