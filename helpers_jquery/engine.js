@@ -9,226 +9,187 @@
  * @core team  Sergio de la Garza
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.1
+ * @version    1.2
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
-(function($){	
-	var Elastic = function (){
-		$('.two-columns, .three-columns, .four-columns, .auto-columns').each(function(){
-			var element = $(this);
-			
-			var foundColumns = $('> .column, > .container > .column,'
-			              + '> .fixed-column, > .container > .fixed-column,'
-			              + '> .elastic-column, > .container > .elastic-column,', this);
-			
-			if(element.hasClass('two-columns')){
-				var maxMembers = 2;
-			}
-			else if(element.hasClass('three-columns')){
-				var maxMembers = 3;
-			}
-			else if(element.hasClass('four-columns')){
-				var maxMembers = 4;
-			}
-			else if(element.hasClass('auto-columns')){
-				var maxMembers = foundColumns.size();
-			}
-			
-			if ($('> .container', this).size() > 0)
-			{
-				element = $($('> .container', this).get(0));
-			}
-			
-			var columnGroups       = [];
-			var columnGroup        = [];
-			var counted            = 0;
-			var nextValueOfCounted = 0;
-			
-			// determination of groups
-			foundColumns.each(function(){
-				var reg = /(^|\s+)span\-(\d+)(\s+|$)/;
-				var counts = 0;
-				if(reg.test($(this).attr('className')))
-				{
-					counts = Number(RegExp.$2);
-				}
-				else
-				{
-					counts = 1;
-				}
-				
-				nextValueOfCounted = counted + counts;
-				
-				if(nextValueOfCounted < maxMembers)
-				{
-					columnGroup.push(this);
-					counted = nextValueOfCounted;
-					return;
-				}
-				
-				if(nextValueOfCounted == maxMembers)
-				{
-					columnGroup.push(this);
-					columnGroups.push( [].concat(columnGroup) )
-					columnGroup = [];
-					counted = 0;
-					return;	
-				}
-				
-				if(nextValueOfCounted > maxMembers)
-				{
-					columnGroups.push( [].concat(columnGroup) )
-					columnGroup = [this];					
-					counted = counts;
-					return;	
-				}
-				
-				if(this == foundColumns[ foundColumns.length - 1 ]){
-					columnGroup.push(this);
-					columnGroups.push([].concat(columnGroup));
-					counted = 0;
-				}
-			});
-			
-			// determination of sizes
-			$.each(columnGroups, function(){
-				
-				var elasticColumns = [];
-				var fixedColumns   = [];
-				var columns        = [];
-				var unitarySize    = Math.round(element.width() / maxMembers);
-				
-				$.each(this, function(){
-					var classes = $(this).attr('className');
-					if(/fixed/.test(classes)){
-						fixedColumns.push(this);
-					}
-					else if(/elastic/.test(classes)){
-						elasticColumns.push(this);
-					}
-					else
-					{
-						columns.push(this);
-					}
-				});
-				
-				var totalWidth          = 0;
-				var columnsWidth        = 0;
-				var fixedColumnsWidth   = 0;
-				var elasticColumnsWidth = 0;
-				
-				if(fixedColumns.length > 0)
-				{
-					$.each(fixedColumns, function(){
-						//$(this).css('width', Math.round( $(this).width() ) );
-						fixedColumnsWidth += $(this).width();
-					});
-				}
-				
-				if(columns.length > 0){
-					$.each(columns, function(){
-						var spans = 0;
-						
-						var reg = /(^|\s+)span\-(\d+)(\s+|$)/;
-						var spans = 0;
-						if(reg.test($(this).attr('className')))
-						{
-							spans = Number(RegExp.$2);
-						}
-						else
-						{
-							spans = 1;
-						}
-						
-						if (this !== columns[ columns.length - 1 ]){
-							$(this).css('width', unitarySize * spans);
-							columnsWidth += (unitarySize * spans);
-						}
-						else if ( elasticColumns.length > 0 )
-						{
-							$(this).css('width', unitarySize * spans);
-							columnsWidth += (unitarySize * spans);
-						}
-						else
-						{
-							$(this).css('width', ( element.width() - ( columnsWidth + fixedColumnsWidth ) ) );
-						}
-					});
-				}
-				
-				if(elasticColumns.length > 0){
-					$.each(elasticColumns, function(){
-						if(this !== elasticColumns[elasticColumns.length - 1 ]){
-							$(this).css('width', Math.round( ( element.width() -  ( columnsWidth + fixedColumnsWidth ) ) / elasticColumns.length  ) );
-							elasticColumnsWidth += $(this).width();
-						}
-						else
-						{
-							$(this).css('width', ( element.width() - ( columnsWidth + fixedColumnsWidth + elasticColumnsWidth ) ) );
-						}
-					});
-				}
-			});
-		});
-		
-		Elastic.version = '1.1';
-		
-		$('.full-width').each(function(){
-			$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
-		});
-		
-		$('.same-height').each(function(){
-			var height = $(this).outerHeight(true) - ( $(this).outerHeight(true) - $(this).height() );
-			$('> *', this).each(function(){
-				$(this).css('height', height);
-			});
-		});
-		
-		$('.equalized-height').each(function(){
-			var columns = $('> .column, > .container > .column', this);
-			var maxHeight = 0;
-			columns.each(function(){
-				var currentHeight = $(this).outerHeight(true);
-				maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
-			})
-			.each(function(){
-				$(this).css('height', maxHeight)
-			});
-		});
-		
-		$('.full-height').each(function(){
-			$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
-		});
-		
-		$('.vertical-center, .center').each(function(){
-			var paddingTop = ( ( $(this.parentNode).height() - $(this).outerHeight(true) ) / 2 );
-			$(this.parentNode).css({
-				paddingTop : paddingTop + 'px',
-				height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
-			});
-		});
+(function($){
+	var CStyle = function (element, pseudoElement) {
+		if (getComputedStyle) {
+			return getComputedStyle(element, pseudoElement);
+		}
+		else
+		{
+			return element.currentStyle();
+		}
 	};
 	
-	Elastic.refesh = function(){
-		$('.same-height > *, > .column, .full-height, .equalized-height').css('height', '');
-		$('.vertical-center, .center').each(function(){
-			$(this.parentNode).css('padding-top', '');
-		});
-		$('.column, .elastic-column').css('width', '');
-		Elastic();
-		$(document).trigger('elastic.refresh');
-	}
+	var width = function(element){
+		return parseFloat(CStyle(element).width);
+	};
 	
-	$(function(){
-		Elastic();
-		$(document).bind('elastic', Elastic.refesh);
-		$(window).bind('resize', Elastic.refesh);
+	window.Elastic = function Elastic(context){
+		var i,j,k,l,il,jl,kl,ll;
+		var econs, econ, econclass, ecols, ecol, ecolclass, eg, egml, egcl, egnl, ecw, ecolgs, escol, rp, ig;
+		var efcs, efcsw, eecs, eecsw, eecw, ecs, ecsw, ec, ecclass; 
+		var egreg = /(^|\s+)group\-by\-(\d+)(\s+|$)/;
+		var esreg = /(^|\s+)span\-(\d+)(\s+|$)/;
 		
-		if(!$.browser.msie){
-			$(window).bind('load', Elastic.refesh)
+		eg   = [];
+		egcl = egnl = 0;
+		 
+		econs = $.find('.two-columns, .three-columns, .four-columns, .auto-columns', context);
+		//console.log(econs);
+		for(i = 0, il = econs.length; i < il; i++){
+			econ = econs[i];
+			//console.log(econ)
+			econclass = econ.className;
+			if(     econclass.indexOf('two-columns')   > -1){  egml = 2; }
+			else if(econclass.indexOf('three-columns') > -1){  egml = 3; }
+			else if(econclass.indexOf('four-columns')  > -1 ){ egml = 4; }
+			else if(econclass.indexOf('auto-columns')  > -1 ){ egml = $.find('.column', econ).length;
+				//console.log($.find('.column', econ))
+				if(egreg.test(econclass)){ egml = Number(RegExp.$2);}
+				//console.log(egml)
+			}
+			
+			econ  = $.find('> .container', econs[i])[0] || econ;
+			ecw   = Math.round( width(econ) / egml);
+			//console.log(ecw)
+			ecols = $.find('> .column, > .fixed-column, > .elastic-column', econ);
+			for(j = 0, jl = ecols.length; j < jl; j++){
+				efcs  = [];
+				eecs  = [];
+				ecs   = [];
+				rp    = ig = efcsw = ecsw = 0;
+				ecol  = ecols[j];
+				escol = 1;
+				if(esreg.test(ecol.className)){escol = Number(RegExp.$2);}
+				ecol.escol = escol;
+				//console.log(ecol.escol)
+				egnl += escol;
+				
+				if(egnl == egml || j == (jl - 1)){ eg.push(ecol); egcl = 0;     rp = 1;}
+				else if(     egnl <  egml)              { eg.push(ecol); egcl = egnl;}
+				else if(egnl >  egml)              {                egcl = escol; rp = 1; ig = 1;}
+				
+				if(rp){
+					for(k = 0, kl = eg.length; k < kl; k++){
+						ec      = eg[k];
+						ecclass = ec.className;
+						if(ecclass.indexOf('fixed-') > -1)       { efcs.push(ec); efcsw += width(ec); }
+						else if(ecclass.indexOf('elastic-') > -1){ eecs.push(ec); }
+						else                                     { ecs.push(ec);  ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
+					}
+					
+					ll = eecs.length;
+					if(ll > 0){
+						eecw  = Math.round( ( width(econ) - ( ecsw + efcsw ) ) / ll);
+						eecsw = eecw * ll;
+						if(ll > 1){
+							for(l=0; l<ll; l++){ eecs[l].style.width = eecw + 'px'; }
+						}
+						eecs[ll-1].style.width = ( width(econ) - ( ecsw + efcsw + (eecsw - eecw) ) ) + 'px';
+					}
+					else if(ecs.length > 0 && egnl == egml){
+						ecs[ecs.length - 1].style.width = ( width(econ) - ( (ecsw - width(ecs[ecs.length - 1]) ) + efcsw ) ) + 'px';
+					}
+					eg = [];
+					egnl = 0;
+				}
+				
+				if(ig){eg = [ecol];}
+			}
+		}
+		
+		for(i in Elastic.helpers){Elastic.helpers[i](context);}
+	};
+
+	Elastic.version = '1.2';
+
+	Elastic.reset = function Elastic_reset(context){
+		var i,w,wl,h,hl,p,pl;
+		h = $.find('.same-height > *, .full-height, .equalized-height', context);
+		for(i=0, hl = h.length; i<hl; i++){h[i].style.height = '';}
+		p = $.find('.vertical-center, .center', context);
+		for(i=0, pl = p.length; i<pl; i++){p[i].parentNode.style.paddingTop = '';}
+		w = $('.column, .elastic-column', context);
+		for(i=0, wl = w.length; i<wl; i++){w[i].parentNode.style.width = '';}
+	};
+
+	Elastic.refresh = function Elastic_refresh(context){
+		Elastic.reset(context);
+		Elastic(context);
+	};
+
+	Elastic.configuration = {
+		refreshOnResize : true
+	};
+	
+	Elastic.helpers = {
+		'full-width'       : function Elastic_helper_fullWidth(context){
+			$('.full-width', context).each(function(){
+				$(this).width( $(this.parentNode).width() - ( $(this).outerWidth(true) - $(this).width() ) );
+			});
+		},
+		'same-height'      : function Elastic_helper_sameHeight(context){
+			$('.same-height', context).each(function(){
+				var height = $(this).outerHeight(true) - ( $(this).outerHeight(true) - $(this).height() );
+				$('> *', this).each(function(){
+					$(this).css('height', height);
+				});
+			});
+		},
+		'equalized-height' : function Elastic_helper_equalizedHeight(context){
+			$('.equalized-height', context).each(function(){
+				var columns = $('> .column, > .container > .column', this);
+				var maxHeight = 0;
+				columns.each(function(){
+					var currentHeight = $(this).outerHeight(true);
+					maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
+				})
+				.each(function(){
+					$(this).css('height', maxHeight)
+				});
+			});
+		},
+		'full-height'      : function Elastic_helper_fullHeight(context){
+			$('.full-height', context).each(function(){
+				$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
+			});
+		},
+		'center'           : function Elastic_helper_center(context){
+			$('.vertical-center, .center', context).each(function(){
+				var paddingTop = ( ( $(this.parentNode).height() - $(this).outerHeight(true) ) / 2 );
+				$(this.parentNode).css({
+					paddingTop : paddingTop + 'px',
+					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
+				});
+			});
+		}
+	};
+})(jQuery);
+
+jQuery(window).bind('load', function(){
+	Elastic();
+	jQuery(window).bind('resize',function(){
+		if(Elastic.configuration.refreshOnResize){
+			Elastic.refresh();
 		}
 	});
+	jQuery(document).bind('elastic', Elastic.refresh);
+});
+
+/*
+jQuery(function(){
+	Elastic();
+	jQuery(document).bind('elastic', Elastic.refresh);
+	jQuery(window).bind('resize', function(){
+		Elastic.refresh();
+	});
 	
-	window.Elastic = Elastic;
-})(jQuery);
+	if(!jQuery.browser.msie){
+		jQuery(window).bind('load', Elastic.refresh)
+	}
+});
+*/
