@@ -9,23 +9,28 @@
  * @core team  Sergio de la Garza
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.2
+ * @version    1.2.1
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
 (function($){
 	var CStyle = function (element, pseudoElement) {
-		if (getComputedStyle) {
+		if (window.getComputedStyle) {
 			return getComputedStyle(element, pseudoElement);
 		}
 		else
 		{
-			return element.currentStyle();
+			return element.currentStyle;
 		}
 	};
 	
 	var width = function(element){
-		return parseFloat(CStyle(element).width);
+		var width = CStyle(element).width;
+		if(width == 'auto'){
+			return $(element).width();
+		}else{
+			return parseFloat(width);
+		}
 	};
 	
 	window.Elastic = function Elastic(context){
@@ -79,7 +84,7 @@
 						ecclass = ec.className;
 						if(ecclass.indexOf('fixed-') > -1)       { efcs.push(ec); efcsw += width(ec); }
 						else if(ecclass.indexOf('elastic-') > -1){ eecs.push(ec); }
-						else                                     { ecs.push(ec);  ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
+						else                                     { ecs.push(ec); ec.style.width = '10px'; ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
 					}
 					
 					ll = eecs.length;
@@ -104,8 +109,10 @@
 		
 		for(i in Elastic.helpers){Elastic.helpers[i](context);}
 	};
-
-	Elastic.version = '1.2';
+	
+	var Elastic = window.Elastic;
+	
+	Elastic.version = '1.2.1';
 
 	Elastic.reset = function Elastic_reset(context){
 		var i,w,wl,h,hl,p,pl;
