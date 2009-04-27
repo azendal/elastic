@@ -15,11 +15,10 @@
 */
 (function($){
 	var CStyle = function (element, pseudoElement) {
-		if (window.getComputedStyle) {
+		if (window.getComputedStyle){
 			return getComputedStyle(element, pseudoElement);
 		}
-		else
-		{
+		else{
 			return element.currentStyle;
 		}
 	};
@@ -44,23 +43,18 @@
 		egcl = egnl = 0;
 		 
 		econs = $.find('.two-columns, .three-columns, .four-columns, .auto-columns', context);
-		//console.log(econs);
 		for(i = 0, il = econs.length; i < il; i++){
 			econ = econs[i];
-			//console.log(econ)
 			econclass = econ.className;
-			if(     econclass.indexOf('two-columns')   > -1){  egml = 2; }
-			else if(econclass.indexOf('three-columns') > -1){  egml = 3; }
-			else if(econclass.indexOf('four-columns')  > -1 ){ egml = 4; }
-			else if(econclass.indexOf('auto-columns')  > -1 ){ egml = $.find('.column', econ).length;
-				//console.log($.find('.column', econ))
+			if(     econclass.indexOf('two-columns')   > -1){ egml = 2; }
+			else if(econclass.indexOf('three-columns') > -1){ egml = 3; }
+			else if(econclass.indexOf('four-columns')  > -1){ egml = 4; }
+			else if(econclass.indexOf('auto-columns')  > -1){ egml = $.find('.column', econ).length;
 				if(egreg.test(econclass)){ egml = Number(RegExp.$2);}
-				//console.log(egml)
 			}
-			
+			else{continue;}
 			econ  = $.find('> .container', econs[i])[0] || econ;
 			ecw   = Math.round( width(econ) / egml);
-			//console.log(ecw)
 			ecols = $.find('> .column, > .fixed-column, > .elastic-column', econ);
 			for(j = 0, jl = ecols.length; j < jl; j++){
 				efcs  = [];
@@ -71,22 +65,20 @@
 				escol = 1;
 				if(esreg.test(ecol.className)){escol = Number(RegExp.$2);}
 				ecol.escol = escol;
-				//console.log(ecol.escol)
 				egnl += escol;
 				
 				if(egnl == egml || j == (jl - 1)){ eg.push(ecol); egcl = 0;     rp = 1;}
-				else if(     egnl <  egml)              { eg.push(ecol); egcl = egnl;}
-				else if(egnl >  egml)              {                egcl = escol; rp = 1; ig = 1;}
+				else if(egnl <  egml)            { eg.push(ecol); egcl = egnl;}
+				else if(egnl >  egml)            {                egcl = escol; rp = 1; ig = 1;}
 				
 				if(rp){
 					for(k = 0, kl = eg.length; k < kl; k++){
 						ec      = eg[k];
 						ecclass = ec.className;
-						if(ecclass.indexOf('fixed-') > -1)       { efcs.push(ec); efcsw += width(ec); }
+						if(     ecclass.indexOf('fixed-')   > -1){ efcs.push(ec); efcsw += width(ec); }
 						else if(ecclass.indexOf('elastic-') > -1){ eecs.push(ec); }
 						else                                     { ecs.push(ec); ec.style.width = '10px'; ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
 					}
-					
 					ll = eecs.length;
 					if(ll > 0){
 						eecw  = Math.round( ( width(econ) - ( ecsw + efcsw ) ) / ll);
@@ -102,11 +94,9 @@
 					eg = [];
 					egnl = 0;
 				}
-				
 				if(ig){eg = [ecol];}
 			}
 		}
-		
 		for(i in Elastic.helpers){Elastic.helpers[i](context);}
 	};
 	
@@ -186,17 +176,3 @@ jQuery(window).bind('load', function(){
 	});
 	jQuery(document).bind('elastic', Elastic.refresh);
 });
-
-/*
-jQuery(function(){
-	Elastic();
-	jQuery(document).bind('elastic', Elastic.refresh);
-	jQuery(window).bind('resize', function(){
-		Elastic.refresh();
-	});
-	
-	if(!jQuery.browser.msie){
-		jQuery(window).bind('load', Elastic.refresh)
-	}
-});
-*/

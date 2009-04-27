@@ -7,18 +7,16 @@
 		<meta name="keywords" content="css, framework, elastic, layout" />
 		<meta name="description" content="Elastic css framework: Develop web-based user interfaces the way you think about layouts with an easy going syntax and lots of flexibility" />
 		<title>Elastic css framework</title>
-		<!--  elastic	-->
-		<link rel="stylesheet" href="../reset.css" type="text/css" media="all" title="" charset="utf-8" />
-		<link rel="stylesheet" href="../base.css" type="text/css" media="all" title="" charset="utf-8" />
-		<link rel="stylesheet" href="../fonts.css" type="text/css" media="all" title="" charset="utf-8" />
-		<link rel="stylesheet" href="../class.css" type="text/css" media="all" title="" charset="utf-8" />
-		<link rel="stylesheet" href="../grid.css" type="text/css" media="all" title="" charset="utf-8" />
-		<link rel="stylesheet" href="../print.css" type="text/css" media="print" title="" charset="utf-8" />
-		<script src="../helpers_jquery/jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-		<script src="../helpers_jquery/engine.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-		<!--  end elastic	-->
-		<!--  application -->
+		<link rel="stylesheet" href="../production/elastic.css" type="text/css" media="all" title="" charset="utf-8" />
 		<link rel="stylesheet" href="skin.css" type="text/css" media="all" title="" charset="utf-8" />
+		<style type="text/css" media="screen">
+		/* <![CDATA[ */
+
+		/* ]]> */
+		</style>
+
+		<script src="../helpers_jquery/jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="../production/elastic.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 		<script type="text/javascript" language="javascript" charset="utf-8">
 		// <![CDATA[
 
@@ -31,7 +29,7 @@
 			<div class="container" style="">
 				<div class="unit two-columns header">
 					<div class="container same-height" style="">
-						<div class="fixed-left-column" style="">
+						<div class="fixed-column" style="">
 							<a href="/" title="home"><img src="img/logo.png" alt="logo" /></a>
 						</div>
 						<div class="elastic-column">
@@ -45,12 +43,7 @@
 					</div>
 				</div>
 				<div class="unit two-columns welcome">
-					<div class="container" style="">
-						<div class="fixed-right-column" style="width:400px;">
-							<div class="container full-height" style="text-align:center;">
-								<img src="img/ninja.png" title="" />
-							</div>
-						</div>
+					<div class="container same-height" style="">
 						<div class="elastic-column description">
 							<div class="container full-height" style="padding-top:20px;">
 								<p class="introduction">
@@ -77,14 +70,19 @@
 								</div>
 							</div>
 						</div>
+						<div class="fixed-column" style="">
+							<div class="container full-height" style="text-align:center; width:400px;">
+								<img src="img/ninja.png" title="" />
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="unit two-columns body">
 					<div class="container same-height" style="">
-						<div class="fixed-left-column" style="">
+						<div class="fixed-column" style="">
 							<div class="container" style="font-family:monospace; background-color:#4d4d4d; padding:20px;">
 								<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400;">"unit two-columns same-height"</span>&gt;</span><br />
-								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"fixed-left-column"</span>&gt;</span><br />
+								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"fixed-column"</span>&gt;</span><br />
 								&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FFFFFF;">Fixed width content</span></span><br />
 								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;/div><br />
 								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"elastic-column"</span>&gt;</span><br />
@@ -117,6 +115,17 @@
 							<div class="container full-height" style="padding-right:5px;">
 								<div class="container" style="border-top: dotted 1px #90ACC2;">
 									<h3>Challenge</h3>
+									<div class="unit">
+										<h4>Building a Grid System with Elastic</h4>
+										<p>Currently most CSS Frameworks are designed on the basis of a grid system.
+										Elastic is a more freestyle framework, so we will try to make a grid system
+										with Elastic 1.2</p>
+									</div>
+									<div class="unit">
+										<h4>Building a Widget</h4>
+										<p>Elastic seems to be a framework for page layout, but there is more.
+										So we eill build a gallery widget with Elastic</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -124,13 +133,22 @@
 							<div class="container full-height" style="padding-left: 5px; padding-right: 5px;">
 								<div class="container" style="border-top: dotted 1px #90ACC2;">
 									<h3>News</h3>
+									<div class="unit">
+										Elastic 1.2.1 Released: This is a bug fix release
+										Elastic 1.2 Released: Lots of new features
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="column">
 							<div class="container full-height" style="padding-left: 5px;">
 								<div class="container" style="border-top: dotted 1px #90ACC2;">
-									<h3>News</h3>
+									<h3>Tips and Tricks</h3>
+									<div class="unit">
+										Elastic class unit:
+										its the main class in the framework, reserved, only for internal usage
+										and its the begining of every building block of a layout
+									</div>
 								</div>
 							</div>
 						</div>
