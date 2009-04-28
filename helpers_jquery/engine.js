@@ -172,7 +172,7 @@ jQuery(window).bind('load', function(){
 	var iw = document.body.clientWidth
 	Elastic();
 	if(iw != document.body.clientWidth){
-		Elastic();
+		Elastic.refresh();
 	}
 	jQuery(window).bind('resize',function(){
 		if(Elastic.configuration.refreshOnResize){
