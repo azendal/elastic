@@ -168,7 +168,12 @@
 })(jQuery);
 
 jQuery(window).bind('load', function(){
+	jQuery(document).trigger('elastic:beforeInitialize');
+	var iw = document.body.clientWidth
 	Elastic();
+	(iw != document.body.clientWidth){
+		Elastic();
+	}
 	jQuery(window).bind('resize',function(){
 		if(Elastic.configuration.refreshOnResize){
 			Elastic.refresh();
