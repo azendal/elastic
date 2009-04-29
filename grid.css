@@ -1,10 +1,10 @@
 
 /* Grade A browser clearfix */
+.unit:after,
+.container:after,
+.column:after,
 .fixed-column:after,
 .elastic-column:after,
-.column:after, 
-.unit:after, 
-.container:after, 
 .clearfix:after
 {
 	content    : " ";
@@ -15,11 +15,11 @@
 }
 
 /* msie6 clearfix */
+.unit,
+.container,
+.column,
 .fixed-column,
 .elastic-column,
-.column, 
-.unit, 
-.container, 
 .clearfix
 {
 	*zoom :1;

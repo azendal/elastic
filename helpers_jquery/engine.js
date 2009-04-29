@@ -94,7 +94,7 @@
 					eg = [];
 					egnl = 0;
 				}
-				if(ig){eg = [ecol];}
+				if(ig){eg = [ecol]; egnl = escol;}
 			}
 		}
 		for(i in Elastic.helpers){Elastic.helpers[i](context);}
@@ -105,6 +105,7 @@
 	Elastic.version = '1.2.1';
 
 	Elastic.reset = function Elastic_reset(context){
+		jQuery(document).trigger('elastic:beforeReset');
 		var i,w,wl,h,hl,p,pl;
 		h = $.find('.same-height > *, .full-height, .equalized-height', context);
 		for(i=0, hl = h.length; i<hl; i++){h[i].style.height = '';}
@@ -112,11 +113,14 @@
 		for(i=0, pl = p.length; i<pl; i++){p[i].parentNode.style.paddingTop = '';}
 		w = $('.column, .elastic-column', context);
 		for(i=0, wl = w.length; i<wl; i++){w[i].parentNode.style.width = '';}
+		jQuery(document).trigger('elastic:reset');
 	};
 
 	Elastic.refresh = function Elastic_refresh(context){
+		jQuery(document).trigger('elastic:beforeRefresh');
 		Elastic.reset(context);
 		Elastic(context);
+		jQuery(document).trigger('elastic:refresh');
 	};
 
 	Elastic.configuration = {
@@ -180,4 +184,5 @@ jQuery(window).bind('load', function(){
 		}
 	});
 	jQuery(document).bind('elastic', Elastic.refresh);
+	jQuery(document).trigger('elastic:Initialize');
 });

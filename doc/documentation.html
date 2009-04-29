@@ -11,7 +11,8 @@
 		<link rel="stylesheet" href="skin.css" type="text/css" media="all" title="" charset="utf-8" />
 		<style type="text/css" media="screen">
 		/* <![CDATA[ */
-
+			.data{border-collapse:collapse;}
+			.data td{padding: 5px; border:solid 1px}
 		/* ]]> */
 		</style>
 
@@ -110,6 +111,8 @@
 							have taken different approaches to this problem.</p>
 							<p>Elastic has integrated clearfix, so there is no need to do clearfix manually when making a layout. Most other frameworks
 							require that the developer handle this, making it more difficult to change, and learn</p>
+							<p>Elastic clearfix method is not intrusive, it does not require extra markup, and dont use overlfow:hidden to accomplish it.
+							So you can position relative or absolute like if your where not using clearfix at all.</p>
 							<p>Some frameworks require that the developer use a class last, to let the framework know that a block is ended, Elastic
 							handles this situation autmatically, making it easier to learn and code.</p>
 							<p>Many frameworks are designed to make fixed with layouts, others to make liquid layouts, and some recent frameworks are
@@ -137,6 +140,83 @@
 						<h2>Advanced Layouts</h2>
 						<h2>Tutorials</h2>
 						<h2>Reference</h2>
+						<div class="unit">
+							<table class="data">
+								<tr>
+									<td width="200">unit</td>
+									<td>The base and starting point of all elastic framework grids</td>
+								</tr>
+								<tr>
+									<td>column</td>
+									<td>this defines the content block of grid. and it does not matter where it appears
+									it alwas behaves as a column. but its size is affected by its container. It also is affected by span-#</td>
+								</tr>
+								<tr>
+									<td>fixed-column</td>
+									<td>a special type of column with a defined with, that can be set, or inferred by elastic engine.</td>
+								</tr>
+								<tr>
+									<td>elastic-column</td>
+									<td>a special type of column that uses the space not occupied by columns or fixed columns.</td>
+								</tr>
+								<tr>
+									<td>container</td>
+									<td>units or columns cannot be used to set margin or padding. container serves to this pourpose.
+									This also has the beneffit of variable column separation</td>
+								</tr>
+								<tr>
+									<td>two-columns</td>
+									<td>defines that every contained column must be 50% of its parentNode.
+									It can be stacked with unit or column</td>
+								</tr>
+								<tr>
+									<td>three-columns</td>
+									<td>defines that every contained column must be 33.33% of its parentNode.
+									It can be stacked with unit or column</td>
+								</tr>
+								<tr>
+									<td>four-columns</td>
+									<td>defines that every contained column must be 25% of its parentNode.
+									It can be stacked with unit or column</td>
+								</tr>
+								<tr>
+									<td>auto-columns</td>
+									<td>defines that every contained column must be 1/n of its parentNode.
+									It can be stacked with unit or column, and it can be modified by group-by-#.
+									Internally everything on elastic is processed as auto-columns, but to serve better syntax,
+									and like 1-4 columns are the most common sets, they are explicitelly named, but they can be
+									made by auto-columns</td>
+								</tr>
+								<tr>
+									<td>same-height</td>
+									<td>sets the height of every child to the height of its parentNode</td>
+								</tr>
+								<tr>
+									<td>equalized-height</td>
+									<td>sets the height of every child to the height of the tallest column (use when using column overload)</td>
+								</tr>
+								<tr>
+									<td>horizontal-center</td>
+									<td>centers an element on the x axis</td>
+								</tr>
+								<tr>
+									<td>vertical-center</td>
+									<td>centers an element on the y axis</td>
+								</tr>
+								<tr>
+									<td>center</td>
+									<td>centers an element on the y and x axis</td>
+								</tr>
+								<tr>
+									<td>full-width</td>
+									<td>sets the element to the width of its container(usefull for form widgets)</td>
+								</tr>
+								<tr>
+									<td>full-height</td>
+									<td>sets the element to the height of its container</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="unit footer">
