@@ -6,10 +6,10 @@
  * LICENSE: It is planned to release it as MIT
  *
  * @author     Fernando Trasviña
- * @core team  Sergio de la Garza
+ * @core team  Sergio de la Garza, Javier Ayala
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.2.1
+ * @version    1.2.2
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
@@ -34,7 +34,7 @@
 	
 	window.Elastic = function Elastic(context){
 		var i,j,k,l,il,jl,kl,ll;
-		var econs, econ, econclass, ecols, ecol, ecolclass, eg, egml, egcl, egnl, ecw, ecolgs, escol, rp, ig;
+		var econs, econ, econclass, ecols, ecol, eg, egml, egcl, egnl, ecw, escol, rp, ig;
 		var efcs, efcsw, eecs, eecsw, eecw, ecs, ecsw, ec, ecclass; 
 		var egreg = /(^|\s+)group\-by\-(\d+)(\s+|$)/;
 		var esreg = /(^|\s+)span\-(\d+)(\s+|$)/;
@@ -97,7 +97,11 @@
 				if(ig){eg = [ecol]; egnl = escol;}
 			}
 		}
-		for(i in Elastic.helpers){Elastic.helpers[i](context);}
+		for(i in Elastic.helpers){
+			if(Elastic.helpers.hasOwnProperty(i)){
+				Elastic.helpers[i](context);
+			}
+		}
 	};
 	
 	var Elastic = window.Elastic;
@@ -150,7 +154,7 @@
 					maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
 				})
 				.each(function(){
-					$(this).css('height', maxHeight)
+					$(this).css('height', maxHeight);
 				});
 			});
 		},
@@ -173,7 +177,7 @@
 
 jQuery(window).bind('load', function(){
 	jQuery(document).trigger('elastic:beforeInitialize');
-	var iw = document.body.clientWidth
+	var iw = document.body.clientWidth;
 	Elastic();
 	if(iw != document.body.clientWidth){
 		Elastic.refresh();
