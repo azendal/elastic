@@ -14,7 +14,7 @@
 
 .layout
 {
-	min-width : 980px;
+/*	min-width : 980px;*/
 }
 
 .header > .container,
@@ -23,7 +23,7 @@
 .footer > .container
 {
 	margin  : 0 auto;
-	width   : 958px;
+/*	width   : 958px;*/
 	padding : 10px;
 }
 

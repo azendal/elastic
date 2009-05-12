@@ -152,12 +152,16 @@
 									it alwas behaves as a column. but its size is affected by its container. It also is affected by span-#</td>
 								</tr>
 								<tr>
+									<td>span-#</td>
+									<td>Modifies the width of a column to # number of columns (much like table colspan does)</td>
+								</tr>
+								<tr>
 									<td>fixed-column</td>
-									<td>a special type of column with a defined with, that can be set, or inferred by elastic engine.</td>
+									<td>a special type of column with a defined with, that can be set, or inferred by elastic engine. there can be more than 1</td>
 								</tr>
 								<tr>
 									<td>elastic-column</td>
-									<td>a special type of column that uses the space not occupied by columns or fixed columns.</td>
+									<td>a special type of column that uses the space not occupied by columns or fixed columns. there can be more than 1</td>
 								</tr>
 								<tr>
 									<td>container</td>
@@ -186,6 +190,10 @@
 									Internally everything on elastic is processed as auto-columns, but to serve better syntax,
 									and like 1-4 columns are the most common sets, they are explicitelly named, but they can be
 									made by auto-columns</td>
+								</tr>
+								<tr>
+									<td>group-by-#</td>
+									<td>modifies the behaviour of autocolumns making a #-columns block</td>
 								</tr>
 								<tr>
 									<td>same-height</td>

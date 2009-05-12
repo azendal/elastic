@@ -19,7 +19,9 @@
 		<script src="../production/elastic.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 		<script type="text/javascript" language="javascript" charset="utf-8">
 		// <![CDATA[
-
+			window.onprint = function(){
+				jQuery('body').css('width', jQuery('body').width());
+			};
 		// ]]>
 		</script>
 		<!--  end application	-->
@@ -82,10 +84,10 @@
 						<div class="fixed-column" style="">
 							<div class="container" style="font-family:monospace; background-color:#4d4d4d; padding:20px;">
 								<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400;">"unit two-columns same-height"</span>&gt;</span><br />
-								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"fixed-column"</span>&gt;</span><br />
+								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"fixed-column side-bar"</span>&gt;</span><br />
 								&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FFFFFF;">Fixed width content</span></span><br />
 								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;/div><br />
-								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"elastic-column"</span>&gt;</span><br />
+								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;div class=<span style="color:#fff400">"elastic-column content"</span>&gt;</span><br />
 								&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FFFFFF;">Width variable content</span><br />
 								&nbsp;&nbsp;<span style="color:#E4F2FD">&lt;/div&gt;</span><br />
 								<span style="color:#E4F2FD">&lt;/div&gt;
@@ -134,7 +136,10 @@
 								<div class="container" style="border-top: dotted 1px #90ACC2;">
 									<h3>News</h3>
 									<div class="unit">
+										Elastic 1.2.3 Released: Events support
+										<br />
 										Elastic 1.2.1 Released: This is a bug fix release
+										<br />
 										Elastic 1.2 Released: Lots of new features
 									</div>
 								</div>
