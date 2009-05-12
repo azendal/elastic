@@ -9,7 +9,7 @@
  * @core team  Sergio de la Garza, Javier Ayala
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.2.2
+ * @version    1.2.3
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
@@ -106,7 +106,7 @@
 	
 	var Elastic = window.Elastic;
 	
-	Elastic.version = '1.2.1';
+	Elastic.version = '1.2.3';
 
 	Elastic.reset = function Elastic_reset(context){
 		jQuery(document).trigger('elastic:beforeReset');
