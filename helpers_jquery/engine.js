@@ -9,7 +9,7 @@
  * @core team  Sergio de la Garza, Javier Ayala
  * @copyright  2008 Elastic css framework
  * @license    MIT
- * @version    1.2.3
+ * @version    1.2.4
  * @link       elastic/dev/helpers.js
  * @since      1.0 RC1
 */
@@ -106,7 +106,7 @@
 	
 	var Elastic = window.Elastic;
 	
-	Elastic.version = '1.2.3';
+	Elastic.version = '1.2.4';
 
 	Elastic.reset = function Elastic_reset(context){
 		jQuery(document).trigger('elastic:beforeReset');
@@ -165,7 +165,7 @@
 		},
 		'center'           : function Elastic_helper_center(context){
 			$('.vertical-center, .center', context).each(function(){
-				var paddingTop = ( ( $(this.parentNode).height() - $(this).outerHeight(true) ) / 2 );
+				var paddingTop = Math.round( ( $(this.parentNode).height() - $(this).outerHeight(true) ) / 2 );
 				$(this.parentNode).css({
 					paddingTop : paddingTop + 'px',
 					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
