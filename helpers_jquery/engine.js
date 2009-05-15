@@ -22,7 +22,7 @@
 			return element.currentStyle;
 		}
 	};
-	
+
 	var width = function(element){
 		var width = CStyle(element).width;
 		if(width == 'auto'){
@@ -31,17 +31,17 @@
 			return parseFloat(width);
 		}
 	};
-	
+
 	window.Elastic = function Elastic(context){
 		var i,j,k,l,il,jl,kl,ll;
 		var econs, econ, econclass, ecols, ecol, eg, egml, egcl, egnl, ecw, escol, rp, ig;
-		var efcs, efcsw, eecs, eecsw, eecw, ecs, ecsw, ec, ecclass; 
+		var efcs, efcsw, eecs, eecsw, eecw, ecs, ecsw, ec, ecclass;
 		var egreg = /(^|\s+)group\-by\-(\d+)(\s+|$)/;
 		var esreg = /(^|\s+)span\-(\d+)(\s+|$)/;
-		
+
 		eg   = [];
 		egcl = egnl = 0;
-		 
+
 		econs = $.find('.two-columns, .three-columns, .four-columns, .auto-columns', context);
 		for(i = 0, il = econs.length; i < il; i++){
 			econ = econs[i];
@@ -66,11 +66,11 @@
 				if(esreg.test(ecol.className)){escol = Number(RegExp.$2);}
 				ecol.escol = escol;
 				egnl += escol;
-				
+
 				if(egnl == egml || j == (jl - 1)){ eg.push(ecol); egcl = 0;     rp = 1;}
 				else if(egnl <  egml)            { eg.push(ecol); egcl = egnl;}
 				else if(egnl >  egml)            {                egcl = escol; rp = 1; ig = 1;}
-				
+
 				if(rp){
 					for(k = 0, kl = eg.length; k < kl; k++){
 						ec      = eg[k];
@@ -103,17 +103,17 @@
 			}
 		}
 	};
-	
+
 	var Elastic = window.Elastic;
-	
+
 	Elastic.version = '1.2.4';
 
 	Elastic.reset = function Elastic_reset(context){
 		jQuery(document).trigger('elastic:beforeReset');
 		var i,w,wl,h,hl,p,pl;
-		h = $.find('.same-height > *, .full-height, .equalized-height', context);
+		h = $.find('.same-height > *, .full-height, .equalized-height > *', context);
 		for(i=0, hl = h.length; i<hl; i++){h[i].style.height = '';}
-		p = $.find('.vertical-center, .center', context);
+		p = $.find('.vertical-center, .center, .bottom', context);
 		for(i=0, pl = p.length; i<pl; i++){p[i].parentNode.style.paddingTop = '';}
 		w = $('.column, .elastic-column', context);
 		for(i=0, wl = w.length; i<wl; i++){w[i].parentNode.style.width = '';}
@@ -130,7 +130,7 @@
 	Elastic.configuration = {
 		refreshOnResize : true
 	};
-	
+
 	Elastic.helpers = {
 		'full-width'       : function Elastic_helper_fullWidth(context){
 			$('.full-width', context).each(function(){
@@ -171,11 +171,20 @@
 					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
 				});
 			});
+		},
+		'bottom'          : function Elastic_helper_bottom(context){
+			$('.bottom', context).each(function(){
+				var paddingTop = Math.round( $(this.parentNode).height() - $(this).outerHeight(true) );
+				$(this.parentNode).css({
+					paddingTop : paddingTop + 'px',
+					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
+				});
+			});
 		}
 	};
 })(jQuery);
 
-jQuery(window).bind('load', function(){
+jQuery(function(){
 	jQuery(document).trigger('elastic:beforeInitialize');
 	var iw = document.body.clientWidth;
 	Elastic();
