@@ -77,7 +77,7 @@
 						ecclass = ec.className;
 						if(     ecclass.indexOf('fixed-')   > -1){ efcs.push(ec); efcsw += width(ec); }
 						else if(ecclass.indexOf('elastic-') > -1){ eecs.push(ec); }
-						else                                     { ecs.push(ec); ec.style.width = '10px'; ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
+						else                                     { ecs.push(ec); ec.style.width = (ecw * ec.escol) + 'px'; ecsw += width(ec); }
 					}
 					ll = eecs.length;
 					if(ll > 0){
@@ -106,7 +106,7 @@
 
 	var Elastic = window.Elastic;
 
-	Elastic.version = '1.2.4';
+	Elastic.version = '1.2.5';
 
 	Elastic.reset = function Elastic_reset(context){
 		jQuery(document).trigger('elastic:beforeReset');
@@ -160,24 +160,27 @@
 		},
 		'full-height'      : function Elastic_helper_fullHeight(context){
 			$('.full-height', context).each(function(){
-				$(this).css('height', $(this.parentNode).height() - ( $(this).outerHeight(true) - $(this).height() ));
+				var _this = $(this);
+				_this.css('height', $(this.parentNode).height() - ( _this.outerHeight(true) - _this.height() ));
 			});
 		},
 		'center'           : function Elastic_helper_center(context){
 			$('.vertical-center, .center', context).each(function(){
-				var paddingTop = Math.round( ( $(this.parentNode).height() - $(this).outerHeight(true) ) / 2 );
+				var parentNode = $(this.parentNode);
+				var paddingTop = Math.round( ( parentNode.height() - $(this).outerHeight(true) ) / 2 );
 				$(this.parentNode).css({
 					paddingTop : paddingTop + 'px',
-					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
+					height     : ( parentNode.css('height') ) ? ( parentNode.outerHeight() - paddingTop ) : ''
 				});
 			});
 		},
 		'bottom'          : function Elastic_helper_bottom(context){
 			$('.bottom', context).each(function(){
-				var paddingTop = Math.round( $(this.parentNode).height() - $(this).outerHeight(true) );
-				$(this.parentNode).css({
+				var parentNode = $(this.parentNode);
+				var paddingTop = Math.round( parentNode.height() - $(this).outerHeight(true) );
+				parentNode.css({
 					paddingTop : paddingTop + 'px',
-					height     : ( $(this.parentNode).css('height') ) ? ( $(this.parentNode).outerHeight() - paddingTop ) : ''
+					height     : ( parentNode.css('height') ) ? ( parentNode.outerHeight() - paddingTop ) : ''
 				});
 			});
 		}
