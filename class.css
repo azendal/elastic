@@ -13,6 +13,11 @@
 	/* Helpers will handle this */
 }
 
+.elastic-height
+{
+	height : 0;
+}
+
 .horizontal-center
 {
 	margin : 0 auto;	
