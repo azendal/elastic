@@ -1,0 +1,142 @@
+/*
+	Elastic CSS Framework
+	Released under the MIT, BSD, and GPL Licenses.
+	More information http://elasticss.com
+	
+	Elastic CSS Grid Module
+*/
+
+/*
+	Provides clearfix to grade A browsers
+*/
+.unit:after,
+.container:after,
+.columns:after,
+.column:after,
+.clearfix:after
+{
+	content    : " ";
+	display    : block;
+	height     : 0;
+	clear      : both;
+	visibility : hidden;
+}
+
+/*
+	Provides display as block to every Elastic main class
+	Provides clearfix to old IE
+*/
+.unit,
+.container,
+.columns,
+.column,
+.clearfix
+{
+	display  : block;
+	*zoom    : 1;
+	*display : inline-block;
+}
+
+.full-height
+{
+	/* handled by engine */
+	display:block;
+}
+
+.same-height
+{
+	/* handled by engine */
+	display:block;
+}
+
+.elastic-height
+{
+	height : 0;
+}
+
+.horizontal-center
+{
+	margin : 0 auto;	
+}
+
+.vertical-center
+{
+	/* margin : auto 0; */
+	display : block;
+}
+
+.center
+{
+	/* margin : auto */
+	margin : 0 auto;
+}
+
+.column
+{
+	float : left;
+}
+
+.column.final
+{
+	/* handled by engine */
+	display:block;
+}
+
+.column.fixed
+{
+	width : auto;
+}
+
+.column.elastic
+{
+	display : block;
+}
+
+.inverted > .column,
+.inverted > .container > .column
+{
+	float : right;
+}
+
+/*
+	Even though Elastic relies mostly on the Elastic Engine we still provide
+	support for the very basic set of classes.
+	
+	In the case that you are not using engine or JavaScript is disabled,
+	this classes cover most cases.
+*/
+.on-2.columns > .column:not(.fixed),
+.on-2.columns > .container > .column:not(.fixed)
+{
+	width : 50%;
+}
+
+.on-3.columns > .column:not(.fixed),
+.on-3.columns > .container > .column:not(.fixed)
+{
+	width : 33.33%;
+}
+
+.on-3.columns > .column.span-2,
+.on-3.columns > .container > .column.span-2
+{
+	width : 66.66%;
+}
+
+.on-4.columns > .column:not(.fixed),
+.on-4.columns > .container > .column:not(.fixed)
+{
+	width : 25%;
+}
+
+.on-4.columns > .column.span-2,
+.on-4.columns > .container > .column.span-2
+{
+	width : 50%;
+}
+
+.on-4.columns > .column.span-3,
+.on-4.columns > .container > .column.span-2
+{
+	width : 75%;
+}

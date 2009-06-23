@@ -9,7 +9,6 @@ Elastic is organized in several files
 * *reset.css*: unifies the css of the browser
 * *base.css*: builds a base to work on
 * *fonts.css*: sets the font base
-* *class.css*: CSS Classes for engine.js
 * *grid.css*: layout components
 * *print.css*: layout printing components
 * *jquery.js*: jquery to simplify the creation of helpers
@@ -37,34 +36,29 @@ elastic's engine.js provides a predictable way of rounding letting you know what
 
 h4. The order is this:
 
-* fixed-column never modified
-* column (last) modified
-* elastic-column (last)
+* .column.fixed never modified
+* .column (last) modified
+* .column.elastic (last)
 
 h4. Engine performance
 
-We are currently releasing a working version of the engine in order to spot bugs on design and on implementation
-next milestone will be to improve speed of this engine.
+Since version 1.0 we have been working in making engine faster, and will continue to improve
+the speed of the engine, but from version 1.0 to 2.0 we have gained around a 60% of speed
+some new features have been added, so if you use them all, you may get a lil slower than 1.0
+but hey engine is doing more things.
 
 <pre><code class="html">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" media="all" href="reset.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="base.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="fonts.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="class.css" />
-		<link rel="stylesheet" type="text/css" media="all" href="grid.css" />
-		<link rel="stylesheet" type="text/css" media="print" href="print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="elastic.css" />
 		<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 		<script src="engine.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div class="unit three-columns">
-			<div class="column">first column content</div>
-			<div class="column">second column content</div>
-			<div class="column">third column content</div>
+		<div class="unit">
+			content
 		</div>
 	</body>
 </html>
@@ -83,7 +77,7 @@ h3. Make a layout based on 1 column
 h3. Make a layout based on 2 columns
 
 <pre><code class="html">
-<div class="unit two-columns">
+<div class="unit on-2 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 </div>
@@ -92,7 +86,7 @@ h3. Make a layout based on 2 columns
 h3. Make a layout based on 3 columns
 
 <pre><code class="html">
-<div class="unit three-columns">
+<div class="unit on-3 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 	<div class="column">third column content</div>
@@ -102,7 +96,7 @@ h3. Make a layout based on 3 columns
 h3. Make a layout based on 4 columns
 
 <pre><code class="html">
-<div class="unit four-columns">
+<div class="unit on-4 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 	<div class="column">third column content</div>
@@ -113,7 +107,7 @@ h3. Make a layout based on 4 columns
 h3. But i really really need more columns
 
 <pre><code class="html">
-<div class="unit auto-columns">
+<div class="unit columns">
 	<div class="column">column content</div>
 	<div class="column">column content</div>
 	<div class="column">column content</div>
@@ -129,12 +123,12 @@ h3. This things is like tables, can i have span?
 Well you can, but currently not for auto-columns. and it is called span
 
 <pre><code class="html">
-<div class="unit four-columns">
+<div class="unit on-4 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 	<div class="column span-2">third column content spawned as a double column</div>
 </div>
-<div class="unit four-columns">
+<div class="unit on-4 columns">
 	<div class="column">first column content</div>
 	<div class="column span-3">second column content spawned as a triple column</div>
 </div>
@@ -165,11 +159,11 @@ div.layout
 h3. Make a layout based on 2 columns and a 3 columns below that
 
 <pre><code class="html">
-<div class="unit two-columns">
+<div class="unit on-2 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 </div>
-<div class="unit three-columns">
+<div class="unit on-3 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 	<div class="column">third column content</div>
@@ -199,33 +193,33 @@ h2. Advanced layout features
 h3. Make a column fixed and the other elastic
 
 <pre><code class="html">
-<div class="unit two-columns">
-	<div class="fixed-column" style="width:250px;">first column content</div>
-	<div class="elastic-column">second column content</div>
+<div class="unit columns">
+	<div class="fixed column" style="width:250px;">first column content</div>
+	<div class="elastic column">second column content</div>
 </div>
-<div class="unit two-columns">
-	<div class="elastic-column">second column content</div>
-	<div class="fixed-column" style="width:250px;">second column content</div>
+<div class="unit columns">
+	<div class="elastic column">second column content</div>
+	<div class="fixed column" style="width:250px;">second column content</div>
 </div>
 </code></pre>
 
 h3. How about i dont know the width of fixed-column
 
 <pre><code class="html">
-<div class="unit two-columns">
-	<div class="fixed-column">let elastic get it</div>
-	<div class="elastic-column">second column content</div>
+<div class="unit columns">
+	<div class="fixed column">let elastic get it</div>
+	<div class="elastic column">second column content</div>
 </div>
-<div class="unit two-columns">
-	<div class="elastic-column">second column content</div>
-	<div class="fixed-column" style="width:250px;">second column content</div>
+<div class="unit columns">
+	<div class="elastic column">second column content</div>
+	<div class="fixed column" style="width:250px;">second column content</div>
 </div>
 </code></pre>
 
 h3. How about a 3x3 layout
 
 <pre><code class="html">
-<div class="unit two-columns">
+<div class="unit columns on-3">
 	<div class="column">
 		column
 	</div>
@@ -247,7 +241,7 @@ h3. How about a 3x3 layout
 h3. Make columns of same height
 
 <pre><code class="html">
-<div class="unit two-columns same-height">
+<div class="unit columns same-height">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 </div>
@@ -256,7 +250,7 @@ h3. Make columns of same height
 h3. Centering on the vertical axis
 
 <pre><code class="html">
-<div class="unit two-columns same-height">
+<div class="unit columns same-height">
 	<div class="column" style="height:50px;">first column content</div>
 	<div class="column">
 		<div class="container vertical-center" style="">
@@ -342,11 +336,7 @@ h3. Telling elastic to refresh calculations
 <pre><code class="html">
 <script type="text/javascript" language="javascript" charset="utf-8">
 	// direct call 
-	Elastic.refresh();
-</script>
-<script type="text/javascript" language="javascript" charset="utf-8">
-	// jquery event invocation
-	$(document).trigger('elastic');
+	Elastic.refresh(context);
 </script>
 </code></pre>
 
@@ -362,3 +352,5 @@ h2. Contributors
 Fernando Trasviña (Lead Developer) trasvina [at] gmail
 
 Sergio de la Garza (Core Member Lead) sergio.delagarza [at] gmail
+
+Javier Ayala (Website) jav.forza [at] gmail

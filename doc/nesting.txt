@@ -1,0 +1,39 @@
+Elastic 2.0 syntax
+unit [full-height] [elastic-height]
+columns [on-#] [same-height] [adaptive-#-#]
+column [span-#] [final]
+container [same-height] [full-height] [horizontal-center] [vertical-center] [center] [bottom]
+* [full-width] [position-#] [display #]
+                         |___________|
+
+unit << columns
+column << columns
+
+Nesting options
+columns
+	column
+		- put your content here -
+
+columns
+	container
+		column
+			- put your content here -
+
+columns
+	container
+		column
+			container
+				- put your content here -
+
+unit
+	columns
+
+unit
+	container
+		columns
+		
+Nesting Rules
+	elastic-height
+		container
+
+View sources of demos to see examples and results of usage

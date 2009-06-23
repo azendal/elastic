@@ -1,0 +1,156 @@
+html, body{
+	background : #000 url(images/page_background.jpg) repeat-x;
+}
+
+body
+{
+	padding-top : 16px;
+	color       : #FFF;
+}
+
+form input,
+form textarea
+{
+	border : solid 1px #FFF;
+	background-color : #32a3db;
+	color : #FFF;
+	margin : 2px 0;
+	padding : 2px;
+}
+
+h1,h2,h3,h4
+{
+	padding   : 0;
+	margin    : 0;
+}
+
+h1,
+h2
+{
+	font-size : 13px;
+}
+
+h3
+{
+	font-size : 13px;
+}
+
+h2, h3
+{
+	padding-left : 5px;
+}
+
+h2,
+.text-color2
+{
+	color : #32a3db;
+}
+
+.hidden
+{
+	display : none;
+}
+
+.overlay
+{
+	position         : fixed;
+	width            : 100%;
+	height           : 100%;
+	top              : 0;
+	left             : 0;
+}
+
+.opaque
+{
+	background-color : #000000;
+	opacity          : 0.2;
+}
+
+.right, .left
+{
+	cursor : pointer;
+}
+
+div.layout
+{
+	width         : 916px;
+	background    : #000;
+	padding-top   : 16px;
+	padding-left  : 32px;
+	padding-right : 32px;
+}
+
+div.layout div.header
+{
+	border-bottom : solid 1px #FFF;
+}
+
+div.layout div.header div.navigation
+{
+	text-align : right;
+}
+
+div.layout div.body div.gallery-menu
+{
+	width : 200px;
+}
+
+div.layout div.body	div.gallery-menu div.menu
+{
+	padding : 8px;
+}
+
+div.layout div.body	div.gallery-menu div.menu a,
+div.layout div.body	div.gallery-menu div.menu a:link,
+div.layout div.body	div.gallery-menu div.menu a:visited
+{
+	text-decoration : none;
+	color           : #FFFFFF;
+	font-size       : 110%;
+	display         : block;
+	padding         : 2px 0;
+}
+
+div.layout div.body	div.gallery-menu div.menu a:hover
+{
+	color : #32a3db;
+}
+
+div.layout div.body .section-image
+{
+	border : solid 1px #65b3da;
+}
+
+div.layout div.body div.info-container
+{
+	padding-left : 16px;
+}
+
+div.layout div.body div.info-container div.info
+{
+	overflow : auto;
+}
+
+/*-------------------*/
+.box
+{
+	width:700px;
+	position:relative;
+	left:-350px;
+	top:-250px;
+	background:#000;
+	border: solid 1px #FFF;
+	-moz-border-radius:5px;
+}
+.box .header
+{
+	background-color : #16648b;
+	height           : 16px;
+	-moz-border-radius: 5px 5px 0 0;
+	padding:10px 20px;
+}
+
+.box .close
+{
+	cursor: pointer;
+}
