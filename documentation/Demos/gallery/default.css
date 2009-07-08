@@ -1,0 +1,18 @@
+.elastic-gallery .thumbnail
+{
+	float:left;
+	padding:1px;
+}
+
+.elastic-gallery .image
+{
+	position:absolute;
+	top:0; 
+	left:0; 
+	width:100%;
+}
+
+.elastic-gallery .thumbnails-display-container
+{
+	overflow : hidden;
+}

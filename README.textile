@@ -173,7 +173,7 @@ h3. Make a layout based on 2 columns and a 3 columns below that
 h3. Make a layout of 2 columns and the left column contain 3 columns
 
 <pre><code class="html">
-<div class="unit two-columns">
+<div class="unit on-2 columns">
 	<div class="column three-columns">
 		<div class="column">first column content</div>
 		<div class="column">second column content</div>
@@ -181,7 +181,7 @@ h3. Make a layout of 2 columns and the left column contain 3 columns
 	</div>
 	<div class="column">second column content</div>
 </div>
-<div class="unit three-columns">
+<div class="unit on-3 columns">
 	<div class="column">first column content</div>
 	<div class="column">second column content</div>
 	<div class="column">third column content</div>
@@ -203,6 +203,21 @@ h3. Make a column fixed and the other elastic
 </div>
 </code></pre>
 
+h3. Elastic height
+<pre><code class="html">
+<div class="unit">
+	<div class="container" style="height:200px;">
+		<div class="unit">
+			some text
+		</div>
+		<!-- The next unit will occupy the remaining space in the contianer -->
+		<div class="unit elastic-height">
+			some text, check documentation for overflow integration
+		</div>
+	</div>
+</div>
+</code></pre>
+
 h3. How about i dont know the width of fixed-column
 
 <pre><code class="html">
@@ -219,7 +234,7 @@ h3. How about i dont know the width of fixed-column
 h3. How about a 3x3 layout
 
 <pre><code class="html">
-<div class="unit columns on-3">
+<div class="unit on-3 columns">
 	<div class="column">
 		column
 	</div>
@@ -263,10 +278,56 @@ h3. Centering on the vertical axis
 h3. full-width. This one is cool for inputs
 
 <pre><code class="html">
-<div class="unit two-columns same-height">
+<div class="unit on-2 columns same-height">
 	<div class="column">first column content</div>
 	<div class="column">
 		<input type="text" class="full-width" name="some_name" value="" id="" />
+	</div>
+</div>
+</code></pre>
+
+h3. Make adaptive layouts.
+
+Elastic provides a new way to make layouts adaptive on the number of columns per row on layouts, using the new class
+adaptive-min-max where min is the minimum number of pixels for a column and max is the oposite.
+
+<pre><code class="html">
+<div class="unit columns adaptive-200-300 same-height">
+	<div class="column">first column content</div>
+	<div class="column">first column content</div>
+	<div class="column">first column content</div>
+	<div class="column">first column content</div>
+	<div class="column">first column content</div>
+</div>
+</code></pre>
+
+h2. Layouts
+
+Elastic provides layout features, (similar idea of CSS3 Layouts), but this is a pure Elastic implementation following the Framework DSL.
+This lets layout creator provide ceo friendly content, and change layouts easily. Even though it is accomplished via javascript, but it
+lets Elastic do its magic more properly.
+
+<pre><code class="html">
+<div class="unit position-body">body 1</div>
+<div class="unit position-footer">footer 1</div>
+<div class="unit position-body">body 2</div>
+
+<div class="unit on-2 columns same-height">
+	<div class="column display body"></div>
+	<div class="column display footer"></div>
+</div>
+</code></pre>
+
+From this html code you will get this after Elastic processes.
+
+<pre><code class="html">
+<div class="unit on-2 columns same-height">
+	<div class="column display body">
+		<div class="unit position-body">body 1</div>
+		<div class="unit position-body">body 2</div>
+	</div>
+	<div class="column display footer">
+		<div class="unit position-footer">footer 1</div>
 	</div>
 </div>
 </code></pre>
@@ -280,7 +341,7 @@ To overcome this in the framework an special class exists .container
 h3. separate columns form its container
 
 <pre><code class="html">
-<div class="unit two-columns">
+<div class="unit on-2 columns">
 	<div class="container same-height" style="padding:10px;">
 		<div class="column">first column content</div>
 		<div class="column">second column content</div>
@@ -291,7 +352,7 @@ h3. separate columns form its container
 h3. Separate columns from each other
 
 <pre><code class="html">
-<div class="unit two-columns same-height">
+<div class="unit on-2 columns same-height">
 	<div class="column">
 		<div class="container" style="margin-right:5px;">
 			first column content
@@ -331,12 +392,49 @@ h3. Show something on printed version only
 </div>
 </code></pre>
 
+h2. Javascript API
+
 h3. Telling elastic to refresh calculations
 
 <pre><code class="html">
 <script type="text/javascript" language="javascript" charset="utf-8">
 	// direct call 
 	Elastic.refresh(context);
+</script>
+</code></pre>
+
+h3. Telling elastic to not refresh calculations on resize
+
+<pre><code class="html">
+<script type="text/javascript" language="javascript" charset="utf-8">
+	// direct call 
+	Elastic.configuration.refreshOnResize = false;
+</script>
+</code></pre>
+
+h2. Event System
+
+Elastic now provides an event system, that gets very usefull when creating widgets and some special cases
+
+<pre><code class="html">
+<script type="text/javascript" language="javascript" charset="utf-8">
+	// Do something before elastic initializes
+	jQuery(document).bind('elastic:beforeInitialize', function(){ /* code here */});
+	
+	// Do something after elastic initializes
+	jQuery(document).bind('elastic:initialize', function(){ /* code here */});
+	
+	// Do something before elastic does some refresh
+	jQuery(document).bind('elastic:beforeRefresh', function(){ /* code here */});
+	
+	// Do something after elastic does some refresh
+	jQuery(document).bind('elastic:refresh', function(){ /* code here */});
+	
+	// Do something before elastic does reset
+	jQuery(document).bind('elastic:beforeReset', function(){ /* code here */});
+	
+	// Do something after elastic does some reset
+	jQuery(document).bind('elastic:reset', function(){ /* code here */});
 </script>
 </code></pre>
 
@@ -349,8 +447,14 @@ You are very wellcome to contribute. Just fork the git repository and create a n
 
 h2. Contributors
 
-Fernando Trasviña (Lead Developer) trasvina [at] gmail
+Fernando Trasviña (Lead Developer)
+	-trasvina [at] gmail
+	-@azendal (Twitter)
 
-Sergio de la Garza (Core Member Lead) sergio.delagarza [at] gmail
+Sergio de la Garza (Core Member Lead)
+	-sergio.delagarza [at] gmail
+	-@sgarza (Twitter)
 
-Javier Ayala (Website) jav.forza [at] gmail
+Javier Ayala (Website) 
+	-jav.forzza [at] gmail
+	-@javi_ayala (Twitter)

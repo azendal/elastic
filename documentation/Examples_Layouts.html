@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Examples of Layouts - For more info visit: www.elasticss.com</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" media="all" href="../production/elastic.css" />
+		<script src="../jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="../production/elastic.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<style type="text/css" media="screen">
+		/* <![CDATA[ */
+			.header-container
+			{
+				border-bottom: solid 1px #4d4d4d;
+			}
+			.header-demo
+			{ 
+				background: #012d52 url(demo_header.png) no-repeat top center; 
+				height: 150px; margin-bottom: 10px; text-align: center; 
+			}
+			.info
+			{ 
+				background: #012d52; padding: 10px; 
+				font-family: Verdana, Arial, sans-serif; 
+				font-size: 14px; 
+				margin: 5px 0; 
+				color: #EFEFEF; 
+			}
+			.header, .footer
+			{
+				width : 974px;
+				margin : 0 auto;
+			}
+			.header p, .footer p
+			{
+				max-width: 700px;
+				text-align: justify;
+			}
+			.footer-container
+			{
+				border-top: solid 1px #4d4d4d;
+				margin-top: 20px;
+			}	
+			.gap{ padding:3px; }
+			.bg{ margin:2px; background-color:#bfbfbf; height:100px; }
+			.b{ border: solid 1px #4d4d4d; }
+			.column.fixed{ width:25px; }
+			button{ width:100%; }
+			h3{ font-size:13px; font-weight:normal; margin:0;}
+			.demos{ width: 974px; margin:0 auto; }
+			.demos h2
+			{
+				border-bottom: dotted 1px #3a89a3;
+			}
+			#code-display{
+				position:fixed; top:0; right:0; display:none; font-family:mono; background:#FFF;
+				margin:10px; border:solid 1px #4d4d4d; padding:10px;
+			}
+			
+			.special .column .container{
+				height:22px;
+			}
+		/* ]]> */
+		</style>
+		<script type="text/javascript" language="javascript" charset="utf-8">
+		// <![CDATA[
+			Elastic.configuration.refreshOnResize=false;
+			$(function(){
+				$('#code-display').css('opacity', '0.9')
+				$('#code-display .close').bind('click', function(){
+					$('#code-display').slideUp();
+				});
+				$('button').bind('click', function(){
+					var code = $('.layout', this.parentNode.parentNode).html()
+						.replace(/\</g, '&lt;')
+						.replace(/\>/g, '&gt;')
+						.replace(/\t{7,8}/g, '')
+						.replace(/\t/g, ' ')
+						.replace(/\sstyle\=\"width\:\s+\d+\px;{0,1}\s*\"/g, '')
+						.replace(/\sbg/g, '')
+						.replace(/\sb\"/g, '"')
+						.replace(/\sspecial/g, '')
+						.toLowerCase();
+					$('#code-display .code').html('<pre>' + code + '</pre>').parent().slideDown();
+				});
+			});
+		// ]]>
+		</script>
+	</head>
+	<body>
+		<div class="header-demo">
+			<a href="http://elasticss.com"><img src="images&css/demo_header.png" /></a>
+		</div>
+		<div class="unit">
+			<div class="container" style="padding:0;margin:0;border:0;width:80%;margin:0 auto; ">
+				<h1>Elastic CSS Framework Columns Examples</h1>
+				<p>Elastic provides a complete system for complex layouts, explaining every combination in detail takes many lines, and sometimes there are several solutions to accomplish the same results.</p>
+				<p><strong>This examples only scratch the surface of the capabilities of the framework</strong>, but will put you on the right track and open your mind to play with the elastic syntax and accomplish all your needs fast. Also remember you can nest this samples to accomplish even more combinations.</p>
+			</div>
+		</div>
+		<div class="unit demos">
+			<div class="unit">
+				<div class="info">
+					One Column
+				</div>
+				<div class="unit columns on-5 same-height">
+					<div class="column">
+						<div class="container gap">
+							<h3>column</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+								<!-- you could do it with a simple div but well if you insist -->
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>fixed</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>inverted > fixed</h3>
+							<div class="unit layout">
+								<div class="columns inverted">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="unit">
+				<div class="info">
+					Two Columns
+				</div>
+				<div class="unit columns on-5 same-height">
+					<div class="column">
+						<div class="container gap">
+							<h3>1/2 1/2</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column">
+										<div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>25px elastic</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>elastic 25px</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>inverted > elastic 25px</h3>
+							<div class="unit layout">
+								<div class="columns inverted">
+									<div class="container b">
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="unit">
+				<div class="info">
+					Three Columns
+				</div>
+				<div class="unit columns on-5 same-height">
+					<div class="column">
+						<div class="container gap">
+							<h3>1/3 1/3 1/3</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>elastic 25px elastic</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>elastic 25px elastic</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>elastic elastic 25px</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>25px 25px elastic</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>25px elastic 25px</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>elastic 25px 25px</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="unit">
+					<div class="info">
+						Four Columns
+					</div>
+					<div class="unit columns on-5 same-height">
+						<div class="column">
+							<div class="container gap">
+								<h3>1/4 1/4 1/4 1/4</h3>
+								<div class="unit layout">
+									<div class="columns">
+										<div class="container b">
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="unit">
+									<button>View Source</button>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="container gap">
+								<h3>fixed elastic 1/4 1/4</h3>
+								<div class="unit layout">
+									<div class="columns">
+										<div class="container b">
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+											<div class="column"><div class="container bg">&nbsp;</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="unit">
+									<button>View Source</button>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="container gap">
+								<h3>fixed elastic elastic elastic</h3>
+								<div class="unit layout">
+									<div class="columns">
+										<div class="container b">
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="unit">
+									<button>View Source</button>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="container gap">
+								<h3>fixed elastic elastic fixed</h3>
+								<div class="unit layout">
+									<div class="columns">
+										<div class="container b">
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="unit">
+									<button>View Source</button>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="container gap">
+								<h3>fixed fixed fixed elastic</h3>
+								<div class="unit layout">
+									<div class="columns">
+										<div class="container b">
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column fixed"><div class="container bg">&nbsp;</div></div>
+											<div class="column elastic"><div class="container bg">&nbsp;</div></div>
+										</div>
+									</div>
+								</div>
+								<div class="unit">
+									<button>View Source</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="unit">
+				<div class="info">
+					Many Columns And Column Super-Charging
+				</div>
+				<div class="unit columns on-5 same-height">
+					<div class="column">
+						<div class="container gap">
+							<h3>10 columns</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>10 columns using on-3</h3>
+							<div class="unit layout">
+								<div class="columns on-3 special">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>12 columns</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>16 columns</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="container gap">
+							<h3>24 columns</h3>
+							<div class="unit layout">
+								<div class="columns">
+									<div class="container b">
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+										<div class="column"><div class="container bg">&nbsp;</div></div>
+									</div>
+								</div>
+							</div>
+							<div class="unit">
+								<button>View Source</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="unit footer-container">
+			<div class="footer">
+				<h2>What other things can you find in this page?</h2>
+				<p>if you view the source code of this page, you'll find that is completely developed
+				with elastic. no images or tables were used.</p>
+			</div>
+		</div>
+		<div id="code-display">
+			<div class="close" style="text-align:right; cursor:pointer;">close [x]</div>
+			<div class="code"></div>
+			<p style="font-size:10px; color:#4d4d4d;">* divs of class "container" are optional(check documentation)</p>
+			<p style="font-size:10px; color:#4d4d4d;">* every fixed column can have custom width(check documentation)</p>
+		</div>
+	</body>
+</html>

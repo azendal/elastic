@@ -10,5 +10,8 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 Elastic CSS Framework
 Released under the MIT, BSD, and GPL Licenses.
 More information http://elasticss.com
+
+@author     Fernando Trasvi–a (@azendal)
+@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
 */
 .unit:after,.container:after,.columns:after,.column:after,.clearfix:after{content:" ";display:block;height:0;clear:both;visibility:hidden;}.unit,.container,.columns,.column,.clearfix{display:block;*zoom:1;*display:inline-block;}.full-height{display:block;}.same-height{display:block;}.elastic-height{height:0;}.horizontal-center{margin:0 auto;}.vertical-center{/* margin:auto 0; */display:block;}.center{/* margin:auto */margin:0 auto;}.column{float:left;}.column.final{display:block;}.column.fixed{width:auto;}.column.elastic{display:block;}.inverted>.column,.inverted>.container>.column{float:right;}.on-2.columns>.column:not(.fixed),.on-2.columns>.container>.column:not(.fixed){width:50%;}.on-3.columns>.column:not(.fixed),.on-3.columns>.container>.column:not(.fixed){width:33.33%;}.on-3.columns>.column.span-2,.on-3.columns>.container>.column.span-2{width:66.66%;}.on-4.columns>.column:not(.fixed),.on-4.columns>.container>.column:not(.fixed){width:25%;}.on-4.columns>.column.span-2,.on-4.columns>.container>.column.span-2{width:50%;}.on-4.columns>.column.span-3,.on-4.columns>.container>.column.span-2{width:75%;}

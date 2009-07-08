@@ -1,0 +1,15 @@
+.header-demo	{ background: #012d52 url(demo_header.png) no-repeat top center; height: 150px; margin-bottom: 10px; text-align: center; }
+
+.header			{ background: #012d52; color: #FFF;}
+
+.content		{ background: #EEE; }
+
+.sidebar		{ background: #9bc911; }
+
+.footer			{ background: #012d52; color: #FFF; }
+
+.info 			{ background: #012d52; padding: 10px; font-family: Verdana, Arial, sans-serif; font-size: 14px; margin: 5px 0; color: #EFEFEF; }
+
+.info2			{ background: #F0F0F0; border: 1px dashed #CCC; padding: 10px; font-family: Verdana, Arial, sans-serif; font-size: 14px; margin: 10px; color: #444; }
+
+.container 		{ padding:5px; margin:2px; border:solid 1px #666; }

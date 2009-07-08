@@ -1,0 +1,18 @@
+Elastic 2.0 Changes
+Simplified syntax
+	auto-columns => columns
+	two-columns, three-columns, four-columns => 
+	number of columns => on-#
+fixed columns bug
+fixed equalized-height refresh bug
+fixed printing(still some rules apply but works when followed)
+fixed span-# bug when there is one one column
+fixed pixel rounding bug when having many columns(now it gets computed fine)
+changed span-# now if # is grater than the row it gets setted to the columns per row(it was some serious punishment)
+improved engine performace
+improved helpers performance
+improved pixel rounding algorithm
+added support for elastic-height
+added support for adaptive-#-# columns
+added support for layouts position-x : display x
+added support for final on column
