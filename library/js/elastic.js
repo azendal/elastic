@@ -14,7 +14,7 @@
 	@author     Fernando Trasviña (@azendal)
 	@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
 	@copyright  2009 Elastic CSS framework
-	@version    2.0
+	@version    2.0.1
 */
 (function($){
 	var CStyle = function (element, pseudoElement) {
@@ -131,9 +131,9 @@
 								eecs[eecs.length - r].style.width = (eecw + 1) + 'px'; 
 							}
 						}
-						else{
-							eecs[ll-1].style.width = ( econw - ( ecsw + efcsw + (eecsw - eecw) ) ) + 'px';
-						}
+						var tcw = 0;
+						for(var f = 0; f < ll - 1; f++){ tcw += Number(eecs[f].style.width.replace('px','')); }
+						eecs[ll-1].style.width = ( econw - ( ecsw + efcsw + (tcw) ) ) + 'px';
 					}
 					else if(ecol.escol == egml && efcs.length === 0){
 						ecol.style.width = econw + 'px';
@@ -151,9 +151,9 @@
 								ecs[ecs.length - r].style.width = ( (ecw + 1) * ecs[ecs.length - r].escol ) + 'px'; 
 							}
 						}
-						else{
-							ec.style.width = ( econw - ( ecsw - width(ec) )  ) + 'px';
-						}
+						var tcw = 0;
+						for(var f = 0; f < ecs.length - 1; f++){ tcw += Number(ecs[f].style.width.replace('px','')); }
+						ec.style.width = ( econw - ( tcw )  ) + 'px';
 					}
 					else if(egnl < egml && ecolclass.indexOf('final') > -1){
 						ecol.style['margin' + ( (econclass.indexOf('inverted') > -1) ? 'Left' : 'Right')] = (econw - ecsw - efcsw) + 'px';
@@ -172,7 +172,7 @@
 
 	var Elastic = window.Elastic;
 
-	Elastic.version = '2.0';
+	Elastic.version = '2.0.1';
 
 	Elastic.reset = function Elastic_reset(context){
 		var doc = $(document);
@@ -181,7 +181,7 @@
 		h = $.find('.same-height > *, .full-height, .elastic-height', context);
 		for(i = 0, hl = h.length; i < hl; i++){h[i].style.height = '';}
 		p = $.find('.vertical-center, .center, .bottom', context);
-		for(i = 0, pl = p.length; i < pl; i++){p[i].parentNode.style.paddingTop = '';}
+		for(i = 0, pl = p.length; i < pl; i++){p[i].parentNode.style.paddingTop = ''; p[i].parentNode.style.height = '';}
 		w = $.find('.column:not(.fixed), .full-width', context);
 		for(i = 0, wl = w.length; i < wl; i++){w[i].style.width = '';}
 		m = $.find('.column.final', context);
