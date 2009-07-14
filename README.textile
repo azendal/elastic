@@ -21,24 +21,25 @@ Our team has been able to test and confirm support layouts made with elastic in 
 
 * Firefox 2 mac, windows, linux
 * Firefox 3 mac, windows, linux
-* Safari 3 mac and windows
-* Safari 4
+* Firefox 3.5 mac, windows, linux
+* Safari 3 mac, windows
+* Safari 4 mac, windows
 * Opera 9.6 linux
-* Internet Explorer 6
+* Internet Explorer 6 (still need to test 2.0)
 * Internet Explorer 7
-* Internet Explorer 8 Beta 2
+* Internet Explorer 8
 
 h3. About subpixel rounding
 
 The subpixel rounding problems can be found on every browser according to our test, but it is more difficult to find
-this rounding problems in safari and firefox, and every browser does rounding in a different way, that is why
+this rounding problems firefox (even though it has the most accurate rounding algorithm), and every browser does rounding in a different way, that is why
 elastic's engine.js provides a predictable way of rounding letting you know what can be subject of modifications
 
 h4. The order is this:
 
 * .column.fixed never modified
-* .column (last) modified
-* .column.elastic (last)
+* .column
+* .column.elastic
 
 h4. Engine performance
 
