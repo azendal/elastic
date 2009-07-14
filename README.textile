@@ -204,6 +204,7 @@ h3. Make a column fixed and the other elastic
 </code></pre>
 
 h3. Elastic height
+
 <pre><code class="html">
 <div class="unit">
 	<div class="container" style="height:200px;">
