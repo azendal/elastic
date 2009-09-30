@@ -14,7 +14,7 @@
 	@author     Fernando Trasviña (@azendal)
 	@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
 	@copyright  2009 Elastic CSS framework
-	@version    2.0.1
+	@version    2.0.2
 */
 (function($){
 	var CStyle = function (element, pseudoElement) {
@@ -28,7 +28,7 @@
 
 	var width = function(element){
 		var width = CStyle(element).width;
-		if(width == 'auto'){
+		if(width == 'auto' || width.indexOf('px') < 0){
 			return $(element).width();
 		}else{
 			return parseFloat(width);
@@ -172,7 +172,7 @@
 
 	var Elastic = window.Elastic;
 
-	Elastic.version = '2.0.1';
+	Elastic.version = '2.0.2';
 
 	Elastic.reset = function Elastic_reset(context){
 		var doc = $(document);
