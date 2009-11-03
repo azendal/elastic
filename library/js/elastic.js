@@ -14,7 +14,7 @@
 	@author     Fernando Trasviña (@azendal)
 	@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
 	@copyright  2009 Elastic CSS framework
-	@version    2.0.2
+	@version    2.0.3
 */
 (function($){
 	var CStyle = function (element, pseudoElement) {
@@ -113,6 +113,7 @@
 					ll = eecs.length;
 					if(ll > 0){
 						eecfw = econw - ( ecsw + efcsw );
+						if(eecfw <= 0){ continue; }
 						eecrw = eecfw / ll;
 						eecw  = Math.round( eecrw );
 						eecsw = eecw * ll;
@@ -172,7 +173,7 @@
 
 	var Elastic = window.Elastic;
 
-	Elastic.version = '2.0.2';
+	Elastic.version = '2.0.3';
 
 	Elastic.reset = function Elastic_reset(context){
 		var doc = $(document);
