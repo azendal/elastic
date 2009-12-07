@@ -12,7 +12,7 @@ Elastic is organized in several files
 * *grid.css*: layout components
 * *print.css*: layout printing components
 * *jquery.js*: jquery to simplify the creation of helpers
-* *engine.js*: subpixel rounding, and special helpers
+* *elastic.js*: subpixel rounding, and special helpers
 * *skin.css*: your place to build the skin of your site (you can choose whatever you want)
 
 h3. Browser support 
@@ -33,7 +33,7 @@ h3. About subpixel rounding
 
 The subpixel rounding problems can be found on every browser according to our test, but it is more difficult to find
 this rounding problems firefox (even though it has the most accurate rounding algorithm), and every browser does rounding in a different way, that is why
-elastic's engine.js provides a predictable way of rounding letting you know what can be subject of modifications
+elastic's elastic.js provides a predictable way of rounding letting you know what can be subject of modifications
 
 h4. The order is this:
 
@@ -55,7 +55,7 @@ but hey engine is doing more things.
 	<head>
 		<link rel="stylesheet" type="text/css" media="print" href="elastic.css" />
 		<script src="jquery.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-		<script src="engine.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+		<script src="elastic.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="unit">
