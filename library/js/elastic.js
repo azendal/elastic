@@ -47,6 +47,9 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
 	container         = Elastic.querySelectorAll('> .container', columnsElement)[0] || columnsElement;
 	columnElements    = Elastic.querySelectorAll('> .column', container);
+	if(columnElements.length == 0){
+		return;
+	}
 	lastColumn        = columnElements[columnElements.length - 1];
 	columnsPerRow     = Elastic.getColumnsPerRow(columnsElement, columnElements);
 	containerWidth    = Elastic.getInnerWidth(container);
