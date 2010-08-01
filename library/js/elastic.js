@@ -28,14 +28,15 @@ var Elastic = function Elastic(context, includeContext) {
 	}
 };
 
-Elastic.version                   = '2.1.0';
-Elastic.columnsPerRowExpression   = /(^|\s+)on\-(\d+)(\s+|$)/;
-Elastic.columnSpanExpression      = /(^|\s+)span\-(\d+)(\s+|$)/;
-Elastic.fixedColumnExpression     = /(^|\s+)fixed(\s+|$)/;
-Elastic.elasticColumnExpression   = /(^|\s+)elastic(\s+|$)/;
-Elastic.adaptiveColumnsExpression = /(^|\s+)adaptive\-(\d+)\-(\d+)(\s+|$)/;
-Elastic.finalColumnExpression     = /(^|\s+)final(\s+|$)/;
-Elastic.configuration             = {
+Elastic.VERSION                     = '2.1.0';
+Elastic.COLUMNS_PER_ROW_EXPRESSION  = /(^|\s+)on\-(\d+)(\s+|$)/;
+Elastic.COLUMN_SPAN_EXPRESSION      = /(^|\s+)span\-(\d+)(\s+|$)/;
+Elastic.FIXED_COLUMN_EXPRESSION     = /(^|\s+)fixed(\s+|$)/;
+Elastic.ELASTIC_COLUMN_EXPRESSION   = /(^|\s+)elastic(\s+|$)/;
+Elastic.ADAPTIVE_COLUMNS_EXPRESSION = /(^|\s+)adaptive\-(\d+)\-(\d+)(\s+|$)/;
+Elastic.FINAL_COLUMN_EXPRESSION     = /(^|\s+)final(\s+|$)/;
+
+Elastic.configuration = {
 	refreshOnResize : true,
 	includeContext  : true
 };
@@ -55,7 +56,7 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	containerWidth    = Elastic.getInnerWidth(container);
 	columnWidths      = Elastic.round(containerWidth, columnsPerRow);
 	
-	if(Elastic.adaptiveColumnsExpression.test(columnsElement.className)) {
+	if(Elastic.ADAPTIVE_COLUMNS_EXPRESSION.test(columnsElement.className)) {
 		var minWidth = Number(RegExp.$2);
 		var maxWidth = Number(RegExp.$3);
 		
@@ -88,13 +89,13 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
 	for(var i = 0, l = columnElements.length; i < l; i++) {
 		currentColumn = columnElements[i];
-		if(Elastic.fixedColumnExpression.test(currentColumn.className)) {
+		if(Elastic.FIXED_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			fixedColumnWidth          = Elastic.getOuterWidth(currentColumn);
 			currentColumn.columnWidth = fixedColumnWidth;
 			currentColumn.isFixed     = true;
 			fixedColumnsWidth        += fixedColumnWidth;
 		}
-		else if(Elastic.elasticColumnExpression.test(currentColumn.className)) {
+		else if(Elastic.ELASTIC_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			currentColumn.isElastic = true;
 			elasticColumns.push(currentColumn);
 		}
@@ -102,7 +103,7 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 			currentColumn.isRegular = true;
 		}
 		
-		if(Elastic.finalColumnExpression.test(currentColumn.className)) {
+		if(Elastic.FINAL_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			currentColumn.isFinal = true;
 		}
 		
@@ -130,13 +131,13 @@ Elastic.getColumnsPerRow = function getColumnsPerRow(columnsElement, columnEleme
 	var columnsPerRow      = columnElements.length;
 	var fixedColumnsPerRow = false;
 	
-	if(Elastic.columnsPerRowExpression.test(columnsElement.className)) {
+	if(Elastic.COLUMNS_PER_ROW_EXPRESSION.test(columnsElement.className)) {
 		columnsPerRow      = Number(RegExp.$2);
 		fixedColumnsPerRow = true;
 	}
 	
 	for(var i = 0, l = columnElements.length; i < l; i++) {
-		if(Elastic.columnSpanExpression.test(columnElements[i].className)) {
+		if(Elastic.COLUMN_SPAN_EXPRESSION.test(columnElements[i].className)) {
 			columnElements[i].spanWidth = Number(RegExp.$2);
 			if(fixedColumnsPerRow !== true) {
 				columnsPerRow += columnElements[i].spanWidth - 1;
@@ -271,10 +272,32 @@ Elastic.helpers = {
 		
 		return this;
 	},
+	'same-min-height'  : function sameHeightHelper(context) {
+		$('.same-min-height', context).each(function(){
+			var columns = $('> *', this);
+			var maxHeight = 0;
+			columns.each(function() {
+				var currentHeight = $(this).outerHeight(true);
+				maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
+			}).each(function() {
+				$(this).css('min-height', maxHeight);
+			});
+		});
+		
+		return this;
+	},
 	'full-height'      : function fullHeightHelper(context) {
 		$('.full-height', context).each(function() {
 			var _this = $(this);
 			_this.css('height', $(this.parentNode).height() - ( _this.outerHeight(true) - _this.height() ));
+		});
+		
+		return this;
+	},
+	'full-min-height'  : function fullHeightHelper(context) {
+		$('.full-min-height', context).each(function() {
+			var _this = $(this);
+			_this.css('min-height', $(this.parentNode).height() - ( _this.outerHeight(true) - _this.height() ));
 		});
 		
 		return this;
@@ -328,15 +351,18 @@ Elastic.helpers = {
 	}
 };
 
+Elastic.$window = $(window);
+
 Elastic.$documentElement = $(document);
 
 Elastic.reset = function Elastic_reset(context) {
-	var i,w,wl,h,hl,p,pl,m,ml,doc;
+	var i,w,wl,h,hl,p,pl,m,ml,n,nl,doc;
 	doc = Elastic.$documentElement;
 	context = $(context || document);
 	doc.trigger('elastic:beforeReset');
 	
 	h = context.find('.same-height > .column, .full-height, .elastic-height');
+	n = context.find('.same-min-height > .column, .full-min-height');
 	p = context.find('.vertical-center, .center, .bottom');
 	w = context.find('.column:not(.fixed), .full-width');
 	m = context.find('.column.final');
@@ -357,6 +383,10 @@ Elastic.reset = function Elastic_reset(context) {
 		m[i].style.marginLeft = ''; m[i].style.marginRight = '';
 	}
 	
+	for(i = 0, nl = n.length; i < nl; i++){
+	  n[i].style.minHeight = '';
+	}
+	
 	doc.trigger('elastic:reset');
 	
 	return this;
@@ -364,9 +394,9 @@ Elastic.reset = function Elastic_reset(context) {
 
 Elastic.refresh = function Elastic_refresh(context){
 	var doc = Elastic.$documentElement;
-	doc.trigger('elastic:beforeRefresh');
+	doc.trigger('elastic:beforeRefresh', context);
 	Elastic.reset(context)(context);
-	doc.trigger('elastic:refresh');
+	doc.trigger('elastic:refresh', context);
 	return this;
 };
 
@@ -417,6 +447,7 @@ Elastic.getOuterWidth = function(element) {
 
 Elastic.querySelectorAll = function(selector, context){
 	var result;
+	
 	if(document.querySelectorAll) {
 		if(context){
 			if(selector.substr(0,1) == '>'){
@@ -451,8 +482,7 @@ Elastic.querySelectorAll = function(selector, context){
 
 Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
 	var r = /(^|\s+)display\s+([\w\_\-\d]+)(\s+|$)/;
-	$('.display').each(function Elastic_layout()
-	{
+	$('.display').each(function Elastic_layout(){
 		var c;
 		if(r.test(this.className)) {
 			c = '.position-' + RegExp.$2;
