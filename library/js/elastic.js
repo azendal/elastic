@@ -1,12 +1,14 @@
-/*
-	Elastic CSS Framework
-	Released under the MIT, BSD, and GPL Licenses.
-	More information http://www.elasticss.com
-	@author     Fernando Trasviña (@azendal)
-	@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
-	@copyright  2010 Elastic CSS framework
-	@version    2.1
-*/
+/**
+Elastic CSS Framework JavaScript Runtime
+Released under the MIT, BSD, and GPL Licenses.
+More information http://www.elasticss.com
+@file         'elastic.js
+@author       'Fernando Trasviña (@azendal)
+@collaborator 'Sergio de la Garza (@sgarza)
+@collaborator 'Javier Ayala (@javi_ayala)
+@copyright    '2010 Elastic CSS framework
+@version      '2.1
+**/
 
 var Elastic = function Elastic(context, includeContext) {
 	var helper, columnsElements, i, l, columnsIterator;
