@@ -11,11 +11,11 @@ More information http://www.elasticss.com
 **/
 
 var Elastic = function Elastic(context, includeContext) {
-	var helper, columnsElements, i, l, columnsIterator;
+	var helper, columnsElements, i, l, columnsIterator, $context;
 	
 	context         = context || document;
+	$context        = $(context);
 	columnsElements = Elastic.querySelectorAll('.columns', context);
-	i               = 0;
 	l               = columnsElements.length;
 	columnsIterator = Elastic.columnsIterator;
 	
@@ -25,7 +25,7 @@ var Elastic = function Elastic(context, includeContext) {
 	
 	for(helper in Elastic.helpers) {
 		if(Elastic.helpers.hasOwnProperty(helper)) {
-			Elastic.helpers[helper](context);
+			Elastic.helpers[helper]($context);
 		}
 	}
 };
@@ -37,6 +37,7 @@ Elastic.FIXED_COLUMN_EXPRESSION     = /(^|\s+)fixed(\s+|$)/;
 Elastic.ELASTIC_COLUMN_EXPRESSION   = /(^|\s+)elastic(\s+|$)/;
 Elastic.ADAPTIVE_COLUMNS_EXPRESSION = /(^|\s+)adaptive\-(\d+)\-(\d+)(\s+|$)/;
 Elastic.FINAL_COLUMN_EXPRESSION     = /(^|\s+)final(\s+|$)/;
+Elastic.DISPLAY_LAYOUT_EXPRESSION   = /(^|\s+)display\s+([\w\_\-\d]+)(\s+|$)/;
 
 Elastic.configuration = {
 	refreshOnResize : true,
@@ -220,7 +221,7 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 	if(difference !== 0) {
 		for(i = 1; i <= (Math.abs(difference)); i++) {
 			if(direction == -1) {
-				column = columnWidths[columnWidths.length - Math.floor( positionDivision * Math.round(i/2) )];
+				column = columnWidths[ columnWidths.length - Math.floor( positionDivision * Math.round(i/2) ) ];
 			}
 			else {
 				column = columnWidths[Math.floor( positionDivision * Math.round(i/2) ) - 1];
@@ -248,64 +249,111 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 Elastic.round.cache = {};
 
 Elastic.helpers = {
-	'full-width'       : function fullWidthHelper(context) {
-		var i, $el;
-		var els = $.find('.full-width', context);
-		var elsl = els.length;
+	'full-width'       : function fullWidthHelper($context) {
+		var i; 
+		var $element;
+		var $elements      = $context.find('.full-width');
+		var elementsLength = $elements.length;
 		
-		for(i = 0; i < elsl; i++) {
-			$el = $(els[i]);
-			$el.width( $el.parent().width() - ( $el.outerWidth(true) - $el.width() ) );
+		for(i = 0; i < elementsLength; i++) {
+			$element = $($elements[i]);
+			$element.width( $element.parent().width() - ( $element.outerWidth(true) - $element.width() ) );
 		}
 		
 		return this;
 	},
-	'same-height'      : function sameHeightHelper(context) {
-		$('.same-height', context).each(function(){
-			var columns = $('> *', this);
-			var maxHeight = 0;
-			columns.each(function() {
-				var currentHeight = $(this).outerHeight(true);
-				maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
-			}).each(function() {
-				$(this).css('height', maxHeight);
-			});
-		});
+	'same-height'      : function sameHeightHelper($context) {
+	    var i;
+	    var j;
+	    var currentHeight;
+	    var maxHeight;
+	    var $elementColumns;
+	    var elementColumnsLength;
+		var $elements       = $context.find('.same-height');
+		var elementsLength  = $elements.length;
+		
+		for(i = 0; i < elementsLength; i++) {
+			$elementColumns      = $($elements[i]).find('> *');
+			elementColumnsLength = $elementColumns.length;
+			maxHeight            = 0;
+			
+			for(j = 0; j < elementColumnsLength; j++){
+			    currentHeight = $($elementColumns[j]).outerHeight(true);
+    			maxHeight     = (maxHeight > currentHeight) ? maxHeight : currentHeight;   
+			}
+			
+			for(j = 0; j < elementColumnsLength; j++) {
+    			$($elementColumns[j]).css('height', maxHeight);
+    		}
+		}
+		
+		return this
+	},
+	'same-min-height'  : function sameMinHeightHelper($context) {
+		var i;
+	    var j;
+	    var currentHeight;
+	    var maxHeight;
+	    var $elementColumns;
+	    var elementColumnsLength;
+		var $elements       = $context.find('.same-min-height');
+		var elementsLength  = $elements.length;
+		
+		for(i = 0; i < elementsLength; i++) {
+			$elementColumns      = $($elements[i]).find('> *');
+			elementColumnsLength = $elementColumns.length;
+			maxHeight            = 0;
+			
+			for(j = 0; j < elementColumnsLength; j++){
+			    currentHeight = $($elementColumns[j]).outerHeight(true);
+    			maxHeight     = (maxHeight > currentHeight) ? maxHeight : currentHeight;   
+			}
+			
+			for(j = 0; j < elementColumnsLength; j++) {
+    			$($elementColumns[j]).css('min-height', maxHeight);
+    		}
+		}
 		
 		return this;
 	},
-	'same-min-height'  : function sameHeightHelper(context) {
-		$('.same-min-height', context).each(function(){
-			var columns = $('> *', this);
-			var maxHeight = 0;
-			columns.each(function() {
-				var currentHeight = $(this).outerHeight(true);
-				maxHeight = (maxHeight > currentHeight) ? maxHeight : currentHeight;
-			}).each(function() {
-				$(this).css('min-height', maxHeight);
-			});
-		});
+	'full-height'      : function fullHeightHelper($context) {
+		var i;
+		var $element;
+		var newHeight;
+		var $elements = $context.find('.full-height');
+		var elementsLength = $elements.length;
+		
+		for (var i=0; i < elementsLength; i++) {
+		  $element = $($elements[i]);
+		  newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
+		  if( newHeight < 0 || isNaN( Number(newHeight) ) ){
+		      continue;
+		  }
+		  $element.css('height', newHeight);
+		}
 		
 		return this;
 	},
-	'full-height'      : function fullHeightHelper(context) {
-		$('.full-height', context).each(function() {
-			var _this = $(this);
-			_this.css('height', $(this.parentNode).height() - ( _this.outerHeight(true) - _this.height() ));
-		});
+	'full-min-height'  : function fullMinHeightHelper($context) {
+		var i;
+		var $element;
+		var newHeight;
+		var $elements = $context.find('.full-min-height');
+		var elementsLength = $elements.length;
+		
+		for (var i=0; i < elementsLength; i++) {
+		  $element = $($elements[i]);
+		  newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
+		  if( newHeight < 0 || isNaN( Number(newHeight) ) ){
+		      continue;
+		  }
+		  $element.css('min-height', newHeight);
+		}
 		
 		return this;
 	},
-	'full-min-height'  : function fullHeightHelper(context) {
-		$('.full-min-height', context).each(function() {
-			var _this = $(this);
-			_this.css('min-height', $(this.parentNode).height() - ( _this.outerHeight(true) - _this.height() ));
-		});
-		
-		return this;
-	},
-	'elastic-height'   : function elasticHeightHelper(context) {
-		$('.elastic-height', context).each(function() {
+	'elastic-height'   : function elasticHeightHelper($context) {
+		$context.find('.elastic-height').each(function() {
 			var _this = $(this);
 			var h = 0;
 			$('> *:not(.elastic-height)', this.parentNode).each(function() {
@@ -321,8 +369,8 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'center'           : function centerHelper(context) {
-		$('.vertical-center, .center', context).each(function() {
+	'center'           : function centerHelper($context) {
+		$context.find('.vertical-center, .center').each(function() {
 			var parentNode = $(this.parentNode);
 			var paddingTop = Math.round( ( parentNode.height() - $(this).outerHeight(true) ) / 2 );
 			if(paddingTop < 0.1) {
@@ -336,8 +384,8 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'bottom'           : function bottomHelper(context) {
-		$('.bottom', context).each(function(){
+	'bottom'           : function bottomHelper($context) {
+		$context.find('.bottom').each(function(){
 			var parentNode = $(this.parentNode);
 			var paddingTop = Math.round( parentNode.height() - $(this).outerHeight(true) );
 			if(paddingTop < 0.1) {
@@ -404,7 +452,14 @@ Elastic.refresh = function Elastic_refresh(context){
 
 Elastic.getComputedStyle = function getComputedStyle(element) {
 	if(element.currentStyle) {
+	    Elastic.getComputedStyle = function(element){
+	        return element.currentStyle;
+	    }
 		return element.currentStyle;
+	}
+	
+	Elastic.getComputedStyle = function(element){
+	    return window.getComputedStyle(element, true);
 	}
 	
 	return window.getComputedStyle(element, true);
@@ -483,7 +538,7 @@ Elastic.querySelectorAll = function(selector, context){
 };
 
 Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
-	var r = /(^|\s+)display\s+([\w\_\-\d]+)(\s+|$)/;
+	var r = Elastic.DISPLAY_LAYOUT_EXPRESSION;
 	$('.display').each(function Elastic_layout(){
 		var c;
 		if(r.test(this.className)) {
