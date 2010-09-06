@@ -15,19 +15,22 @@ Elastic is organized in several files
 * *elastic.js*: subpixel rounding, and special helpers
 * *skin.css*: your place to build the skin of your site (you can choose whatever you want)
 
+even this may sound like many files, on production state you only need 2:
+
+* elastic.css
+* elastic.js
+
+this are packed in the production folder
+
 h3. Browser support 
 
 Our team has been able to test and confirm support layouts made with elastic in the following browsers:
 
 * Firefox 2 mac, windows, linux
-* Firefox 3 mac, windows, linux
-* Firefox 3.5 mac, windows, linux
-* Safari 3 mac, windows
-* Safari 4 mac, windows
-* Opera 9.6 linux
-* Internet Explorer 6 (still need to test 2.0)
-* Internet Explorer 7
-* Internet Explorer 8
+* Firefox >=3 mac, windows, linux
+* Safari >=3 mac, windows
+* Opera >=9.6 linux
+* Internet Explorer >=7
 
 h3. About subpixel rounding
 
@@ -47,6 +50,10 @@ Since version 1.0 we have been working in making engine faster, and will continu
 the speed of the engine, but from version 1.0 to 2.0 we have gained around a 60% of speed
 some new features have been added, so if you use them all, you may get a lil slower than 1.0
 but hey engine is doing more things.
+
+Since version 2.0 almost all development has been around performance and accuracy meaning that
+elastic is not gaining features, it seems that most of the cases are covered, and for the ones that
+may be missing, you can still use old css and javascript, elastic won't complain.
 
 <pre><code class="html">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -444,7 +451,7 @@ h2. Help and Contact
 
 We have an issue "tracker":http://elastic.lighthouseapp.com/projects/26690-elastic-css-framework for bugs and feature requests and a "Google Group":http://groups.google.com/group/elastic-css-framework for discussion on the usage of the framework.
 
-You are very wellcome to contribute. Just fork the git repository and create a new issue, send a pull request or contact us personally.
+You are very welcome to contribute. Just fork the git repository and create a new issue, send a pull request or contact us personally.
 
 
 h2. Contributors

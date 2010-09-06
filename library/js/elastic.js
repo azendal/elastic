@@ -7,7 +7,7 @@ More information http://www.elasticss.com
 @collaborator 'Sergio de la Garza (@sgarza)
 @collaborator 'Javier Ayala (@javi_ayala)
 @copyright    '2010 Elastic CSS framework
-@version      '2.1
+@version      '2.1.0 RC
 **/
 
 var Elastic = function Elastic(context, includeContext) {
@@ -30,7 +30,7 @@ var Elastic = function Elastic(context, includeContext) {
 	}
 };
 
-Elastic.VERSION                     = '2.1.0';
+Elastic.VERSION                     = '2.1.0 RC';
 Elastic.COLUMNS_PER_ROW_EXPRESSION  = /(^|\s+)on\-(\d+)(\s+|$)/;
 Elastic.COLUMN_SPAN_EXPRESSION      = /(^|\s+)span\-(\d+)(\s+|$)/;
 Elastic.FIXED_COLUMN_EXPRESSION     = /(^|\s+)fixed(\s+|$)/;
@@ -47,7 +47,8 @@ Elastic.configuration = {
 Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
 	var container, columnElements, lastColumn, columnsPerRow, containerWidth, columnWidths, 
-		elasticColumns, rowColumns, columnsOnRow, nextColumnsOnRow, fixedColumnsWidth, currentColumn, fixedColumnWidth;
+		elasticColumns, rowColumns, columnsOnRow, nextColumnsOnRow, fixedColumnsWidth, currentColumn, 
+		fixedColumnWidth, minWidth, maxWidth;
 	
 	container         = Elastic.querySelectorAll('> .container', columnsElement)[0] || columnsElement;
 	columnElements    = Elastic.querySelectorAll('> .column', container);
@@ -60,8 +61,8 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	columnWidths      = Elastic.round(containerWidth, columnsPerRow);
 	
 	if(Elastic.ADAPTIVE_COLUMNS_EXPRESSION.test(columnsElement.className)) {
-		var minWidth = Number(RegExp.$2);
-		var maxWidth = Number(RegExp.$3);
+		minWidth = Number(RegExp.$2);
+		maxWidth = Number(RegExp.$3);
 		
 		if(columnWidths[0].width > maxWidth) {
 			while(columnWidths[0].width > maxWidth) {
@@ -131,8 +132,10 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 };
 
 Elastic.getColumnsPerRow = function getColumnsPerRow(columnsElement, columnElements) {
-	var columnsPerRow      = columnElements.length;
-	var fixedColumnsPerRow = false;
+	var columnsPerRow, fixedColumnsPerRow;
+	
+	columnsPerRow      = columnElements.length,
+	fixedColumnsPerRow = false;
 	
 	if(Elastic.COLUMNS_PER_ROW_EXPRESSION.test(columnsElement.className)) {
 		columnsPerRow      = Number(RegExp.$2);
@@ -196,27 +199,30 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 };
 
 Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
-	var cache = Elastic.round.cache, i;
+	var cache, i, column, columnPercentage, columnWidths, columnWidth, columnWidthTally, difference, 
+	    absDifference, positionDivision, increment, direction;
+	
+	cache = Elastic.round.cache;
 	
 	if(cache[containerWidth] && cache[containerWidth][columns]) {
 		return cache[containerWidth][columns];
 	}
 	
-	var column;
-	var columnPercentage = 100 / columns;
-	var columnWidths     = [];
-	var columnWidth      = Math.round(containerWidth * ( columnPercentage / 100 ));
-	var columnWidthTally = columnWidth * columns;
+	column;
+	columnPercentage = 100 / columns;
+	columnWidths     = [];
+	columnWidth      = Math.round(containerWidth * ( columnPercentage / 100 ));
+	columnWidthTally = columnWidth * columns;
 	
 	for(i = 0; i < columns; i++) {
 		columnWidths.push({width:columnWidth});
 	}
 	
-	var difference       = containerWidth - columnWidthTally;
-	var absDifference    = Math.abs(difference);
-	var positionDivision = columns / (absDifference + 1);
-	var increment        = (difference > 0);
-	var direction        = -1;
+	difference       = containerWidth - columnWidthTally;
+	absDifference    = Math.abs(difference);
+	positionDivision = columns / (absDifference + 1);
+	increment        = (difference > 0);
+	direction        = -1;
 	
 	if(difference !== 0) {
 		for(i = 1; i <= (Math.abs(difference)); i++) {
@@ -250,10 +256,10 @@ Elastic.round.cache = {};
 
 Elastic.helpers = {
 	'full-width'       : function fullWidthHelper($context) {
-		var i; 
-		var $element;
-		var $elements      = $context.find('.full-width');
-		var elementsLength = $elements.length;
+		var i, $element, $elements, elementsLength;
+		
+		$elements      = $context.find('.full-width');
+		elementsLength = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
 			$element = $($elements[i]);
@@ -263,14 +269,10 @@ Elastic.helpers = {
 		return this;
 	},
 	'same-height'      : function sameHeightHelper($context) {
-	    var i;
-	    var j;
-	    var currentHeight;
-	    var maxHeight;
-	    var $elementColumns;
-	    var elementColumnsLength;
-		var $elements       = $context.find('.same-height');
-		var elementsLength  = $elements.length;
+	    var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength;
+		
+		$elements       = $context.find('.same-height');
+		elementsLength  = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
 			$elementColumns      = $($elements[i]).find('> *');
@@ -290,14 +292,10 @@ Elastic.helpers = {
 		return this
 	},
 	'same-min-height'  : function sameMinHeightHelper($context) {
-		var i;
-	    var j;
-	    var currentHeight;
-	    var maxHeight;
-	    var $elementColumns;
-	    var elementColumnsLength;
-		var $elements       = $context.find('.same-min-height');
-		var elementsLength  = $elements.length;
+		var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength;
+		
+		$elements       = $context.find('.same-min-height');
+		elementsLength  = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
 			$elementColumns      = $($elements[i]).find('> *');
@@ -317,11 +315,10 @@ Elastic.helpers = {
 		return this;
 	},
 	'full-height'      : function fullHeightHelper($context) {
-		var i;
-		var $element;
-		var newHeight;
-		var $elements = $context.find('.full-height');
-		var elementsLength = $elements.length;
+		var i, $element, newHeight, $elements, elementsLength;
+		
+		$elements = $context.find('.full-height');
+		elementsLength = $elements.length;
 		
 		for (var i=0; i < elementsLength; i++) {
 		  $element = $($elements[i]);
@@ -335,11 +332,10 @@ Elastic.helpers = {
 		return this;
 	},
 	'full-min-height'  : function fullMinHeightHelper($context) {
-		var i;
-		var $element;
-		var newHeight;
-		var $elements = $context.find('.full-min-height');
-		var elementsLength = $elements.length;
+		var i, $element, newHeight, $elements, elementsLength;
+		
+		$elements      = $context.find('.full-min-height');
+		elementsLength = $elements.length;
 		
 		for (var i=0; i < elementsLength; i++) {
 		  $element = $($elements[i]);
@@ -353,49 +349,72 @@ Elastic.helpers = {
 		return this;
 	},
 	'elastic-height'   : function elasticHeightHelper($context) {
-		$context.find('.elastic-height').each(function() {
-			var _this = $(this);
-			var h = 0;
-			$('> *:not(.elastic-height)', this.parentNode).each(function() {
-				h += $(this).outerHeight(true);
-			});
-			var height = Math.round(_this.parent().height() - h);
-			if(height <  0.1) {
-				return;
-			}
-			_this.css('height', height);
-			Elastic.refresh(this);
-		});
+		var i, j, $elements, $siblings, siblingsLength, siblingsHeight, elementsLength;
+		
+		$elements      = $context.find('.elastic-height');
+		siblingsHeight = 0;
+		elementsLength = $elements.length;
+		
+		for (var i=0; i < elementsLength; i++) {
+		  $element       = $($elements[i]);
+		  $siblings      = $element.parent().find('> *:not(.elastic-height)');
+		  siblingsLength = $siblings.length;
+		  siblingsHeight = 0;
+		  
+		  for (var j=0; j < siblingsLength; j++) {
+		      siblingsHeight = siblingsHeight + $($siblings[j]).outerHeight(true);
+		  }
+		 
+		  if( siblingsHeight < 0 || isNaN( Number(siblingsHeight) ) ){
+  		      continue;
+  		  }
+  		  
+  		  $element.css('height', $element.parent().height() - siblingsHeight);
+		}
 		
 		return this;
 	},
 	'center'           : function centerHelper($context) {
-		$context.find('.vertical-center, .center').each(function() {
-			var parentNode = $(this.parentNode);
-			var paddingTop = Math.round( ( parentNode.height() - $(this).outerHeight(true) ) / 2 );
-			if(paddingTop < 0.1) {
-				return;
-			}
-			parentNode.css({
-				paddingTop : paddingTop + 'px',
-				height     : ( parentNode.css('height') ) ? ( parentNode.outerHeight() - paddingTop ) : ''
-			});
-		});
+		var i, $elements, $elementsLength, $element, paddingTop, $parent;
+		
+		$elements       = $context.find('.vertical-center, .center');
+		$elementsLength = $elements.length;
+		paddingTop      = 0;
+		
+		for (var i=0; i < $elementsLength; i++) {
+		  $element = $($elements[i]);
+		  $parent = $($elements[i]).parent();
+		  paddingTop = Math.round( ( $parent.height() - $element.outerHeight(true) ) / 2 );
+		  if( paddingTop < 0 || isNaN( Number(paddingTop) ) ){
+  		      continue;
+  		  }
+  		  $parent.css({
+  		      paddingTop : paddingTop + 'px',
+  		      height     : ( $parent.css('height') ) ? ( $parent.outerHeight() - paddingTop ) : ''
+  		  })
+		}
 		
 		return this;
 	},
 	'bottom'           : function bottomHelper($context) {
-		$context.find('.bottom').each(function(){
-			var parentNode = $(this.parentNode);
-			var paddingTop = Math.round( parentNode.height() - $(this).outerHeight(true) );
-			if(paddingTop < 0.1) {
-				return true;
-			}
-			parentNode.css({
-				paddingTop : paddingTop + 'px',
-				height     : ( parentNode.css('height') ) ? ( parentNode.outerHeight() - paddingTop ) : ''
-			});
-		});
+		var i, $elements, $elementsLength, $element, paddingTop, $parent;
+		
+		var $elements       = $context.find('.bottom');
+		var $elementsLength = $elements.length;
+		var paddingTop      = 0;
+		
+		for (var i=0; i < $elementsLength; i++) {
+		  $element = $($elements[i]);
+		  $parent = $($elements[i]).parent();
+		  paddingTop = Math.round( $parent.height() - $element.outerHeight(true) );
+		  if( paddingTop < 0 || isNaN( Number(paddingTop) ) ){
+  		      continue;
+  		  }
+  		  $parent.css({
+  		      paddingTop : paddingTop + 'px',
+  		      height     : ( $parent.css('height') ) ? ( $parent.outerHeight() - paddingTop ) : ''
+  		  })
+		}
 		
 		return this;
 	}
@@ -478,6 +497,9 @@ Elastic.getInnerWidth = function(element) {
 			- parseFloat(computedStyle.borderLeftWidth.replace('px', ''))
 			- parseFloat(computedStyle.borderRightWidth.replace('px', ''));
 	}
+	if(isNaN(innerWidth)){
+	    innerWidth = $(element).width();
+	}
 	return Math.floor(innerWidth);
 };
 
@@ -498,6 +520,10 @@ Elastic.getOuterWidth = function(element) {
 	outerWidth = innerWidth
 		+ parseFloat(computedStyle.marginLeft.replace('px', '')) 
 		+ parseFloat(computedStyle.marginRight.replace('px', ''));
+	
+	if(isNaN(outerWidth)){
+    	outerWidth = $(element).outerWidth(true);
+    }
 	
 	return Math.ceil(outerWidth);
 };
@@ -550,7 +576,7 @@ Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
 	return null;
 });
 
-jQuery(function Loader(){
+jQuery.fn.ready(function Loader(){
 	var doc = Elastic.$documentElement;
 	var iw  = document.body.clientWidth;
 	doc.trigger('elastic:beforeInitialize');
