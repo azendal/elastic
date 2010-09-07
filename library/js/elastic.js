@@ -161,6 +161,10 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	
 	var currentColumn, computedWidth, columnPosition, columnsWidth, lastColumn, i, j, l, elasticColumnWidths;
 	
+	if(fixedColumnsWidth >= containerWidth){
+	    return;
+	}
+	
 	computedWidth  = 0;
 	columnPosition = 0;
 	columnsWidth   = fixedColumnsWidth;
@@ -184,12 +188,13 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 			computedWidth             = 0;
 		}
 	}
-	
-	for(i = 0, l = elasticColumns.length; i < l; i++) {
-		elasticColumnWidths    = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
-		for(j = 0, l = elasticColumns.length; j < l; j++) {
-			elasticColumns[j].style.width = elasticColumnWidths[j].width + 'px';
-		}
+
+	if(elasticColumns.length > 0){
+	    elasticColumnWidths    = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
+
+    	for(i = 0, l = elasticColumns.length; i < l; i++) {
+    		elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
+    	}
 	}
 	
 	if(lastColumn.isFinal) {
