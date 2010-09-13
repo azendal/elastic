@@ -190,7 +190,7 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	}
 
 	if(elasticColumns.length > 0){
-	    elasticColumnWidths    = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
+	    elasticColumnWidths = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
 
     	for(i = 0, l = elasticColumns.length; i < l; i++) {
     		elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
@@ -395,7 +395,7 @@ Elastic.helpers = {
   		  }
   		  $parent.css({
   		      paddingTop : paddingTop + 'px',
-  		      height     : ( $parent.css('height') ) ? ( $parent.outerHeight() - paddingTop ) : ''
+  		      height     : ( $parent.css('height') ) ? ( $parent.height() - paddingTop ) : ''
   		  })
 		}
 		
