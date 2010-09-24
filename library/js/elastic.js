@@ -11,11 +11,27 @@ More information http://www.elasticss.com
 **/
 
 var Elastic = function Elastic(context, includeContext) {
-	var helper, columnsElements, i, l, columnsIterator, $context;
+	var helper, columnsElements, i, l, columnsIterator, $context, columnsElementsArr;
 	
 	context         = context || document;
 	$context        = $(context);
 	columnsElements = Elastic.querySelectorAll('.columns', context);
+	
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    
+	    columnsElementsArr = [];
+	    
+	    if($context.hasClass('columns')){
+	        columnsElementsArr.push(context);
+	    }
+	    
+	    for(i=0, l = columnsElements.length; i < l; i++){
+	        columnsElementsArr.push(columnsElements[i]);
+	    }
+	    
+	    columnsElements = columnsElementsArr;
+	}
+	
 	l               = columnsElements.length;
 	columnsIterator = Elastic.columnsIterator;
 	
@@ -52,9 +68,11 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
 	container         = Elastic.querySelectorAll('> .container', columnsElement)[0] || columnsElement;
 	columnElements    = Elastic.querySelectorAll('> .column', container);
+	
 	if(columnElements.length == 0){
 		return;
 	}
+	
 	lastColumn        = columnElements[columnElements.length - 1];
 	columnsPerRow     = Elastic.getColumnsPerRow(columnsElement, columnElements);
 	containerWidth    = Elastic.getInnerWidth(container);
@@ -190,7 +208,7 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	}
 
 	if(elasticColumns.length > 0){
-	    elasticColumnWidths = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
+	    elasticColumnWidths    = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
 
     	for(i = 0, l = elasticColumns.length; i < l; i++) {
     		elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
@@ -260,10 +278,26 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 Elastic.round.cache = {};
 
 Elastic.helpers = {
-	'full-width'       : function fullWidthHelper($context) {
-		var i, $element, $elements, elementsLength;
+	'full-width'       : function fullWidthHelper($context, includeContext) {
+		var i, $element, $elements, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.full-width');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('full-width')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		elementsLength = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
@@ -273,10 +307,26 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'same-height'      : function sameHeightHelper($context) {
-	    var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength;
+	'same-height'      : function sameHeightHelper($context, includeContext) {
+	    var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength, elementsArr;
 		
 		$elements       = $context.find('.same-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('same-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		elementsLength  = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
@@ -296,10 +346,26 @@ Elastic.helpers = {
 		
 		return this
 	},
-	'same-min-height'  : function sameMinHeightHelper($context) {
-		var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength;
+	'same-min-height'  : function sameMinHeightHelper($context, includeContext) {
+		var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength, elementsArr;
 		
 		$elements       = $context.find('.same-min-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('same-min-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		elementsLength  = $elements.length;
 		
 		for(i = 0; i < elementsLength; i++) {
@@ -319,10 +385,26 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'full-height'      : function fullHeightHelper($context) {
-		var i, $element, newHeight, $elements, elementsLength;
+	'full-height'      : function fullHeightHelper($context, includeContext) {
+		var i, $element, newHeight, $elements, elementsLength, elementsArr;
 		
 		$elements = $context.find('.full-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('full-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		elementsLength = $elements.length;
 		
 		for (var i=0; i < elementsLength; i++) {
@@ -336,10 +418,26 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'full-min-height'  : function fullMinHeightHelper($context) {
-		var i, $element, newHeight, $elements, elementsLength;
+	'full-min-height'  : function fullMinHeightHelper($context, includeContext) {
+		var i, $element, newHeight, $elements, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.full-min-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('full-min-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		elementsLength = $elements.length;
 		
 		for (var i=0; i < elementsLength; i++) {
@@ -353,10 +451,26 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'elastic-height'   : function elasticHeightHelper($context) {
-		var i, j, $elements, $siblings, siblingsLength, siblingsHeight, elementsLength;
+	'elastic-height'   : function elasticHeightHelper($context, includeContext) {
+		var i, j, $elements, $siblings, siblingsLength, siblingsHeight, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.elastic-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('elastic-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		siblingsHeight = 0;
 		elementsLength = $elements.length;
 		
@@ -379,10 +493,26 @@ Elastic.helpers = {
 		
 		return this;
 	},
-	'center'           : function centerHelper($context) {
-		var i, $elements, $elementsLength, $element, paddingTop, $parent;
+	'center'           : function centerHelper($context, includeContext) {
+		var i, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
 		
 		$elements       = $context.find('.vertical-center, .center');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('vertical-center') || $context.hasClass('center')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		$elementsLength = $elements.length;
 		paddingTop      = 0;
 		
@@ -395,16 +525,32 @@ Elastic.helpers = {
   		  }
   		  $parent.css({
   		      paddingTop : paddingTop + 'px',
-  		      height     : ( $parent.css('height') ) ? ( $parent.height() - paddingTop ) : ''
+  		      height     : ( $parent.css('height') ) ? ( $parent.outerHeight() - paddingTop ) : ''
   		  })
 		}
 		
 		return this;
 	},
-	'bottom'           : function bottomHelper($context) {
-		var i, $elements, $elementsLength, $element, paddingTop, $parent;
+	'bottom'           : function bottomHelper($context, includeContext) {
+		var i, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
 		
 		var $elements       = $context.find('.bottom');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('bottom')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
 		var $elementsLength = $elements.length;
 		var paddingTop      = 0;
 		
@@ -429,7 +575,7 @@ Elastic.$window = $(window);
 
 Elastic.$documentElement = $(document);
 
-Elastic.reset = function Elastic_reset(context) {
+Elastic.reset = function Elastic_reset(context, includeContext) {
 	var i,w,wl,h,hl,p,pl,m,ml,n,nl,doc;
 	doc = Elastic.$documentElement;
 	context = $(context || document);
@@ -441,24 +587,66 @@ Elastic.reset = function Elastic_reset(context) {
 	w = context.find('.column:not(.fixed), .full-width');
 	m = context.find('.column.final');
 	
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    if(context.hasClass('same-height')){
+	        context.find('> .column').each(function(){
+	            this.style.height = '';
+	        });
+	    }
+	    
+	    if(context.hasClass('full-height') || context.hasClass('elastic-height')){
+	        context.style.height = '';
+	    }
+	}
+	
 	for(i = 0, hl = h.length; i < hl; i++) {
 		h[i].style.height = '';
+	}
+	
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    if(context.hasClass('same-min-height')){
+	        context.find('> .column').each(function(){
+	            this.style.minHeight = '';
+	        });
+	    }
+	    
+	    if(context.hasClass('full-min-height')){
+	        context.style.minHeight = '';
+	    }
+	}
+	
+	for(i = 0, nl = n.length; i < nl; i++){
+	  n[i].style.minHeight = '';
+	}
+	
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    if(context.hasClass('vertical-center') || context.hasClass('center') || context.hasClass('bottom')){
+	        context.parentNode.style.paddingTop = ''; context.parentNode.style.height = '';
+	    }
 	}
 	
 	for(i = 0, pl = p.length; i < pl; i++) {
 		p[i].parentNode.style.paddingTop = ''; p[i].parentNode.style.height = '';
 	}
 	
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    if((context.hasClass('column') && !context.hasClass('fixed')) || context.hasClass('full-width')){
+	        context.style.width = '';
+	    }
+	}
+	
 	for(i = 0, wl = w.length; i < wl; i++) {
 		w[i].style.width = '';
 	}
 	
-	for(i = 0, ml = m.length; i < ml; i++){
-		m[i].style.marginLeft = ''; m[i].style.marginRight = '';
+	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	    if(context.hasClass('column') && context.hasClass('final')){
+	        context.style.marginLeft = ''; context.style.marginRight = '';
+	    }
 	}
 	
-	for(i = 0, nl = n.length; i < nl; i++){
-	  n[i].style.minHeight = '';
+	for(i = 0, ml = m.length; i < ml; i++){
+		m[i].style.marginLeft = ''; m[i].style.marginRight = '';
 	}
 	
 	doc.trigger('elastic:reset');
@@ -466,7 +654,7 @@ Elastic.reset = function Elastic_reset(context) {
 	return this;
 };
 
-Elastic.refresh = function Elastic_refresh(context){
+Elastic.refresh = function Elastic_refresh(context, includeContext){
 	var doc = Elastic.$documentElement;
 	doc.trigger('elastic:beforeRefresh', context);
 	Elastic.reset(context)(context);
