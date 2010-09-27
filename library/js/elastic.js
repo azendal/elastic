@@ -578,24 +578,24 @@ Elastic.$documentElement = $(document);
 Elastic.reset = function Elastic_reset(context, includeContext) {
 	var i,w,wl,h,hl,p,pl,m,ml,n,nl,doc;
 	doc = Elastic.$documentElement;
-	context = $(context || document);
+	$context = $(context || document);
 	doc.trigger('elastic:beforeReset');
 	
-	h = context.find('.same-height > .column, .full-height, .elastic-height');
-	n = context.find('.same-min-height > .column, .full-min-height');
-	p = context.find('.vertical-center, .center, .bottom');
-	w = context.find('.column:not(.fixed), .full-width');
-	m = context.find('.column.final');
+	h = $context.find('.same-height > .column, .full-height, .elastic-height');
+	n = $context.find('.same-min-height > .column, .full-min-height');
+	p = $context.find('.vertical-center, .center, .bottom');
+	w = $context.find('.column:not(.fixed), .full-width');
+	m = $context.find('.column.final');
 	
 	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if(context.hasClass('same-height')){
-	        context.find('> .column').each(function(){
+	    if($context.hasClass('same-height')){
+	        $context.find('> .column').each(function(){
 	            this.style.height = '';
 	        });
 	    }
 	    
-	    if(context.hasClass('full-height') || context.hasClass('elastic-height')){
-	        context.style.height = '';
+	    if($context.hasClass('full-height') || $context.hasClass('elastic-height')){
+	        $context.css('height','');
 	    }
 	}
 	
@@ -604,14 +604,14 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	}
 	
 	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if(context.hasClass('same-min-height')){
-	        context.find('> .column').each(function(){
+	    if($context.hasClass('same-min-height')){
+	        $context.find('> .column').each(function(){
 	            this.style.minHeight = '';
 	        });
 	    }
 	    
-	    if(context.hasClass('full-min-height')){
-	        context.style.minHeight = '';
+	    if($context.hasClass('full-min-height')){
+	        $context.css('minHeight','');
 	    }
 	}
 	
@@ -620,8 +620,8 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	}
 	
 	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if(context.hasClass('vertical-center') || context.hasClass('center') || context.hasClass('bottom')){
-	        context.parentNode.style.paddingTop = ''; context.parentNode.style.height = '';
+	    if($context.hasClass('vertical-center') || $context.hasClass('center') || $context.hasClass('bottom')){
+	        $context.parent().css('paddingTop',''); $context.parent().css('height','');
 	    }
 	}
 	
@@ -630,8 +630,8 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	}
 	
 	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if((context.hasClass('column') && !context.hasClass('fixed')) || context.hasClass('full-width')){
-	        context.style.width = '';
+	    if(($context.hasClass('column') && !$context.hasClass('fixed')) || $context.hasClass('full-width')){
+	        $context.css('width','');
 	    }
 	}
 	
@@ -640,8 +640,8 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	}
 	
 	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if(context.hasClass('column') && context.hasClass('final')){
-	        context.style.marginLeft = ''; context.style.marginRight = '';
+	    if($context.hasClass('column') && $context.hasClass('final')){
+	        $context.css('marginLeft',''); $context.css('marginRight','');
 	    }
 	}
 	
