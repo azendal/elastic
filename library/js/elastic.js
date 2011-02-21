@@ -17,15 +17,15 @@ var Elastic = function Elastic(context, includeContext) {
 	$context        = $(context);
 	columnsElements = Elastic.querySelectorAll('.columns', context);
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
+	if (includeContext !== false && Elastic.configuration.includeContext === true) {
 	    
 	    columnsElementsArr = [];
 	    
-	    if($context.hasClass('columns')){
+	    if ($context.hasClass('columns')) {
 	        columnsElementsArr.push(context);
 	    }
 	    
-	    for(i=0, l = columnsElements.length; i < l; i++){
+	    for (i = 0, l = columnsElements.length; i < l; i++) {
 	        columnsElementsArr.push(columnsElements[i]);
 	    }
 	    
@@ -35,18 +35,18 @@ var Elastic = function Elastic(context, includeContext) {
 	l               = columnsElements.length;
 	columnsIterator = Elastic.columnsIterator;
 	
-	for(i = 0; i < l; i++) {
+	for (i = 0; i < l; i++) {
 		columnsIterator(columnsElements[i]);
 	}
 	
-	for(helper in Elastic.helpers) {
-		if(Elastic.helpers.hasOwnProperty(helper)) {
+	for (helper in Elastic.helpers) {
+		if (Elastic.helpers.hasOwnProperty(helper)) {
 			Elastic.helpers[helper]($context);
 		}
 	}
 };
 
-Elastic.VERSION                     = '2.1.0 RC';
+Elastic.VERSION                     = '2.1.0 RC2';
 Elastic.COLUMNS_PER_ROW_EXPRESSION  = /(^|\s+)on\-(\d+)(\s+|$)/;
 Elastic.COLUMN_SPAN_EXPRESSION      = /(^|\s+)span\-(\d+)(\s+|$)/;
 Elastic.FIXED_COLUMN_EXPRESSION     = /(^|\s+)fixed(\s+|$)/;
@@ -62,14 +62,14 @@ Elastic.configuration = {
 
 Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
-	var container, columnElements, lastColumn, columnsPerRow, containerWidth, columnWidths, 
+	var i, l, container, columnElements, lastColumn, columnsPerRow, containerWidth, columnWidths, 
 		elasticColumns, rowColumns, columnsOnRow, nextColumnsOnRow, fixedColumnsWidth, currentColumn, 
 		fixedColumnWidth, minWidth, maxWidth;
 	
 	container         = Elastic.querySelectorAll('> .container', columnsElement)[0] || columnsElement;
 	columnElements    = Elastic.querySelectorAll('> .column', container);
 	
-	if(columnElements.length == 0){
+	if (columnElements.length === 0) {
 		return;
 	}
 	
@@ -78,25 +78,25 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	containerWidth    = Elastic.getInnerWidth(container);
 	columnWidths      = Elastic.round(containerWidth, columnsPerRow);
 	
-	if(Elastic.ADAPTIVE_COLUMNS_EXPRESSION.test(columnsElement.className)) {
+	if (Elastic.ADAPTIVE_COLUMNS_EXPRESSION.test(columnsElement.className)) {
 		minWidth = Number(RegExp.$2);
 		maxWidth = Number(RegExp.$3);
 		
-		if(columnWidths[0].width > maxWidth) {
-			while(columnWidths[0].width > maxWidth) {
+		if (columnWidths[0].width > maxWidth) {
+			while (columnWidths[0].width > maxWidth) {
 				columnsPerRow = columnsPerRow + 1;
 				columnWidths = Elastic.round(containerWidth, columnsPerRow);
-				if(columnWidths[0].width < minWidth){
+				if (columnWidths[0].width < minWidth) {
 					break;
 				}
 			}
 		}
 		
-		if(columnWidths[0].width < minWidth) {
-			while(columnWidths[0].width < minWidth) {
+		if (columnWidths[0].width < minWidth) {
+			while (columnWidths[0].width < minWidth) {
 				columnsPerRow = columnsPerRow - 1;
 				columnWidths = Elastic.round(containerWidth, columnsPerRow);
-				if(columnWidths[0].width > maxWidth){
+				if (columnWidths[0].width > maxWidth) {
 					break;
 				}
 			}
@@ -109,15 +109,15 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	nextColumnsOnRow  = 0;
 	fixedColumnsWidth = 0;
 	
-	for(var i = 0, l = columnElements.length; i < l; i++) {
+	for (i = 0, l = columnElements.length; i < l; i++) {
 		currentColumn = columnElements[i];
-		if(Elastic.FIXED_COLUMN_EXPRESSION.test(currentColumn.className)) {
+		if (Elastic.FIXED_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			fixedColumnWidth          = Elastic.getOuterWidth(currentColumn);
 			currentColumn.columnWidth = fixedColumnWidth;
 			currentColumn.isFixed     = true;
 			fixedColumnsWidth        += fixedColumnWidth;
 		}
-		else if(Elastic.ELASTIC_COLUMN_EXPRESSION.test(currentColumn.className)) {
+		else if (Elastic.ELASTIC_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			currentColumn.isElastic = true;
 			elasticColumns.push(currentColumn);
 		}
@@ -125,13 +125,13 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 			currentColumn.isRegular = true;
 		}
 		
-		if(Elastic.FINAL_COLUMN_EXPRESSION.test(currentColumn.className)) {
+		if (Elastic.FINAL_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			currentColumn.isFinal = true;
 		}
 		
 		nextColumnsOnRow = columnsOnRow + currentColumn.spanWidth;
 		
-		if(nextColumnsOnRow >= columnsPerRow || currentColumn == lastColumn || currentColumn.isFinal) {
+		if (nextColumnsOnRow >= columnsPerRow || currentColumn === lastColumn || currentColumn.isFinal) {
 			rowColumns.push(currentColumn);
 			Elastic.processRow(rowColumns, containerWidth, fixedColumnsWidth, elasticColumns, columnWidths);
 			fixedColumnsWidth = 0;
@@ -150,20 +150,20 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 };
 
 Elastic.getColumnsPerRow = function getColumnsPerRow(columnsElement, columnElements) {
-	var columnsPerRow, fixedColumnsPerRow;
+	var  i, l, columnsPerRow, fixedColumnsPerRow;
 	
-	columnsPerRow      = columnElements.length,
+	columnsPerRow      = columnElements.length;
 	fixedColumnsPerRow = false;
 	
-	if(Elastic.COLUMNS_PER_ROW_EXPRESSION.test(columnsElement.className)) {
+	if (Elastic.COLUMNS_PER_ROW_EXPRESSION.test(columnsElement.className)) {
 		columnsPerRow      = Number(RegExp.$2);
 		fixedColumnsPerRow = true;
 	}
 	
-	for(var i = 0, l = columnElements.length; i < l; i++) {
-		if(Elastic.COLUMN_SPAN_EXPRESSION.test(columnElements[i].className)) {
+	for (i = 0, l = columnElements.length; i < l; i++) {
+		if (Elastic.COLUMN_SPAN_EXPRESSION.test(columnElements[i].className)) {
 			columnElements[i].spanWidth = Number(RegExp.$2);
-			if(fixedColumnsPerRow !== true) {
+			if (fixedColumnsPerRow !== true) {
 				columnsPerRow += columnElements[i].spanWidth - 1;
 			}
 		}
@@ -177,7 +177,7 @@ Elastic.getColumnsPerRow = function getColumnsPerRow(columnsElement, columnEleme
 
 Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWidth, elasticColumns, columnWidths) {
 	
-	var currentColumn, computedWidth, columnPosition, columnsWidth, lastColumn, i, j, l, elasticColumnWidths;
+	var currentColumn, computedWidth, columnPosition, columnsWidth, lastColumn, i, j, l, elasticColumnWidths, elasticColumnsWidth;
 	
 	if(fixedColumnsWidth >= containerWidth){
 	    return;
@@ -208,15 +208,17 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	}
 
 	if(elasticColumns.length > 0){
-	    elasticColumnWidths    = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
+		elasticColumnsWidth = 0;
+	    elasticColumnWidths = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
 
     	for(i = 0, l = elasticColumns.length; i < l; i++) {
+			elasticColumnsWidth += elasticColumnWidths[i].width;
     		elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
     	}
 	}
 	
 	if(lastColumn.isFinal) {
-		lastColumn.style.marginRight = (containerWidth - columnsWidth) + 'px';
+		lastColumn.style.marginRight = (containerWidth - columnsWidth - elasticColumnsWidth) + 'px';
 	}
 
 };
@@ -227,17 +229,16 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 	
 	cache = Elastic.round.cache;
 	
-	if(cache[containerWidth] && cache[containerWidth][columns]) {
+	if (cache[containerWidth] && cache[containerWidth][columns]) {
 		return cache[containerWidth][columns];
 	}
 	
-	column;
 	columnPercentage = 100 / columns;
 	columnWidths     = [];
-	columnWidth      = Math.round(containerWidth * ( columnPercentage / 100 ));
+	columnWidth      = Math.round(containerWidth * (columnPercentage / 100));
 	columnWidthTally = columnWidth * columns;
 	
-	for(i = 0; i < columns; i++) {
+	for (i = 0; i < columns; i++) {
 		columnWidths.push({width:columnWidth});
 	}
 	
@@ -247,16 +248,16 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 	increment        = (difference > 0);
 	direction        = -1;
 	
-	if(difference !== 0) {
-		for(i = 1; i <= (Math.abs(difference)); i++) {
-			if(direction == -1) {
-				column = columnWidths[ columnWidths.length - Math.floor( positionDivision * Math.round(i/2) ) ];
+	if (difference !== 0) {
+		for (i = 1; i <= (Math.abs(difference)); i++) {
+			if (direction == -1) {
+				column = columnWidths[ columnWidths.length - Math.floor(positionDivision * Math.round(i/2)) ];
 			}
 			else {
-				column = columnWidths[Math.floor( positionDivision * Math.round(i/2) ) - 1];
+				column = columnWidths[Math.floor(positionDivision * Math.round(i/2)) - 1];
 			}
 			
-			if(increment) {
+			if (increment) {
 				column.width = columnWidth + 1;
 			}
 			else {
@@ -266,7 +267,7 @@ Elastic.round = function ElasticRoundingAlgorithm(containerWidth, columns) {
 		}
 	}
 	
-	if(!cache[containerWidth]) {
+	if (!cache[containerWidth]) {
 		cache[containerWidth] = {};
 	}
 	
@@ -283,15 +284,15 @@ Elastic.helpers = {
 		
 		$elements      = $context.find('.full-width');
 		
-		if(includeContext !== false && Elastic.configuration.includeContext === true){
+		if (includeContext !== false && Elastic.configuration.includeContext === true) {
 
     	    elementsArr = [];
 
-    	    if($context.hasClass('full-width')){
+    	    if ($context.hasClass('full-width')) {
     	        elementsArr.push($context[0]);
     	    }
 
-    	    for(i=0, l = $elements.length; i < l; i++){
+    	    for (i=0, l = $elements.length; i < l; i++) {
     	        elementsArr.push($elements[i]);
     	    }
 
@@ -344,7 +345,7 @@ Elastic.helpers = {
     		}
 		}
 		
-		return this
+		return this;
 	},
 	'same-min-height'  : function sameMinHeightHelper($context, includeContext) {
 		var i, j, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength, elementsArr;
@@ -407,7 +408,7 @@ Elastic.helpers = {
 		
 		elementsLength = $elements.length;
 		
-		for (var i=0; i < elementsLength; i++) {
+		for (i = 0; i < elementsLength; i++) {
 		  $element = $($elements[i]);
 		  newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
 		  if( newHeight < 0 || isNaN( Number(newHeight) ) ){
@@ -587,65 +588,65 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	w = $context.find('.column:not(.fixed), .full-width');
 	m = $context.find('.column.final');
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if($context.hasClass('same-height')){
+	if (includeContext !== false && Elastic.configuration.includeContext === true){
+	    if ($context.hasClass('same-height')){
 	        $context.find('> .column').each(function(){
 	            this.style.height = '';
 	        });
 	    }
 	    
-	    if($context.hasClass('full-height') || $context.hasClass('elastic-height')){
+	    if ($context.hasClass('full-height') || $context.hasClass('elastic-height')){
 	        $context.css('height','');
 	    }
 	}
 	
-	for(i = 0, hl = h.length; i < hl; i++) {
+	for (i = 0, hl = h.length; i < hl; i++) {
 		h[i].style.height = '';
 	}
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if($context.hasClass('same-min-height')){
+	if (includeContext !== false && Elastic.configuration.includeContext === true){
+	    if ($context.hasClass('same-min-height')){
 	        $context.find('> .column').each(function(){
 	            this.style.minHeight = '';
 	        });
 	    }
 	    
-	    if($context.hasClass('full-min-height')){
+	    if ($context.hasClass('full-min-height')){
 	        $context.css('minHeight','');
 	    }
 	}
 	
-	for(i = 0, nl = n.length; i < nl; i++){
+	for (i = 0, nl = n.length; i < nl; i++){
 	  n[i].style.minHeight = '';
 	}
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if($context.hasClass('vertical-center') || $context.hasClass('center') || $context.hasClass('bottom')){
+	if (includeContext !== false && Elastic.configuration.includeContext === true){
+	    if ($context.hasClass('vertical-center') || $context.hasClass('center') || $context.hasClass('bottom')){
 	        $context.parent().css('paddingTop',''); $context.parent().css('height','');
 	    }
 	}
 	
-	for(i = 0, pl = p.length; i < pl; i++) {
+	for (i = 0, pl = p.length; i < pl; i++) {
 		p[i].parentNode.style.paddingTop = ''; p[i].parentNode.style.height = '';
 	}
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if(($context.hasClass('column') && !$context.hasClass('fixed')) || $context.hasClass('full-width')){
+	if (includeContext !== false && Elastic.configuration.includeContext === true){
+	    if (($context.hasClass('column') && !$context.hasClass('fixed')) || $context.hasClass('full-width')){
 	        $context.css('width','');
 	    }
 	}
 	
-	for(i = 0, wl = w.length; i < wl; i++) {
+	for (i = 0, wl = w.length; i < wl; i++) {
 		w[i].style.width = '';
 	}
 	
-	if(includeContext !== false && Elastic.configuration.includeContext === true){
-	    if($context.hasClass('column') && $context.hasClass('final')){
+	if (includeContext !== false && Elastic.configuration.includeContext === true){
+	    if ($context.hasClass('column') && $context.hasClass('final')){
 	        $context.css('marginLeft',''); $context.css('marginRight','');
 	    }
 	}
 	
-	for(i = 0, ml = m.length; i < ml; i++){
+	for (i = 0, ml = m.length; i < ml; i++){
 		m[i].style.marginLeft = ''; m[i].style.marginRight = '';
 	}
 	
@@ -654,7 +655,7 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	return this;
 };
 
-Elastic.refresh = function Elastic_refresh(context, includeContext){
+Elastic.refresh = function Elastic_refresh(context, includeContext) {
 	var doc = Elastic.$documentElement;
 	doc.trigger('elastic:beforeRefresh', context);
 	Elastic.reset(context)(context);
@@ -721,7 +722,7 @@ Elastic.getOuterWidth = function(element) {
 	return Math.ceil(outerWidth);
 };
 
-Elastic.querySelectorAll = function(selector, context){
+Elastic.querySelectorAll = function(selector, context) {
 	var result;
 	
 	if(document.querySelectorAll) {
@@ -769,16 +770,18 @@ Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
 	return null;
 });
 
-jQuery.fn.ready(function Loader(){
+jQuery.fn.ready(function Loader() {
 	var doc = Elastic.$documentElement;
 	var iw  = document.body.clientWidth;
 	doc.trigger('elastic:beforeInitialize');
 	Elastic();
-	if(iw != document.body.clientWidth){
-		Elastic.refresh(); 
+	if (iw != document.body.clientWidth) {
+	    document.body.style.overflow = 'hidden';
+		Elastic.refresh();
+		document.body.style.overflow = '';
 	}
-	jQuery(window).bind('resize',function ElasticResizeHandler(){
-		if(Elastic.configuration.refreshOnResize){
+	jQuery(window).bind('resize',function ElasticResizeHandler() {
+		if (Elastic.configuration.refreshOnResize) {
 			Elastic.refresh();
 		}
 	});

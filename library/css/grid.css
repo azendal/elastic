@@ -13,8 +13,7 @@ Elastic CSS Grid Module
 .container:after,
 .columns:after,
 .column:after,
-.clearfix:after
-{
+.clearfix:after {
 	content    : " ";
 	display    : block;
 	height     : 0;
@@ -30,71 +29,59 @@ Elastic CSS Grid Module
 .container,
 .columns,
 .column,
-.clearfix
-{
+.clearfix {
 	display  : block;
 	_zoom    : 1;
 	_display : inline-block;
 }
 
-.full-height
-{
+.full-height {
 	/* handled by engine */
 	display:block;
 }
 
-.same-height
-{
+.same-height {
 	/* handled by engine */
 	display:block;
 }
 
-.elastic-height
-{
+.elastic-height {
 	height : 0;
 }
 
-.horizontal-center
-{
+.horizontal-center {
 	margin : 0 auto;	
 }
 
-.vertical-center
-{
+.vertical-center {
 	/* margin : auto 0; */
 	display : block;
 }
 
-.center
-{
+.center {
 	/* margin : auto */
 	margin : 0 auto;
 }
 
-.column
-{
+.column {
 	float : left;
 }
 
-.column.final
-{
+.column.final {
 	/* handled by engine */
 	display:block;
 }
 
-.column.fixed
-{
+.column.fixed {
 	width : auto;
 }
 
-.column.elastic
-{
+.column.elastic {
 	display : block;
 }
 
 .inverted > .column,
-.inverted > .container > .column
-{
+.inverted > .container > .column {
 	float : right;
 }
 
@@ -106,37 +93,31 @@ Elastic CSS Grid Module
 	this classes cover most cases.
 */
 .on-2.columns > .column:not(.fixed),
-.on-2.columns > .container > .column:not(.fixed)
-{
+.on-2.columns > .container > .column:not(.fixed) {
 	width : 50%;
 }
 
 .on-3.columns > .column:not(.fixed),
-.on-3.columns > .container > .column:not(.fixed)
-{
+.on-3.columns > .container > .column:not(.fixed) {
 	width : 33.33%;
 }
 
 .on-3.columns > .column.span-2,
-.on-3.columns > .container > .column.span-2
-{
+.on-3.columns > .container > .column.span-2 {
 	width : 66.66%;
 }
 
 .on-4.columns > .column:not(.fixed),
-.on-4.columns > .container > .column:not(.fixed)
-{
+.on-4.columns > .container > .column:not(.fixed) {
 	width : 25%;
 }
 
 .on-4.columns > .column.span-2,
-.on-4.columns > .container > .column.span-2
-{
+.on-4.columns > .container > .column.span-2 {
 	width : 50%;
 }
 
 .on-4.columns > .column.span-3,
-.on-4.columns > .container > .column.span-2
-{
+.on-4.columns > .container > .column.span-2 {
 	width : 75%;
 }
