@@ -188,6 +188,8 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	columnsWidth   = fixedColumnsWidth;
 	lastColumn     = columns[columns.length - 1];
 	
+	lastColumn.className = lastColumn.className + ' elastic-row-last';
+	
 	for(i = 0, l = columns.length; i < l; i++) {
 		currentColumn = columns[i];
 		if(currentColumn.isRegular) {
@@ -218,7 +220,7 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	}
 	
 	if(lastColumn.isFinal) {
-		lastColumn.style.marginRight = (containerWidth - columnsWidth - elasticColumnsWidth) + 'px';
+		lastColumn.style.marginRight = (containerWidth - columnsWidth - (elasticColumnsWidth || 0)) + 'px';
 	}
 
 };
@@ -343,6 +345,51 @@ Elastic.helpers = {
 			for(j = 0; j < elementColumnsLength; j++) {
     			$($elementColumns[j]).css('height', maxHeight);
     		}
+		}
+		
+		return this;
+	},
+	'same-row-height'  : function ($context, includeContext) {
+	    var i, j, k, currentHeight, maxHeight, $elementColumns, elementColumnsLength, $elements, elementsLength, elementsArr;
+		
+		$elements       = $context.find('.same-row-height');
+		
+		if(includeContext !== false && Elastic.configuration.includeContext === true){
+
+    	    elementsArr = [];
+
+    	    if($context.hasClass('same-row-height')){
+    	        elementsArr.push($context[0]);
+    	    }
+
+    	    for(i=0, l = $elements.length; i < l; i++){
+    	        elementsArr.push($elements[i]);
+    	    }
+
+    	    $elements = elementsArr;
+    	}
+		
+		elementsLength  = $elements.length;
+		
+		for(i = 0; i < elementsLength; i++) {
+			$elementColumns      = $($elements[i]).find('> *');
+			elementColumnsLength = $elementColumns.length;
+			maxHeight            = 0;
+			var rowColumns       = [];
+			
+			for(j = 0; j < elementColumnsLength; j++){
+			    currentHeight = $($elementColumns[j]).outerHeight(true);
+    			maxHeight     = (maxHeight > currentHeight) ? maxHeight : currentHeight;
+    			rowColumns.push($elementColumns[j]);
+    			
+    			if ($($elementColumns[j]).hasClass('elastic-row-last')) {
+    			    for(k = 0; k < rowColumns.length; k++) {
+            			$(rowColumns[k]).css('height', maxHeight);
+            		}
+            		maxHeight = 0;
+            		rowColumns = [];
+    			}
+			}
 		}
 		
 		return this;
@@ -582,15 +629,17 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	$context = $(context || document);
 	doc.trigger('elastic:beforeReset');
 	
-	h = $context.find('.same-height > .column, .full-height, .elastic-height');
-	n = $context.find('.same-min-height > .column, .full-min-height');
+	h = $context.find('.same-height > *, same-row-height > *, .full-height, .elastic-height');
+	n = $context.find('.same-min-height > *, .full-min-height');
 	p = $context.find('.vertical-center, .center, .bottom');
 	w = $context.find('.column:not(.fixed), .full-width');
 	m = $context.find('.column.final');
 	
+	$context.find('.same-row-height > .elastic-row-last').removeClass('elastic-row-last');
+	
 	if (includeContext !== false && Elastic.configuration.includeContext === true){
-	    if ($context.hasClass('same-height')){
-	        $context.find('> .column').each(function(){
+	    if ($context.hasClass('same-height') || $context.hasClass('same-row-height')){
+	        $context.find('> *').each(function(){
 	            this.style.height = '';
 	        });
 	    }
@@ -606,7 +655,7 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 	
 	if (includeContext !== false && Elastic.configuration.includeContext === true){
 	    if ($context.hasClass('same-min-height')){
-	        $context.find('> .column').each(function(){
+	        $context.find('> *').each(function(){
 	            this.style.minHeight = '';
 	        });
 	    }
