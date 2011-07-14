@@ -188,7 +188,9 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 	columnsWidth   = fixedColumnsWidth;
 	lastColumn     = columns[columns.length - 1];
 	
-	lastColumn.className = lastColumn.className + ' elastic-row-last';
+	if(lastColumn.className.indexOf('elastic-row-last') == -1){
+	    lastColumn.className = lastColumn.className + ' elastic-row-last';
+    }
 	
 	for(i = 0, l = columns.length; i < l; i++) {
 		currentColumn = columns[i];
@@ -731,7 +733,7 @@ Elastic.getInnerWidth = function(element) {
 	var computedStyle, innerWidth;
 	
 	computedStyle = Elastic.getComputedStyle(element);
-	innerWidth    = parseFloat( (computedStyle.width == 'auto') ? element.offsetWidth : computedStyle.width.replace('px', '') );
+	innerWidth    = parseFloat( (computedStyle.width == 'auto') ? element.clientWidth : computedStyle.width.replace('px', '') );
 	
 	if(computedStyle.width == 'auto') {
 		innerWidth = innerWidth
@@ -739,6 +741,12 @@ Elastic.getInnerWidth = function(element) {
 			- parseFloat(computedStyle.paddingRight.replace('px', ''))
 			- parseFloat(computedStyle.borderLeftWidth.replace('px', ''))
 			- parseFloat(computedStyle.borderRightWidth.replace('px', ''));
+	}else{
+	    if(computedStyle.boxSizing == 'border-box' && !computedStyle.MozBoxSizing && !computedStyle.MsBoxSizing){
+	        innerWidth = innerWidth
+	            - parseFloat(computedStyle.borderLeftWidth.replace('px', ''))
+    			- parseFloat(computedStyle.borderRightWidth.replace('px', ''));
+	    }
 	}
 	if(isNaN(innerWidth)){
 	    innerWidth = $(element).width();
@@ -750,7 +758,7 @@ Elastic.getOuterWidth = function(element) {
 	var computedStyle, innerWidth, outerWidth;
 	
 	computedStyle = Elastic.getComputedStyle(element);
-	innerWidth    = parseFloat( (computedStyle.width == 'auto') ? element.offsetWidth : computedStyle.width.replace('px', '') );
+	innerWidth    = parseFloat( (computedStyle.width == 'auto') ? element.clientWidth : computedStyle.width.replace('px', '') );
 	
 	if(computedStyle.width == 'auto') {
 		innerWidth = innerWidth
