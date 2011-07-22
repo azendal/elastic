@@ -132,13 +132,33 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 		nextColumnsOnRow = columnsOnRow + currentColumn.spanWidth;
 		
 		if (nextColumnsOnRow >= columnsPerRow || currentColumn === lastColumn || currentColumn.isFinal) {
-			rowColumns.push(currentColumn);
+			if (nextColumnsOnRow <= columnsPerRow) {
+				rowColumns.push(currentColumn);
+			}
 			Elastic.processRow(rowColumns, containerWidth, fixedColumnsWidth, elasticColumns, columnWidths);
-			fixedColumnsWidth = 0;
-			columnsOnRow      = 0;
-			nextColumnsOnRow  = 0;
-			elasticColumns    = [];
-			rowColumns        = [];
+			
+			if (nextColumnsOnRow > columnsPerRow) {
+				if(currentColumn.isFixed){
+					fixedColumnsWidth = fixedColumnWidth;
+				}
+				columnsOnRow      = currentColumn.spanWidth;
+				nextColumnsOnRow  = currentColumn.spanWidth;
+				if(currentColumn.isElastic){
+					elasticColumns    = [currentColumn];
+				}
+				rowColumns        = [currentColumn];
+				
+				if(currentColumn === lastColumn){
+					Elastic.processRow(rowColumns, containerWidth, fixedColumnsWidth, elasticColumns, columnWidths);
+				}
+			}
+			else {
+				fixedColumnsWidth = 0;
+				columnsOnRow      = 0;
+				nextColumnsOnRow  = 0;
+				elasticColumns    = [];
+				rowColumns        = [];
+			}
 			continue;
 		}
 		
