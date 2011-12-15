@@ -235,10 +235,10 @@ Elastic.processRow = function processRow(columns, containerWidth, fixedColumnsWi
 		elasticColumnsWidth = 0;
 	    elasticColumnWidths = Elastic.round(containerWidth - columnsWidth, elasticColumns.length);
 
-    	for(i = 0, l = elasticColumns.length; i < l; i++) {
+        for(i = 0, l = elasticColumns.length; i < l; i++) {
 			elasticColumnsWidth += elasticColumnWidths[i].width;
-    		elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
-    	}
+            elasticColumns[i].style.width = elasticColumnWidths[i].width + 'px';
+        }
 	}
 	
 	if(lastColumn.isFinal) {
@@ -304,24 +304,24 @@ Elastic.round.cache = {};
 
 Elastic.helpers = {
 	'full-width'       : function fullWidthHelper($context, includeContext) {
-		var i, $element, $elements, elementsLength, elementsArr;
+		var i, l, $element, $elements, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.full-width');
 		
 		if (includeContext !== false && Elastic.configuration.includeContext === true) {
 
-    	    elementsArr = [];
+            elementsArr = [];
 
-    	    if ($context.hasClass('full-width')) {
-    	        elementsArr.push($context[0]);
-    	    }
+            if ($context.hasClass('full-width')) {
+                elementsArr.push($context[0]);
+            }
 
-    	    for (i=0, l = $elements.length; i < l; i++) {
-    	        elementsArr.push($elements[i]);
-    	    }
+            for (i=0, l = $elements.length; i < l; i++) {
+                elementsArr.push($elements[i]);
+            }
 
-    	    $elements = elementsArr;
-    	}
+            $elements = elementsArr;
+        }
 		
 		elementsLength = $elements.length;
 		
@@ -456,24 +456,24 @@ Elastic.helpers = {
 		return this;
 	},
 	'full-height'      : function fullHeightHelper($context, includeContext) {
-		var i, $element, newHeight, $elements, elementsLength, elementsArr;
+		var i, l, $element, newHeight, $elements, elementsLength, elementsArr;
 		
 		$elements = $context.find('.full-height');
 		
-		if(includeContext !== false && Elastic.configuration.includeContext === true){
+		if (includeContext !== false && Elastic.configuration.includeContext === true) {
 
-    	    elementsArr = [];
+            elementsArr = [];
+            
+            if($context.hasClass('full-height')){
+                elementsArr.push($context[0]);
+            }
+            
+            for(i=0, l = $elements.length; i < l; i++){
+                elementsArr.push($elements[i]);
+            }
 
-    	    if($context.hasClass('full-height')){
-    	        elementsArr.push($context[0]);
-    	    }
-
-    	    for(i=0, l = $elements.length; i < l; i++){
-    	        elementsArr.push($elements[i]);
-    	    }
-
-    	    $elements = elementsArr;
-    	}
+            $elements = elementsArr;
+        }
 		
 		elementsLength = $elements.length;
 		
@@ -489,28 +489,28 @@ Elastic.helpers = {
 		return this;
 	},
 	'full-min-height'  : function fullMinHeightHelper($context, includeContext) {
-		var i, $element, newHeight, $elements, elementsLength, elementsArr;
+		var i, l, $element, newHeight, $elements, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.full-min-height');
 		
 		if(includeContext !== false && Elastic.configuration.includeContext === true){
 
-    	    elementsArr = [];
+            elementsArr = [];
+            
+            if($context.hasClass('full-min-height')){
+                elementsArr.push($context[0]);
+            }
+            
+            for(i=0, l = $elements.length; i < l; i++){
+                elementsArr.push($elements[i]);
+            }
 
-    	    if($context.hasClass('full-min-height')){
-    	        elementsArr.push($context[0]);
-    	    }
-
-    	    for(i=0, l = $elements.length; i < l; i++){
-    	        elementsArr.push($elements[i]);
-    	    }
-
-    	    $elements = elementsArr;
-    	}
+            $elements = elementsArr;
+        }
 		
 		elementsLength = $elements.length;
 		
-		for (var i=0; i < elementsLength; i++) {
+		for (i = 0; i < elementsLength; i++) {
 		  $element = $($elements[i]);
 		  newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
 		  if( newHeight < 0 || isNaN( Number(newHeight) ) ){
@@ -522,76 +522,77 @@ Elastic.helpers = {
 		return this;
 	},
 	'elastic-height'   : function elasticHeightHelper($context, includeContext) {
-		var i, j, $elements, $siblings, siblingsLength, siblingsHeight, elementsLength, elementsArr;
+		var i, l, j, $element, $elements, $siblings, siblingsLength, siblingsHeight, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.elastic-height');
 		
 		if(includeContext !== false && Elastic.configuration.includeContext === true){
 
-    	    elementsArr = [];
+            elementsArr = [];
+            
+            if($context.hasClass('elastic-height')){
+                elementsArr.push($context[0]);
+            }
+            
+            for(i=0, l = $elements.length; i < l; i++){
+                elementsArr.push($elements[i]);
+            }
 
-    	    if($context.hasClass('elastic-height')){
-    	        elementsArr.push($context[0]);
-    	    }
-
-    	    for(i=0, l = $elements.length; i < l; i++){
-    	        elementsArr.push($elements[i]);
-    	    }
-
-    	    $elements = elementsArr;
-    	}
+            $elements = elementsArr;
+        }
 		
 		siblingsHeight = 0;
 		elementsLength = $elements.length;
 		
-		for (var i=0; i < elementsLength; i++) {
-		  $element       = $($elements[i]);
-		  $siblings      = $element.parent().find('> *:not(.elastic-height)');
-		  siblingsLength = $siblings.length;
-		  siblingsHeight = 0;
-		  
-		  for (var j=0; j < siblingsLength; j++) {
-		      siblingsHeight = siblingsHeight + $($siblings[j]).outerHeight(true);
-		  }
+		for (i = 0; i < elementsLength; i++) {
+            $element       = $($elements[i]);
+            $siblings      = $element.parent().find('> *:not(.elastic-height)');
+            siblingsLength = $siblings.length;
+            siblingsHeight = 0;
+            
+            for (j = 0; j < siblingsLength; j++) {
+                siblingsHeight = siblingsHeight + $($siblings[j]).outerHeight(true);
+            }
 		 
-		  if( siblingsHeight < 0 || isNaN( Number(siblingsHeight) ) ){
-  		      continue;
-  		  }
-  		  
-  		  $element.css('height', $element.parent().height() - siblingsHeight);
+            if( siblingsHeight < 0 || isNaN( Number(siblingsHeight) ) ){
+                continue;
+            }
+
+            $element.css('height', $element.parent().height() - siblingsHeight);
 		}
 		
 		return this;
 	},
 	'center'           : function centerHelper($context, includeContext) {
-		var i, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
+		var i, l, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
 		
 		$elements       = $context.find('.vertical-center, .center');
 		
 		if(includeContext !== false && Elastic.configuration.includeContext === true){
 
-    	    elementsArr = [];
+            elementsArr = [];
 
-    	    if($context.hasClass('vertical-center') || $context.hasClass('center')){
-    	        elementsArr.push($context[0]);
-    	    }
+            if($context.hasClass('vertical-center') || $context.hasClass('center')){
+                elementsArr.push($context[0]);
+            }
 
-    	    for(i=0, l = $elements.length; i < l; i++){
-    	        elementsArr.push($elements[i]);
-    	    }
+            for(i=0, l = $elements.length; i < l; i++){
+                elementsArr.push($elements[i]);
+            }
 
-    	    $elements = elementsArr;
-    	}
+            $elements = elementsArr;
+        }
 		
 		$elementsLength = $elements.length;
 		paddingTop      = 0;
 		
-		for (var i=0; i < $elementsLength; i++) {
+        for (i = 0; i < $elementsLength; i++) {
 		  $element = $($elements[i]);
 		  $parent = $($elements[i]).parent();
 		  paddingTop = Math.round( ( $parent.height() - $element.outerHeight(true) ) / 2 );
-		  if( paddingTop < 0 || isNaN( Number(paddingTop) ) ){
-  		      continue;
+		  
+          if ( paddingTop < 0 || isNaN( Number(paddingTop) ) ) {
+            continue;
   		  }
   		  $parent.css({
   		      paddingTop : paddingTop + 'px',
@@ -602,7 +603,7 @@ Elastic.helpers = {
 		return this;
 	},
 	'bottom'           : function bottomHelper($context, includeContext) {
-		var i, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
+		var i, l, $elements, $elementsLength, $element, paddingTop, $parent, elementsArr;
 		
 		var $elements       = $context.find('.bottom');
 		
@@ -646,7 +647,7 @@ Elastic.$window = $(window);
 Elastic.$documentElement = $(document);
 
 Elastic.reset = function Elastic_reset(context, includeContext) {
-	var i,w,wl,h,hl,p,pl,m,ml,n,nl,doc;
+	var i, w, wl, h, hl, p, pl, m, ml, n, nl, doc, $context;
 	doc = Elastic.$documentElement;
 	$context = $(context || document);
 	doc.trigger('elastic:beforeReset');
@@ -729,7 +730,8 @@ Elastic.reset = function Elastic_reset(context, includeContext) {
 Elastic.refresh = function Elastic_refresh(context, includeContext) {
 	var doc = Elastic.$documentElement;
 	doc.trigger('elastic:beforeRefresh', context);
-	Elastic.reset(context)(context);
+	Elastic.reset(context, includeContext);
+    Elastic(context, includeContext);
 	doc.trigger('elastic:refresh', context);
 	return this;
 };
