@@ -5,9 +5,8 @@ More information http://www.elasticss.com
 @file         'elastic.js
 @author       'Fernando Trasviña (@azendal)
 @collaborator 'Sergio de la Garza (@sgarza)
-@collaborator 'Javier Ayala (@javi_ayala)
 @copyright    '2010 Elastic CSS framework
-@version      '2.1.0 RC
+@version      '2.1.1
 **/
 
 var Elastic = function Elastic(context, includeContext) {
@@ -46,7 +45,7 @@ var Elastic = function Elastic(context, includeContext) {
 	}
 };
 
-Elastic.VERSION                     = '2.1.0 RC2';
+Elastic.VERSION                     = '2.1.1';
 Elastic.COLUMNS_PER_ROW_EXPRESSION  = /(^|\s+)on\-(\d+)(\s+|$)/;
 Elastic.COLUMN_SPAN_EXPRESSION      = /(^|\s+)span\-(\d+)(\s+|$)/;
 Elastic.FIXED_COLUMN_EXPRESSION     = /(^|\s+)fixed(\s+|$)/;
@@ -111,6 +110,12 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 	
 	for (i = 0, l = columnElements.length; i < l; i++) {
 		currentColumn = columnElements[i];
+		
+		currentColumn.isElastic = false;
+		currentColumn.isFixed   = false;
+		currentColumn.isRegular = false;
+		currentColumn.className = currentColumn.className.replace('elastic-row-last', '');
+		
 		if (Elastic.FIXED_COLUMN_EXPRESSION.test(currentColumn.className)) {
 			fixedColumnWidth          = Elastic.getOuterWidth(currentColumn);
 			currentColumn.columnWidth = fixedColumnWidth;
