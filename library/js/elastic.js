@@ -742,7 +742,7 @@ Elastic.refresh = function Elastic_refresh(context, includeContext) {
 };
 
 Elastic.getComputedStyle = function getComputedStyle(element) {
-	if( (typeof window.getComputedStyle) === 'undefined' && element.currentStyle) {
+	if($.browser.msie === true && parseInt($.browser.version, 10) < '9') {
 	    Elastic.getComputedStyle = function(element){
 	        return element.currentStyle;
 	    }
