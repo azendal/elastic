@@ -742,7 +742,7 @@ Elastic.refresh = function Elastic_refresh(context, includeContext) {
 };
 
 Elastic.getComputedStyle = function getComputedStyle(element) {
-	if(element.currentStyle) {
+	if(!window.getComputedStyle && element.currentStyle) {
 	    Elastic.getComputedStyle = function(element){
 	        return element.currentStyle;
 	    }
