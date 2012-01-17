@@ -742,7 +742,7 @@ Elastic.refresh = function Elastic_refresh(context, includeContext) {
 };
 
 Elastic.getComputedStyle = function getComputedStyle(element) {
-	if($.browser.msie === true && parseInt($.browser.version, 10) < '9') {
+	if($.browser.msie === true && parseInt($.browser.version, 10) < 9) {
 	    Elastic.getComputedStyle = function(element){
 	        return element.currentStyle;
 	    }
@@ -841,6 +841,11 @@ Elastic.querySelectorAll = function(selector, context) {
 	return result;
 };
 
+/**
+Utility function for autolayout feature, this method moves the DOM
+elements to the right positions before doing the width calculations
+and plugin execution.
+**/
 Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
 	var r = Elastic.DISPLAY_LAYOUT_EXPRESSION;
 	$('.display').each(function Elastic_layout(){
@@ -854,6 +859,11 @@ Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
 	return null;
 });
 
+/**
+DOM binding that runs the first set of calculations. Before this
+point the DOM does not have any css set because elastic needs all
+the elements before doing the calculations.
+**/
 jQuery.fn.ready(function Loader() {
 	var doc = Elastic.$documentElement;
 	var iw  = document.body.clientWidth;
