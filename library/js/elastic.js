@@ -743,20 +743,20 @@ Elastic.refresh = function Elastic_refresh(context, includeContext) {
 
 Elastic.getComputedStyle = function getComputedStyle(element) {
 	if($.browser.msie === true && parseInt($.browser.version, 10) < 9) {
-	    Elastic.getComputedStyle = function(element){
+	    Elastic.getComputedStyle = function msComputedStyle(element) {
 	        return element.currentStyle;
 	    }
 		return element.currentStyle;
 	}
 	
-	Elastic.getComputedStyle = function(element){
+	Elastic.getComputedStyle = function standardComputedStyle(element) {
 	    return window.getComputedStyle(element, true);
 	}
 	
 	return window.getComputedStyle(element, true);
 };
 
-Elastic.getInnerWidth = function(element) {
+Elastic.getInnerWidth = function getInnerWidth(element) {
 	var computedStyle, innerWidth;
 	
 	computedStyle = Elastic.getComputedStyle(element);
@@ -781,7 +781,7 @@ Elastic.getInnerWidth = function(element) {
 	return Math.floor(innerWidth);
 };
 
-Elastic.getOuterWidth = function(element) {
+Elastic.getOuterWidth = function getOuterWidth(element) {
 	var computedStyle, innerWidth, outerWidth;
 	
 	computedStyle = Elastic.getComputedStyle(element);
@@ -806,7 +806,7 @@ Elastic.getOuterWidth = function(element) {
 	return Math.ceil(outerWidth);
 };
 
-Elastic.querySelectorAll = function(selector, context) {
+Elastic.querySelectorAll = function querySelectorAll(selector, context) {
 	var result;
 	
 	if(document.querySelectorAll) {
@@ -846,7 +846,7 @@ Utility function for autolayout feature, this method moves the DOM
 elements to the right positions before doing the width calculations
 and plugin execution.
 **/
-Elastic.$documentElement.bind('elastic:beforeInitialize', function() {
+Elastic.$documentElement.bind('elastic:beforeInitialize', function autolayoutCallback() {
 	var r = Elastic.DISPLAY_LAYOUT_EXPRESSION;
 	$('.display').each(function Elastic_layout(){
 		var c;
