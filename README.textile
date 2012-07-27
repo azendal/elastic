@@ -447,6 +447,12 @@ Elastic now provides an event system, that gets very usefull when creating widge
 </script>
 </code></pre>
 
+h2. Reserved Classes
+<ul>
+	<li><abbr title="Center Element Vertically">center</abbr></li>
+	<li><abbr title="Center Element Vertically">vertical-center</abbr></li>
+</ul>
+
 h2. Help and Contact
 
 We have an issue "tracker":http://elastic.lighthouseapp.com/projects/26690-elastic-css-framework for bugs and feature requests and a "Google Group":http://groups.google.com/group/elastic-css-framework for discussion on the usage of the framework.
