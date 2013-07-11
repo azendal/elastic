@@ -2,7 +2,7 @@ h1. Elastic CSS Framework
 
 A simple css framework to layout web-based interfaces, based on the printed layout techniques of 4 columns but with capabilities to unlimited column combinations. and capacity to make elastic, fixed and liquid layout easily.
 
-h2. Fundation
+h2. Foundation
 
 Elastic is organized in several files
 

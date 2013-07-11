@@ -463,33 +463,18 @@ Elastic.helpers = {
 	'full-height'      : function fullHeightHelper($context, includeContext) {
 		var i, l, $element, newHeight, $elements, elementsLength, elementsArr;
 		
-		$elements = $context.find('.full-height');
-		
-		if (includeContext !== false && Elastic.configuration.includeContext === true) {
+        var context = $context[0];
+        var elements = Elastic.querySelectorAll('.full-height', context);
 
-            elementsArr = [];
-            
-            if($context.hasClass('full-height')){
-                elementsArr.push($context[0]);
+        if (includeContext !== false && Elastic.configuration.includeContext === true) {
+            if (context !== document && context.className.indexOf('full-height')) {
+                elements.unshift(context);
             }
-            
-            for(i=0, l = $elements.length; i < l; i++){
-                elementsArr.push($elements[i]);
-            }
-
-            $elements = elementsArr;
         }
-		
-		elementsLength = $elements.length;
-		
-		for (i = 0; i < elementsLength; i++) {
-		  $element = $($elements[i]);
-		  newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
-		  if( newHeight < 0 || isNaN( Number(newHeight) ) ){
-		      continue;
-		  }
-		  $element.css('height', newHeight);
-		}
+
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.height = Elastic.getInnerHeight(elements[i]) + 'px';
+        }
 		
 		return this;
 	},
