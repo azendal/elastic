@@ -92,7 +92,7 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 		}
 		
 		if (columnWidths[0].width < minWidth) {
-			while (columnWidths[0].width < minWidth) {
+			while (columnWidths[0].width < minWidth && columnsPerRow > 1) {
 				columnsPerRow = columnsPerRow - 1;
 				columnWidths = Elastic.round(containerWidth, columnsPerRow);
 				if (columnWidths[0].width > maxWidth) {
