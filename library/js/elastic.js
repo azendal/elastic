@@ -137,7 +137,7 @@ Elastic.columnsIterator = function columnsElementsIteration(columnsElement) {
 		nextColumnsOnRow = columnsOnRow + currentColumn.spanWidth;
 		
 		if (nextColumnsOnRow >= columnsPerRow || currentColumn === lastColumn || currentColumn.isFinal) {
-			if (nextColumnsOnRow <= columnsPerRow) {
+			if (nextColumnsOnRow <= columnsPerRow || currentColumn.spanWidth >= columnsPerRow) {
 				rowColumns.push(currentColumn);
 			}
 			Elastic.processRow(rowColumns, containerWidth, fixedColumnsWidth, elasticColumns, columnWidths);
