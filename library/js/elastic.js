@@ -472,8 +472,13 @@ Elastic.helpers = {
             }
         }
 
-        for (i = 0; i < elements.length; i++) {
-            elements[i].style.height = Elastic.getInnerHeight(elements[i]) + 'px';
+        for (i = 0; i < elementsLength; i++) {
+            $element = $($elements[i]);
+            newHeight = $element.parent().height() - ( $element.outerHeight(true) - $element.height() );
+            if( newHeight < 0 || isNaN( Number(newHeight) ) ){
+                continue;
+            }
+            $element.css('height', newHeight);
         }
 		
 		return this;
