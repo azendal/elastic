@@ -312,6 +312,7 @@ Elastic.helpers = {
 		var i, l, $element, $elements, elementsLength, elementsArr;
 		
 		$elements      = $context.find('.full-width');
+
 		
 		if (includeContext !== false && Elastic.configuration.includeContext === true) {
 
@@ -796,40 +797,43 @@ Elastic.getOuterWidth = function getOuterWidth(element) {
 	return Math.ceil(outerWidth);
 };
 
+
 Elastic.querySelectorAll = function querySelectorAll(selector, context) {
-	var result;
-	
-	if(document.querySelectorAll) {
-		if(context){
-			if(selector.substr(0,1) == '>'){
-				if(context.id){
-					result = document.querySelectorAll('#' + context.id + selector);
-				}
-				else{
-					context.id = '___elastic_temporal_id___';
-					result = document.querySelectorAll('#' + context.id + selector);
-					context.id = '';
-				}
-			}
-			else{
-				result = context.querySelectorAll(selector);
-			}
-		}
-		else{
-			result = document.querySelectorAll(selector);
-		}
-	}
-	else {
-		if(context){
-			result = $(context).find(selector);
-		}
-		else{
-			result = $(selector);
-		}
-	}
-	
-	return result;
+    var result;
+    if(context){
+        result = $(context).find(selector);
+    }
+    else{
+        result = $(selector);
+    }
+    return result;
 };
+
+if (document.querySelectorAll) {
+    Elastic.querySelectorAll = function querySelectorAll(selector, context) {
+        var result;
+        if(context){
+            if(selector.substr(0,1) == '>'){
+                if(context.id){
+                    result = document.querySelectorAll('#' + context.id + selector);
+                }
+                else{
+                    context.id = '___elastic_temporal_id___';
+                    result = document.querySelectorAll('#' + context.id + selector);
+                    context.id = '';
+                }
+            }
+            else{
+                result = context.querySelectorAll(selector);
+            }
+        }
+        else{
+            result = document.querySelectorAll(selector);
+        }
+
+        return result;
+    };
+}
 
 /**
 Utility function for autolayout feature, this method moves the DOM
