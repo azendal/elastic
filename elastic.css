@@ -1,17 +1,214 @@
 /*
-Copyright (c) 2008, Yahoo! Inc. All rights reserved.
-Code licensed under the BSD License:
-http://developer.yahoo.net/yui/license.txt
-version: 3.0.0pr1
+    Elastic Next: A Modern, Pure-CSS Layout Framework
+    Version: 7.0 (App-Centric Edition)
+    License: MIT
+    Inspired by the original Elastic CSS Framework.
+    Built with modern CSS Grid, Flexbox, Container Queries, and more.
 */
-html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {margin:0;padding:0;}table {border-collapse:collapse;border-spacing:0;}fieldset,img {border:0;}address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal;}li {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal;}q:before,q:after {content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select {font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select {*font-size:100%;}legend {color:#000;}h1 {font-size : 138.5%;  }h2 {font-size : 123.1%; }h3 {font-size : 108%;  }h1,h2,h3 {margin : 1em 0;}h1,h2,h3,h4,h5,h6,strong {font-weight : bold; }abbr,acronym {border-bottom : 1px dotted #000;cursor        : help;} em {font-style : italic;}blockquote,ul,ol,dl {margin : 1em;}ol,ul,dl {margin-left : 2em;}ol li {list-style  : decimal outside;}ul li {list-style  : disc outside;}dl dd {margin-left : 1em;}th {font-weight : bold;text-align  : center;}caption {margin-bottom : .5em;text-align    : center;}p,fieldset,table,pre {margin-bottom : 1em;}input[type=text],input[type=password],textarea{width  : 12.25em;*width : 11.9em;}body {font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}select,input,button,textarea {font:99% arial,helvetica,clean,sans-serif;}table {font-size:inherit;font:100%;}pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;}
 
-/*
-Elastic CSS Framework
-Released under the MIT, BSD, and GPL Licenses.
-More information http://elasticss.com
+/* ============================================================================
+    0. CORE SETUP
+ ============================================================================ */
+:root {
+    --h-toolbar: 0px; /* Global variable for fixed element heights */
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-@author     Fernando Trasvina (@azendal)
-@core team  Sergio de la Garza (@sgarza), Javier Ayala (@javi_ayala)
-*/
-.unit:after,.container:after,.columns:after,.column:after,.clearfix:after{content:" ";display:block;height:0;clear:both;visibility:hidden;}.unit,.container,.columns,.column,.clearfix{display:block;*zoom:1;*display:inline-block;}.full-height{display:block;}.same-height{display:block;}.elastic-height{height:0;}.horizontal-center{margin:0 auto;}.vertical-center{/* margin:auto 0; */display:block;}.center{/* margin:auto */margin:0 auto;}.column{float:left;}.column.final{display:block;}.column.fixed{width:auto;}.column.elastic{display:block;}.inverted>.column,.inverted>.container>.column{float:right;}.on-2.columns>.column:not(.fixed),.on-2.columns>.container>.column:not(.fixed){width:50%;}.on-3.columns>.column:not(.fixed),.on-3.columns>.container>.column:not(.fixed){width:33.33%;}.on-3.columns>.column.span-2,.on-3.columns>.container>.column.span-2{width:66.66%;}.on-4.columns>.column:not(.fixed),.on-4.columns>.container>.column:not(.fixed){width:25%;}.on-4.columns>.column.span-2,.on-4.columns>.container>.column.span-2{width:50%;}.on-4.columns>.column.span-3,.on-4.columns>.container>.column.span-2{width:75%;}
+/* ============================================================================
+    1. GRID SYSTEM
+ ============================================================================ */
+.grid {
+    display: grid;
+    width: 100%;
+}
+
+/* --- Column & Row Templates --- */
+.grid-cols { grid-template-columns: var(--grid-cols); }
+.grid-rows { grid-template-rows: var(--grid-rows); }
+
+.grid-cols-1 { --grid-cols: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { --grid-cols: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { --grid-cols: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { --grid-cols: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { --grid-cols: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { --grid-cols: repeat(6, minmax(0, 1fr)); }
+.grid-cols-7 { --grid-cols: repeat(7, minmax(0, 1fr)); }
+.grid-cols-8 { --grid-cols: repeat(8, minmax(0, 1fr)); }
+.grid-cols-9 { --grid-cols: repeat(9, minmax(0, 1fr)); }
+.grid-cols-10 { --grid-cols: repeat(10, minmax(0, 1fr)); }
+.grid-cols-11 { --grid-cols: repeat(11, minmax(0, 1fr)); }
+.grid-cols-12 { --grid-cols: repeat(12, minmax(0, 1fr)); }
+
+.grid-rows-1 { --grid-rows: repeat(1, minmax(0, 1fr)); }
+.grid-rows-2 { --grid-rows: repeat(2, minmax(0, 1fr)); }
+.grid-rows-3 { --grid-rows: repeat(3, minmax(0, 1fr)); }
+.grid-rows-4 { --grid-rows: repeat(4, minmax(0, 1fr)); }
+.grid-rows-5 { --grid-rows: repeat(5, minmax(0, 1fr)); }
+.grid-rows-6 { --grid-rows: repeat(6, minmax(0, 1fr)); }
+
+/* --- Spanning & Starting Positions --- */
+.col-span-1 { grid-column: span 1 / span 1; }
+.col-span-2 { grid-column: span 2 / span 2; }
+.col-span-3 { grid-column: span 3 / span 3; }
+.col-span-4 { grid-column: span 4 / span 4; }
+.col-span-5 { grid-column: span 5 / span 5; }
+.col-span-6 { grid-column: span 6 / span 6; }
+.col-span-7 { grid-column: span 7 / span 7; }
+.col-span-8 { grid-column: span 8 / span 8; }
+.col-span-9 { grid-column: span 9 / span 9; }
+.col-span-10 { grid-column: span 10 / span 10; }
+.col-span-11 { grid-column: span 11 / span 11; }
+.col-span-12 { grid-column: span 12 / span 12; }
+.col-full { grid-column: 1 / -1; }
+
+.row-span-1 { grid-row: span 1 / span 1; }
+.row-span-2 { grid-row: span 2 / span 2; }
+.row-span-3 { grid-row: span 3 / span 3; }
+.row-span-4 { grid-row: span 4 / span 4; }
+.row-span-5 { grid-row: span 5 / span 5; }
+.row-span-6 { grid-row: span 6 / span 6; }
+.row-full { grid-row: 1 / -1; }
+
+.col-start-1 { grid-column-start: 1; }
+.col-start-2 { grid-column-start: 2; }
+.col-start-3 { grid-column-start: 3; }
+.col-start-4 { grid-column-start: 4; }
+.col-start-5 { grid-column-start: 5; }
+.col-start-6 { grid-column-start: 6; }
+.col-start-7 { grid-column-start: 7; }
+.col-start-8 { grid-column-start: 8; }
+.col-start-9 { grid-column-start: 9; }
+.col-start-10 { grid-column-start: 10; }
+.col-start-11 { grid-column-start: 11; }
+.col-start-12 { grid-column-start: 12; }
+.col-start-13 { grid-column-start: 13; }
+
+.row-start-1 { grid-row-start: 1; }
+.row-start-2 { grid-row-start: 2; }
+.row-start-3 { grid-row-start: 3; }
+.row-start-4 { grid-row-start: 4; }
+.row-start-5 { grid-row-start: 5; }
+.row-start-6 { grid-row-start: 6; }
+.row-start-7 { grid-row-start: 7; }
+
+/* --- Subgrid --- */
+.subgrid-cols { grid-column: 1 / -1; grid-template-columns: subgrid; }
+.subgrid-rows { grid-row: 1 / -1; grid-template-rows: subgrid; }
+
+/* ============================================================================
+    2. FLEXBOX SYSTEM
+ ============================================================================ */
+.flex { display: flex; }
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.flex-grow { flex-grow: 1; }
+.flex-shrink { flex-shrink: 1; }
+.flex-none { flex: none; }
+
+/* ============================================================================
+    3. ALIGNMENT & JUSTIFICATION
+ ============================================================================ */
+/* Technical Naming */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+/* Abstract Naming */
+.align-main-start { justify-content: flex-start; }
+.align-main-center { justify-content: center; }
+.align-main-end { justify-content: flex-end; }
+.distribute-main { justify-content: space-between; }
+.align-cross-start { align-items: flex-start; }
+.align-cross-center { align-items: center; }
+.align-cross-end { align-items: flex-end; }
+.stretch-cross { align-items: stretch; }
+/* Shorthand */
+.place-center { place-items: center; }
+
+/* ============================================================================
+    4. SPACING (Logical Properties)
+ ============================================================================ */
+.gap { --gap-size: 1rem; gap: var(--gap-size); }
+.p { --p-size: 1rem; padding: var(--p-size); }
+.px { --px-size: 1rem; padding-inline: var(--px-size); }
+.py { --py-size: 1rem; padding-block: var(--py-size); }
+.ps { --ps-size: 1rem; padding-inline-start: var(--ps-size); }
+.pe { --pe-size: 1rem; padding-inline-end: var(--pe-size); }
+
+.gap-1 { gap: 0.25rem; } .gap-2 { gap: 0.5rem; } .gap-4 { gap: 1rem; } .gap-8 { gap: 2rem; }
+.p-1 { padding: 0.25rem; } .p-2 { padding: 0.5rem; } .p-4 { padding: 1rem; } .p-8 { padding: 2rem; }
+.px-1 { padding-inline: 0.25rem; } .px-2 { padding-inline: 0.5rem; } .px-4 { padding-inline: 1rem; } .px-8 { padding-inline: 2rem; }
+.py-1 { padding-block: 0.25rem; } .py-2 { padding-block: 0.5rem; } .py-4 { padding-block: 1rem; } .py-8 { padding-block: 2rem; }
+.ps-4 { padding-inline-start: 1rem; } .pe-4 { padding-inline-end: 1rem; }
+
+/* ============================================================================
+    5. SIZING
+ ============================================================================ */
+.w { width: var(--w-size, 100%); }
+.h { height: var(--h-size, 100%); }
+.w-full { width: 100%; }
+.w-screen { width: 100vw; }
+.h-full { height: 100%; }
+.h-screen { height: 100vh; }
+.h-screen-safe { height: calc(100vh - var(--h-toolbar)); }
+
+/* Aspect Ratio */
+.aspect-ratio { aspect-ratio: var(--aspect-ratio); }
+.aspect-video { --aspect-ratio: 16 / 9; }
+.aspect-square { --aspect-ratio: 1 / 1; }
+
+/* ============================================================================
+    6. HELPERS & ADVANCED LAYOUT
+ ============================================================================ */
+/* Adaptive Grid */
+.grid-adaptive {
+  display: grid;
+  --min-col-width: 250px;
+  --max-col-width: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(var(--min-col-width), var(--max-col-width)));
+}
+/* Container */
+.container {
+  --container-padding: 1rem;
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: var(--container-padding);
+}
+/* Container Queries */
+.container-query {
+    container-type: inline-size;
+}
+@container (min-width: 640px) {
+    .cq-grid-cols-2 { --grid-cols: repeat(2, 1fr); }
+    .cq-flex-row { flex-direction: row; }
+}
+@container (min-width: 768px) {
+    .cq-grid-cols-3 { --grid-cols: repeat(3, 1fr); }
+}
+
+/* ============================================================================
+    7. RESPONSIVE & INTERACTIVITY UTILITIES
+ ============================================================================ */
+.scrollable-y { overflow-y: auto; }
+.scrollable-x { overflow-x: auto; }
+
+/* Mobile-first responsive utilities */
+.hidden-from-md { display: block; }
+@media (min-width: 768px) {
+    .hidden-from-md { display: none; }
+}
+
+.hidden-until-md { display: none; }
+@media (min-width: 768px) {
+    .hidden-until-md { display: block; }
+}
