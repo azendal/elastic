@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elastic Next - Layout Showcase & Framework Test</title>
+    <!-- Import elastic.css -->
+    <link rel="stylesheet" href="../elastic.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Color Palette & Custom Styles (Non-layout styling) */
+        :root {
+            --bg-base: #0b0f19;
+            --bg-surface: #151c2c;
+            --bg-surface-hover: #1e2638;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-primary: #3b82f6;
+            --accent-primary-rgb: 59, 130, 246;
+            --accent-secondary: #a855f7;
+            --accent-secondary-rgb: 168, 85, 247;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --border-color: #243049;
+            --border-color-focus: #3b82f6;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            --h-toolbar: 70px; /* Define safe height for app toolbar */
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        /* Styling for visual block elements so we can see grid boundaries */
+        .showcase-block {
+            background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.1) 0%, rgba(var(--accent-secondary-rgb), 0.1) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 80px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-primary);
+        }
+        .showcase-block:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 20px rgba(var(--accent-primary-rgb), 0.15);
+            transform: translateY(-2px);
+        }
+
+        .showcase-block-accent {
+            background: linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.25) 0%, rgba(var(--accent-secondary-rgb), 0.25) 100%);
+            border: 1px solid rgba(var(--accent-primary-rgb), 0.5);
+        }
+
+        .showcase-block-success {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Glassmorphic Panel styles */
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        .panel-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Sidebar Navigation style */
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background-color: var(--bg-surface-hover);
+            color: var(--text-primary);
+        }
+        .nav-link.active {
+            background-color: rgba(var(--accent-primary-rgb), 0.15);
+            color: var(--accent-primary);
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        /* Resizeable container handle (testing container queries) */
+        .resizeable-container {
+            border: 2px dashed var(--accent-secondary);
+            border-radius: 12px;
+            padding: 1rem;
+            resize: horizontal;
+            overflow: auto;
+            max-width: 100%;
+            min-width: 320px;
+            width: 800px;
+            background-color: rgba(21, 28, 44, 0.5);
+        }
+
+        /* Tabs styling */
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+        .tab-btn.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* Badge design */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-grid { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .badge-flex { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+        .badge-cq { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+        /* Custom Scrollbar override for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Outer Flex Wrap containing Top Bar and View Area -->
+    <div class="flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header / Navigation Bar (Testing height-based layouts) -->
+        <header class="flex items-center distribute-main px-8 border-color py-4" style="height: var(--h-toolbar); border-bottom: 1px solid var(--border-color); background-color: var(--bg-surface);">
+            <div class="flex items-center gap-4">
+                <div style="width: 24px; height: 24px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                <h1 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; background: linear-gradient(to right, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Elastic Next Showcase</h1>
+                <span class="badge badge-grid">Version 7.0 Pure CSS</span>
+            </div>
+            
+            <!-- Navigation Tabs to switch layouts dynamically -->
+            <div class="flex gap-4">
+                <button class="tab-btn active" onclick="switchView('sandbox')">Layout Sandbox</button>
+                <button class="tab-btn" onclick="switchView('dashboard')">Interactive Dashboard</button>
+                <button class="tab-btn" onclick="switchView('app-workspace')">App Workspace</button>
+            </div>
+            
+            <div>
+                <a href="https://github.com/azendal/elastic" target="_blank" class="nav-link" style="padding: 0.5rem 1rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.875rem;">GitHub</a>
+            </div>
+        </header>
+
+        <!-- View Content Area (Changes depending on active tab) -->
+        <div class="flex-grow scrollable-y p-8" id="view-sandbox">
+            <div class="container py-8 flex flex-col gap-8">
+                
+                <!-- Intro Section -->
+                <div>
+                    <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem;">Layout Sandbox & Framework Verification</h2>
+                    <p style="color: var(--text-secondary); max-width: 700px; line-height: 1.6;">
+                        This environment tests the core elements of the modern "Elastic Next" pure-CSS framework. It tests basic grids, column spans, flexbox alignments, container queries, and subgrids.
+                    </p>
+                </div>
+
+                <!-- Test 1: Grid System & Spans -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 1: Grid Columns & Column Spans</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">Verifies .grid, .grid-cols, .grid-cols-x, .col-span-x, and .col-full layouts.</p>
+                        </div>
+                        <span class="badge badge-grid">Grid System</span>
+                    </div>
+                    
+                    <!-- Added .grid-cols class to ensure grid-template-columns is applied -->
+                    <div class="grid grid-cols grid-cols-12 gap-4">
+                        <!-- Row 1: Twelve single columns -->
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+                        <div class="col-span-1 showcase-block place-center flex">col-1</div>
+
+                        <!-- Row 2: Variable spans -->
+                        <div class="col-span-6 showcase-block showcase-block-accent flex flex-col justify-center">
+                            <strong>col-span-6</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Spans half the width of the grid container</span>
+                        </div>
+                        <div class="col-span-4 showcase-block showcase-block-accent flex flex-col justify-center">
+                            <strong>col-span-4</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Spans one third</span>
+                        </div>
+                        <div class="col-span-2 showcase-block showcase-block-accent flex flex-col justify-center">
+                            <strong>col-span-2</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Spans one sixth</span>
+                        </div>
+
+                        <!-- Row 3: Full row and offsets -->
+                        <div class="col-full showcase-block showcase-block-success flex justify-between items-center">
+                            <strong>col-full (Full Width Row)</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Testing grid-column: 1 / -1</span>
+                        </div>
+
+                        <!-- Row 4: Starts and spans -->
+                        <div class="col-start-3 col-span-4 showcase-block flex flex-col justify-center">
+                            <strong>col-start-3 col-span-4</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Starts at line 3, spans 4 tracks</span>
+                        </div>
+                        <div class="col-start-8 col-span-5 showcase-block flex flex-col justify-center">
+                            <strong>col-start-8 col-span-5</strong>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">Starts at line 8, spans 5 tracks</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test 2: Subgrid Alignment -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 2: Subgrid Content Alignment (2D Alignment)</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Verifies subgrids. Cards below are structured as grid items, each spanning 2 rows (title block, content). With subgrid, titles and contents line up perfectly regardless of varying inner text heights.
+                            </p>
+                        </div>
+                        <span class="badge badge-grid">Subgrid</span>
+                    </div>
+
+                    <!-- Parent grid defines uniform tracks via .grid-cols and .grid-rows -->
+                    <div class="grid grid-cols grid-cols-3 grid-rows gap-4" style="--grid-rows: auto 1fr;">
+                        
+                        <!-- Card 1 (Uses subgrid-rows to inherit parent rows) -->
+                        <div class="showcase-block grid subgrid-rows" style="gap: inherit;">
+                            <div style="background-color: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px;">
+                                <h4 style="font-size: 1.1rem; color: var(--accent-primary);">Card A Title</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Short Header</span>
+                            </div>
+                            <div style="padding: 0.75rem;">
+                                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                                    This card has a small amount of body text. Thanks to subgrid, its top header matches the others, and this body content starts exactly in the second row track of the parent grid.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 (Uses subgrid-rows to inherit parent rows) -->
+                        <div class="showcase-block grid subgrid-rows" style="gap: inherit;">
+                            <div style="background-color: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px;">
+                                <h4 style="font-size: 1.1rem; color: var(--accent-primary);">Card B Title (Much Longer Title Text That Wraps to Two Lines)</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Longer Header</span>
+                            </div>
+                            <div style="padding: 0.75rem;">
+                                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                                    Even though Card B's header is twice as tall, Card A and Card C will align their headers to match this height, and all three cards will start their body descriptions at the exact same vertical offset.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 (Uses subgrid-rows to inherit parent rows) -->
+                        <div class="showcase-block grid subgrid-rows" style="gap: inherit;">
+                            <div style="background-color: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 4px;">
+                                <h4 style="font-size: 1.1rem; color: var(--accent-primary);">Card C Title</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">Short Header</span>
+                            </div>
+                            <div style="padding: 0.75rem;">
+                                <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                                    Perfect vertical alignment across siblings.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Test 3: Container Queries -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 3: Fluid Component Layout via Container Queries</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Resize the dashed container block using the bottom-right grabber. When the container width is &lt; 640px, the grid collapses to 1 column. When &gt; 640px it goes to 2 columns, and &gt; 768px it goes to 3 columns.
+                            </p>
+                        </div>
+                        <span class="badge badge-cq">Container Query</span>
+                    </div>
+
+                    <!-- Interactive Resize Wrapper -->
+                    <div class="resizeable-container">
+                        <!-- Container Query Target class (container-query establishes inline-size containment) -->
+                        <div class="container-query flex flex-col gap-4">
+                            <!-- Added .grid-cols class to ensure variables take effect -->
+                            <div class="grid grid-cols cq-grid-cols-2 cq-grid-cols-3 gap-4" style="--grid-cols: repeat(1, 1fr);">
+                                <div class="showcase-block flex flex-col justify-between">
+                                    <strong>Component Card 1</strong>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem;">Changes alignment dynamically</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between">
+                                    <strong>Component Card 2</strong>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem;">Width-aware column layouts</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between">
+                                    <strong>Component Card 3</strong>
+                                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 1rem;">Container query triggers layout shift</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test 4: Flexbox Alignment & Flow Layouts -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 4: Flexbox Alignment, Distribution, and Logical Offsets</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">Tests 1D flexbox properties, row/column wraps, alignment, and auto margins.</p>
+                        </div>
+                        <span class="badge badge-flex">Flexbox</span>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
+                        <!-- Subtest 4a: Horizontal justify and align -->
+                        <div>
+                            <h4 style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Horizontal Align Main-Center, Cross-Center</h4>
+                            <div class="flex flex-row justify-center items-center gap-4 bg-surface p-4" style="border: 1px solid var(--border-color); border-radius: 8px; min-height: 120px;">
+                                <div class="showcase-block" style="min-height: auto; width: 100px;">Item 1</div>
+                                <div class="showcase-block" style="min-height: auto; width: 100px; padding: 2rem 1rem;">Item 2 (Taller)</div>
+                                <div class="showcase-block" style="min-height: auto; width: 100px;">Item 3</div>
+                            </div>
+                        </div>
+
+                        <!-- Subtest 4b: Flex wrap and distribute spaces -->
+                        <div>
+                            <h4 style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Flex-Wrap with Main Axis Distribute (Space-Between)</h4>
+                            <div class="flex flex-row flex-wrap justify-between gap-4 bg-surface p-4" style="border: 1px solid var(--border-color); border-radius: 8px;">
+                                <div class="showcase-block" style="min-height: auto; width: 220px;">Box 1</div>
+                                <div class="showcase-block" style="min-height: auto; width: 220px;">Box 2</div>
+                                <div class="showcase-block" style="min-height: auto; width: 220px;">Box 3</div>
+                                <div class="showcase-block" style="min-height: auto; width: 220px;">Box 4 (Wraps if screen too narrow)</div>
+                            </div>
+                        </div>
+
+                        <!-- Subtest 4c: Push element to end -->
+                        <div>
+                            <h4 style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Standard Flex Toolbar (Push last element with margin-inline-start: auto)</h4>
+                            <div class="flex flex-row items-center gap-4 bg-surface p-4" style="border: 1px solid var(--border-color); border-radius: 8px;">
+                                <div class="showcase-block" style="min-height: auto; padding: 0.5rem 1rem; background: rgba(59,130,246,0.1);">Toolbar Brand</div>
+                                <a class="nav-link">Dashboard</a>
+                                <a class="nav-link">Settings</a>
+                                <div class="flex-grow"></div> <!-- spacer alternative -->
+                                <button class="showcase-block" style="min-height: auto; padding: 0.5rem 1rem; background: var(--accent-primary); border: none; font-weight: 600; cursor: pointer;">Action Button</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- View Interactive Dashboard Layout (Hidden by default, switched dynamically) -->
+        <div class="flex-grow scrollable-y p-8" id="view-dashboard" style="display: none;">
+            <div class="container py-8 flex flex-col gap-6">
+                <!-- Dashboard Header -->
+                <div class="flex justify-between items-end flex-wrap gap-4">
+                    <div>
+                        <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 0.25rem;">Analytics Overview</h2>
+                        <p style="color: var(--text-secondary);">Real-time performance tracking and system indicators.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button style="padding: 0.6rem 1.2rem; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); cursor: pointer; font-weight: 500;">Filter Range</button>
+                        <button style="padding: 0.6rem 1.2rem; background-color: var(--accent-primary); border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600;">Export Report</button>
+                    </div>
+                </div>
+
+                <!-- Stat Cards (Using .grid-adaptive helper) -->
+                <section class="grid-adaptive gap-4" style="--min-col-width: 280px;">
+                    <!-- Stat Card 1 -->
+                    <div class="panel flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <span style="color: var(--text-secondary); font-size: 0.875rem; font-weight: 500;">Total Active Users</span>
+                            <span style="color: var(--accent-success); background: rgba(16, 185, 129, 0.1); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">+12.4%</span>
+                        </div>
+                        <h3 style="font-size: 2rem; font-weight: 700;">84,231</h3>
+                        <div class="flex items-center gap-2" style="font-size: 0.8rem; color: var(--text-muted);">
+                            <span>vs. 75,320 last month</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div class="panel flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <span style="color: var(--text-secondary); font-size: 0.875rem; font-weight: 500;">Conversion Rate</span>
+                            <span style="color: var(--accent-success); background: rgba(16, 185, 129, 0.1); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">+4.8%</span>
+                        </div>
+                        <h3 style="font-size: 2rem; font-weight: 700;">3.84%</h3>
+                        <div class="flex items-center gap-2" style="font-size: 0.8rem; color: var(--text-muted);">
+                            <span>vs. 3.66% last month</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="panel flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <span style="color: var(--text-secondary); font-size: 0.875rem; font-weight: 500;">Avg. Session Duration</span>
+                            <span style="color: rgba(239, 68, 68, 1); background: rgba(239, 68, 68, 0.1); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">-1.2%</span>
+                        </div>
+                        <h3 style="font-size: 2rem; font-weight: 700;">4m 32s</h3>
+                        <div class="flex items-center gap-2" style="font-size: 0.8rem; color: var(--text-muted);">
+                            <span>vs. 4m 38s last month</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Complex 2D Grid Layout: Main Charts & Recent Activities -->
+                <div class="grid grid-cols grid-cols-12 gap-6">
+                    <!-- Column Left: Chart Placeholder (Spans 8 columns) -->
+                    <div class="col-span-8 panel flex flex-col gap-4">
+                        <div class="panel-header flex justify-between items-center" style="margin-bottom: 0;">
+                            <h3>Traffic Source Performance</h3>
+                            <span style="font-size: 0.875rem; color: var(--text-secondary);">Last 7 Days</span>
+                        </div>
+                        
+                        <!-- Visual representation of complex chart layout via CSS Grid -->
+                        <div class="grid grid-cols grid-cols-7 gap-2 items-end" style="height: 240px; padding: 1rem 0;">
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 180px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Mon</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 120px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Tue</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 160px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Wed</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 210px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Thu</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 140px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Fri</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 90px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Sat</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2">
+                                <div style="width: 100%; height: 130px; background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary)); border-radius: 6px;"></div>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column Right: Activities list (Spans 4 columns) -->
+                    <div class="col-span-4 panel flex flex-col gap-4">
+                        <div class="panel-header" style="margin-bottom: 0;">
+                            <h3>Recent Actions</h3>
+                        </div>
+                        <div class="flex flex-col gap-4 scrollable-y" style="max-height: 250px;">
+                            <div class="flex gap-3 items-start">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-success); margin-top: 6px;"></div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; font-weight: 500;">New subscription activated</h4>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">2 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 items-start">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-primary); margin-top: 6px;"></div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; font-weight: 500;">API token refreshed</h4>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">15 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 items-start">
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--accent-warning); margin-top: 6px;"></div>
+                                <div>
+                                    <h4 style="font-size: 0.875rem; font-weight: 500;">Failed login threshold exceeded</h4>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Full App Workspace Layout (Hidden by default, switched dynamically) -->
+        <div class="flex-grow flex flex-row" id="view-app-workspace" style="display: none; height: calc(100vh - var(--h-toolbar)); overflow: hidden;">
+            
+            <!-- Sidebar Panel (testing height 100% and scrollable y) -->
+            <aside class="flex flex-col gap-4 p-4 border-color scrollable-y" style="width: 260px; border-right: 1px solid var(--border-color); background-color: var(--bg-surface); height: 100%;">
+                <div class="p-2">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Workspace Navigation</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <a class="nav-link active"> Explorer</a>
+                    <a class="nav-link"> Build & Deploy</a>
+                    <a class="nav-link"> Security Access</a>
+                    <a class="nav-link"> Documentation</a>
+                    <a class="nav-link"> Diagnostics</a>
+                </div>
+                
+                <div class="flex-grow"></div> <!-- Spacer pushing info block down -->
+
+                <div class="showcase-block flex flex-col justify-center" style="min-height: auto; padding: 0.75rem; font-size: 0.8rem; background-color: rgba(255,255,255,0.02);">
+                    <strong style="color: var(--accent-secondary);">Diagnostics Block</strong>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Port: 8080</span>
+                    <span style="font-size: 0.75rem; color: var(--accent-success); margin-top: 0.1rem;">● Framework status: OK</span>
+                </div>
+            </aside>
+
+            <!-- Main Panel containing nested layout -->
+            <main class="flex-grow flex flex-col overflow-hidden">
+                <!-- Inner Toolbar -->
+                <div class="flex items-center distribute-main px-6 py-3" style="border-bottom: 1px solid var(--border-color); background-color: rgba(21, 28, 44, 0.4);">
+                    <div class="flex items-center gap-3">
+                        <h4 style="font-size: 0.95rem; font-weight: 600;">src / elastic.css</h4>
+                        <span class="badge badge-cq" style="font-size: 0.65rem;">Editable</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button style="padding: 0.4rem 0.8rem; background-color: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); cursor: pointer; font-size: 0.8rem;">Save</button>
+                        <button style="padding: 0.4rem 0.8rem; background-color: var(--accent-primary); border: none; border-radius: 6px; color: white; cursor: pointer; font-size: 0.8rem; font-weight: 600;">Compile</button>
+                    </div>
+                </div>
+
+                <!-- Code Editor & Live Preview Panel -->
+                <div class="flex-grow grid grid-cols grid-cols-2 overflow-hidden" style="height: 100%;">
+                    
+                    <!-- Left: Code Editor Area -->
+                    <div class="flex flex-col scrollable-y p-6" style="border-right: 1px solid var(--border-color); font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; background-color: #080c14; height: 100%;">
+                        <span style="color: var(--accent-secondary); margin-bottom: 1rem;">// Code Sandbox Editor</span>
+                        <div style="color: #a5b4fc; line-height: 1.5;">
+                            <span style="color: #f43f5e;">.grid</span> { <br>
+                            &nbsp;&nbsp;display: <span style="color: var(--accent-success);">grid</span>;<br>
+                            &nbsp;&nbsp;width: <span style="color: var(--accent-success);">100%</span>;<br>
+                            }<br><br>
+                            <span style="color: #f43f5e;">.grid-cols-12</span> { <br>
+                            &nbsp;&nbsp;--grid-cols: <span style="color: var(--accent-success);">repeat(12, minmax(0, 1fr))</span>;<br>
+                            }<br><br>
+                            <span style="color: #f43f5e;">.subgrid-rows</span> { <br>
+                            &nbsp;&nbsp;grid-row: <span style="color: var(--accent-success);">1 / -1</span>;<br>
+                            &nbsp;&nbsp;grid-template-rows: <span style="color: var(--accent-success);">subgrid</span>;<br>
+                            }<br>
+                        </div>
+                    </div>
+
+                    <!-- Right: Documentation & Diagnostic Terminal -->
+                    <div class="flex flex-col overflow-hidden h-full">
+                        <!-- Top part: scrollable information -->
+                        <div class="flex-grow scrollable-y p-6 flex flex-col gap-4">
+                            <h4 style="font-size: 1.1rem; color: #ffffff;">Framework Validation Checklist</h4>
+                            <div style="background-color: var(--bg-surface); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; font-size: 0.85rem;" class="flex flex-col gap-2">
+                                <label class="flex items-center gap-2"><input type="checkbox" checked disabled> Grid layout properties</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked disabled> CSS Subgrid track alignments</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked disabled> Container Query inline-size queries</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked disabled> Flexbox alignment & dynamic spacing</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" checked disabled> Height safe viewports</label>
+                            </div>
+                        </div>
+
+                        <!-- Bottom part: Terminal panel -->
+                        <div class="p-4" style="border-top: 1px solid var(--border-color); background-color: #0b0e14; height: 150px; font-family: monospace; font-size: 0.8rem; color: var(--accent-success);">
+                            <div style="color: var(--text-muted); margin-bottom: 0.5rem;">TERMINAL DIAGNOSTICS</div>
+                            <div>$ agy test-framework</div>
+                            <div style="color: #ffffff; margin-top: 0.25rem;">[OK] Grid system tests passed successfully.</div>
+                            <div style="color: #ffffff;">[OK] Subgrid parsing verified on active engines.</div>
+                            <div>$ _</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript to toggle views -->
+    <script>
+        function switchView(viewName) {
+            // Hide all views
+            document.getElementById('view-sandbox').style.display = 'none';
+            document.getElementById('view-dashboard').style.display = 'none';
+            document.getElementById('view-app-workspace').style.display = 'none';
+
+            // Show current view
+            if (viewName === 'sandbox') {
+                document.getElementById('view-sandbox').style.display = 'block';
+            } else if (viewName === 'dashboard') {
+                document.getElementById('view-dashboard').style.display = 'block';
+            } else if (viewName === 'app-workspace') {
+                document.getElementById('view-app-workspace').style.display = 'flex';
+            }
+
+            // Update active tab styles
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase().includes(viewName.replace('-', ' '))) {
+                    btn.classList.add('active');
+                } else if (viewName === 'sandbox' && btn.innerText.includes('Sandbox')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
