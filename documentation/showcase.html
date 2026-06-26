@@ -173,6 +173,14 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-muted);
         }
+
+        /* CSS Anchor hover reveal styles */
+        .anchor-trigger:hover + .anchor-overlay,
+        .anchor-trigger:focus + .anchor-overlay {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: translateY(0) !important;
+        }
     </style>
 </head>
 <body>
@@ -404,6 +412,91 @@
                                 <div class="flex-grow"></div> <!-- spacer alternative -->
                                 <button class="showcase-block" style="min-height: auto; padding: 0.5rem 1rem; background: var(--accent-primary); border: none; font-weight: 600; cursor: pointer;">Action Button</button>
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test 5: Pure CSS Entry Transitions -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 5: Pure CSS Entry Micro-Animations</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Verifies `@starting-style`. Reload the page to see these checklist cards perform a smooth scale and fade transition entirely in pure CSS.
+                            </p>
+                        </div>
+                        <span class="badge badge-cq">Starting Style</span>
+                    </div>
+
+                    <div class="grid grid-cols grid-cols-3 gap-4">
+                        <div class="showcase-block transition-entry flex items-center gap-3">
+                            <span style="font-size: 1.5rem;">🚀</span>
+                            <div>
+                                <h4 style="font-size: 0.95rem;">Fast Performance</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Pure CSS renders instantly</span>
+                            </div>
+                        </div>
+                        <div class="showcase-block transition-entry flex items-center gap-3" style="transition-delay: 0.1s;">
+                            <span style="font-size: 1.5rem;">🎨</span>
+                            <div>
+                                <h4 style="font-size: 0.95rem;">Clean Design</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Minimal visual noise</span>
+                            </div>
+                        </div>
+                        <div class="showcase-block transition-entry flex items-center gap-3" style="transition-delay: 0.2s;">
+                            <span style="font-size: 1.5rem;">🔋</span>
+                            <div>
+                                <h4 style="font-size: 0.95rem;">Extremely Lightweight</h4>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">No Javascript dependencies</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test 6: CSS Anchor Positioning -->
+                <section class="panel" style="overflow: visible;">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 6: Native CSS Anchor Positioning Overlay</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Hover over the trigger button below. A tooltip box will appear, positioned natively underneath the button using CSS Anchor positioning, completely bypassing Javascript layout computations.
+                            </p>
+                        </div>
+                        <span class="badge badge-cq">Anchor Position</span>
+                    </div>
+
+                    <div class="flex flex-col items-start gap-2" style="position: relative; min-height: 120px;">
+                        <button class="anchor-trigger showcase-block" style="--anchor-name: --popover-anchor; min-height: auto; padding: 0.75rem 1.5rem; background: var(--bg-surface); cursor: pointer; border-color: var(--accent-primary);">
+                            Hover to trigger popover
+                        </button>
+                        
+                        <!-- Tooltip overlay tethered natively in pure CSS -->
+                        <div class="anchor-overlay panel" style="--anchor-target: --popover-anchor; --anchor-area: block-end inline-start; max-width: 300px; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; transform: translateY(-5px); border-color: var(--accent-secondary); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                            <h4 style="font-size: 0.95rem; color: var(--accent-secondary); margin-bottom: 0.25rem;">Tethered Tooltip</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">
+                                Rendered using <code>position-anchor</code> and <code>position-area</code>. The overlay anchors itself dynamically without script recalculation.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Test 7: Scoped Layout Containers -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 7: Scoped Layout Containers</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Verifies `@scope`. Restricts layout rules to layout subtrees to avoid leakage or conflicts with external libraries.
+                            </p>
+                        </div>
+                        <span class="badge badge-grid">Scope Isolation</span>
+                    </div>
+
+                    <!-- Scoped root container -->
+                    <div class="scoped-layout" style="border: 1px dashed var(--border-color); padding: 1.5rem; border-radius: 8px;">
+                        <div class="grid grid-cols grid-cols-2 gap-4">
+                            <div class="showcase-block flex items-center justify-center">Scoped Item 1</div>
+                            <div class="showcase-block flex items-center justify-center">Scoped Item 2</div>
                         </div>
                     </div>
                 </section>

@@ -147,8 +147,52 @@ Elastic Next makes full-page dashboard and tool layout development simple with n
 
 ---
 
+### 7. Modern CSS Advanced Capabilities
+Elastic Next incorporates cutting-edge modern CSS features to deliver robust, high-performance interactions entirely in pure CSS:
+
+#### A. Scoped Layout Isolation (`@scope`)
+Prevent styles from leaking or being overridden by wrapping a section in `.scoped-layout`. Standard grid and flex layout classes will take isolated priority inside the subtree:
+```html
+<div class="scoped-layout">
+  <div class="grid grid-cols-2 gap-4">
+    <div>Scoped Item 1</div>
+    <div>Scoped Item 2</div>
+  </div>
+</div>
+```
+
+#### B. Anchor Positioning (Overlay UI)
+Natively align popup tooltips, menus, and dropdowns to trigger buttons without JavaScript scroll/resize listeners:
+```html
+<!-- Trigger Button -->
+<button class="anchor-trigger" style="--anchor-name: --my-tooltip;">
+  Hover Me
+</button>
+
+<!-- Anchored Overlay -->
+<div class="anchor-overlay" style="--anchor-target: --my-tooltip; --anchor-area: block-end inline-start;">
+  Tooltip Content
+</div>
+```
+*Configurable Variables*: Set `--anchor-name` on the trigger, and `--anchor-target`, `--anchor-area` (e.g. `block-end inline-start`) on the overlay.
+
+#### C. Entry Micro-Animations (`@starting-style`)
+Add smooth initial-render scale and fade-in entry transitions to layout containers or items by using the `.transition-entry` utility:
+```html
+<div class="transition-entry">
+  Animate in on render
+</div>
+```
+
+#### D. Content-Aware Layouts (`:has()`)
+Layout spacing and padding dynamically adapt depending on the contents inside:
+* **Sidebar expander**: `.grid:has(> .col-full)` automatically increases row-gap to accommodate horizontal splits.
+* **Media spacing safety**: `.flex-col:has(> img)` or `.flex-col:has(> video)` automatically expands item gap size to preserve design proportions around media containers.
+
+---
+
 ## Interactive Showcase & Testing
-To view a live preview showing all these components (sandbox layouts, responsive analytics dashboards, and interactive mock IDE interfaces), load:
+To view a live preview showing all these components (sandbox layouts, responsive analytics dashboards, interactive mock IDE interfaces, and modern CSS tooltip/animation showcases), load:
 
 ```
 documentation/showcase.html

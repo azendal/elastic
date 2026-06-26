@@ -212,3 +212,47 @@
 @media (min-width: 768px) {
     .hidden-until-md { display: block; }
 }
+
+/* ============================================================================
+    8. MODERN CSS ADVANCED CAPABILITIES
+ ============================================================================ */
+
+/* --- A. Scoped Layout Isolation --- */
+@scope (.scoped-layout) {
+    .grid { display: grid; }
+    .flex { display: flex; }
+}
+
+/* --- B. Anchor Positioning (Progressive Enhancement) --- */
+@supports (anchor-name: --test) {
+    .anchor-trigger {
+        anchor-name: var(--anchor-name);
+    }
+    .anchor-overlay {
+        position: absolute;
+        position-anchor: var(--anchor-target);
+        position-area: var(--anchor-area, block-end inline-start);
+        position-try-fallbacks: flip-block, flip-inline;
+    }
+}
+
+/* --- C. Starting Style (Pure CSS Entry Transitions) --- */
+.transition-entry {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@starting-style {
+    .transition-entry {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+}
+
+/* --- D. Content-Aware Layouts (:has() relational queries) --- */
+/* Auto-expand sidebar grids if they contain a full-width column item */
+.grid:has(> .col-full) {
+    row-gap: 1.5rem;
+}
+/* Flex content-aware vertical spacing multiplier when media assets exist */
+.flex-col:has(> .aspect-ratio), .flex-col:has(> img), .flex-col:has(> video) {
+    gap: var(--gap-media, 1.5rem);
+}
