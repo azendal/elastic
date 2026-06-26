@@ -500,6 +500,53 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- Test 8: Masonry Layout Grid -->
+                <section class="panel">
+                    <div class="panel-header flex items-center distribute-main">
+                        <div>
+                            <h3>Test 8: Masonry Grid Layout (Progressive Enhancement)</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem;">
+                                Verifies column-based masonry layout. Tightly packs elements of different heights horizontally/vertically without dynamic JS libraries.
+                            </p>
+                        </div>
+                        <span class="badge badge-grid">Masonry Layout</span>
+                    </div>
+
+                    <!-- Interactive Resize Wrapper -->
+                    <div class="resizeable-container" style="width: 800px; max-width: 100%;">
+                        <!-- Container Query Target establishing containment context -->
+                        <div class="container-query flex flex-col gap-4">
+                            <!-- Adaptive Masonry container using Elastic container query classes -->
+                            <div class="masonry masonry-cols-1 cq-masonry-cols-2 cq-masonry-cols-3 cq-masonry-cols-4">
+                                <div class="showcase-block flex flex-col justify-between" style="height: 120px;">
+                                    <strong>Masonry Card 1</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 120px</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between" style="height: 200px; background: linear-gradient(135deg, rgba(var(--accent-secondary-rgb), 0.1) 0%, rgba(var(--accent-primary-rgb), 0.1) 100%);">
+                                    <strong>Masonry Card 2 (Taller)</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 200px</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between" style="height: 150px;">
+                                    <strong>Masonry Card 3</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 150px</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between" style="height: 250px; background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.3);">
+                                    <strong>Masonry Card 4 (Very Tall)</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 250px</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between" style="height: 100px;">
+                                    <strong>Masonry Card 5</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 100px</span>
+                                </div>
+                                <div class="showcase-block flex flex-col justify-between" style="height: 170px;">
+                                    <strong>Masonry Card 6</strong>
+                                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Height: 170px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
 

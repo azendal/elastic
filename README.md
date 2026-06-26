@@ -189,10 +189,21 @@ Layout spacing and padding dynamically adapt depending on the contents inside:
 * **Sidebar expander**: `.grid:has(> .col-full)` automatically increases row-gap to accommodate horizontal splits.
 * **Media spacing safety**: `.flex-col:has(> img)` or `.flex-col:has(> video)` automatically expands item gap size to preserve design proportions around media containers.
 
+#### E. Progressive Enhancement Masonry Layout (`.masonry`)
+Build masonry flows that tightly pack columns of varying heights. It runs on a column-count multi-column flow layout by default (supported by all browsers) and dynamically upgrades to native CSS grid masonry (`grid-template-rows: masonry`) on engines that support it:
+```html
+<div class="masonry" style="--masonry-cols: 3; --min-col-width: 250px;">
+  <div style="height: 120px;">Card 1</div>
+  <div style="height: 200px;">Card 2 (Taller)</div>
+  <div style="height: 150px;">Card 3</div>
+</div>
+```
+*Configurable Variables*: Customize `--masonry-cols` (default is 3), `--gap-size` (default is 1rem), and `--min-col-width` (default is 250px).
+
 ---
 
 ## Interactive Showcase & Testing
-To view a live preview showing all these components (sandbox layouts, responsive analytics dashboards, interactive mock IDE interfaces, and modern CSS tooltip/animation showcases), load:
+To view a live preview showing all these components (sandbox layouts, responsive analytics dashboards, interactive mock IDE interfaces, and modern CSS tooltip/animation/masonry showcases), load:
 
 ```
 documentation/showcase.html

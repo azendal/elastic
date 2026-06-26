@@ -188,13 +188,7 @@
 .container-query {
     container-type: inline-size;
 }
-@container (min-width: 640px) {
-    .cq-grid-cols-2 { --grid-cols: repeat(2, 1fr); }
-    .cq-flex-row { flex-direction: row; }
-}
-@container (min-width: 768px) {
-    .cq-grid-cols-3 { --grid-cols: repeat(3, 1fr); }
-}
+
 
 /* ============================================================================
     7. RESPONSIVE & INTERACTIVITY UTILITIES
@@ -256,3 +250,66 @@
 .flex-col:has(> .aspect-ratio), .flex-col:has(> img), .flex-col:has(> video) {
     gap: var(--gap-media, 1.5rem);
 }
+
+/* --- E. Masonry Layout (Progressive Enhancement) --- */
+.masonry {
+    column-count: var(--masonry-cols, 3);
+    column-gap: var(--gap-size, 1rem);
+}
+.masonry-adaptive {
+    column-width: var(--min-col-width, 250px);
+    column-gap: var(--gap-size, 1rem);
+}
+.masonry > *, .masonry-adaptive > * {
+    break-inside: avoid;
+    margin-block-end: var(--gap-size, 1rem);
+    display: inline-block;
+    width: 100%;
+}
+
+.masonry-cols-1 { --masonry-cols: 1; }
+.masonry-cols-2 { --masonry-cols: 2; }
+.masonry-cols-3 { --masonry-cols: 3; }
+.masonry-cols-4 { --masonry-cols: 4; }
+.masonry-cols-5 { --masonry-cols: 5; }
+.masonry-cols-6 { --masonry-cols: 6; }
+
+@supports (grid-template-rows: masonry) {
+    .masonry {
+        display: grid;
+        grid-template-columns: repeat(var(--masonry-cols, 3), minmax(0, 1fr));
+        grid-template-rows: masonry;
+        gap: var(--gap-size, 1rem);
+        column-count: unset;
+    }
+    .masonry-adaptive {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--min-col-width, 250px), 1fr));
+        grid-template-rows: masonry;
+        gap: var(--gap-size, 1rem);
+        column-width: unset;
+    }
+    .masonry > *, .masonry-adaptive > * {
+        margin-block-end: 0;
+        display: block;
+        width: auto;
+    }
+}
+
+/* ============================================================================
+    9. CONTAINER QUERY RESPONSIVE OVERRIDES
+ ============================================================================ */
+@container (min-width: 640px) {
+    .cq-grid-cols-2 { --grid-cols: repeat(2, 1fr); }
+    .cq-flex-row { flex-direction: row; }
+    .cq-masonry-cols-2 { --masonry-cols: 2; }
+}
+@container (min-width: 768px) {
+    .cq-grid-cols-3 { --grid-cols: repeat(3, 1fr); }
+    .cq-masonry-cols-3 { --masonry-cols: 3; }
+}
+@container (min-width: 1024px) {
+    .cq-grid-cols-4 { --grid-cols: repeat(4, 1fr); }
+    .cq-masonry-cols-4 { --masonry-cols: 4; }
+}
+
